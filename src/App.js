@@ -1,9 +1,26 @@
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import NavList from './components/NavList';
+import MensCollection from './components/MensCollection';
+import WomensCollection from './components/WomensCollection';
 
 function App() {
   return (
-    <div className="App">
-     final
+    <div>
+      <BrowserRouter>
+        <NavList />
+        <Routes>
+          <Route
+            path="/MensCollection" element={
+              <MensCollection />
+            }
+          />
+          <Route
+            path="/WomensCollection" element={
+              <WomensCollection />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

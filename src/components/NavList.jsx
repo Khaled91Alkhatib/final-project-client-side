@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect, useContext} from 'react';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
 import "../styles/NavList.css";
 
@@ -10,14 +10,7 @@ const NavList = () => {
     navigate("/");
   };
 
-  const onClickMensCollection = () => {
-    navigate("/MensCollection");
-  };
-
-  const onClickWomensCollection = () => {
-    navigate("/WomensCollection");
-  };
-
+  // <button><NavLink to="/products/men"> Shop for Men </NavLink></button>
   return (
     <div className="nav-bar">
       <div>
@@ -25,9 +18,9 @@ const NavList = () => {
         <img onClick={onClickLogo} alt="logo here" />
       </div>
       <div className="buttons">
-        <button>About Us</button>
-        <button onClick={onClickMensCollection}>Men's Collection</button>
-        <button onClick={onClickWomensCollection}>Women's Collection</button>
+        <button><NavLink to="/about"> about us </NavLink></button>
+        <button><NavLink to="/collection/men"> Men's Collection</NavLink></button>
+        <button><NavLink to="/collection/women"> Women's Collection</NavLink></button>
         <button>Contact Us</button>
         <div>
           <button className="sign-in">Sign In</button>

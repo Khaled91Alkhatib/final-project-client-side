@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
-import "../styles/NavList.css";
+import "../styles/NavList.scss";
 
 const NavList = () => {
   const navigate = useNavigate();

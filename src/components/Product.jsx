@@ -2,6 +2,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { NavLink, useParams, useSearchParams } from 'react-router-dom';
 
+import '../styles/Product.scss';
 
 const Product = (props) => {
   

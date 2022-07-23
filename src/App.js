@@ -6,6 +6,7 @@ import ProductsContext from './contexts/ProductsContext';
 
 import NavList from './components/NavList';
 import Collection from './components/Collection';
+import NotExistPage from './components/NotExistPage';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <NavList />
           <Routes>
             <Route path="/collection/:id" element={<Collection />}/>
+            <Route path="/*" element={<NotExistPage />} />
           </Routes>
         </BrowserRouter>
 

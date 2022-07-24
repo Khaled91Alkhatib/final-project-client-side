@@ -12,6 +12,12 @@ import NotExistPage from './NotExistPage';
 import {getProducts} from '../helper/getProducts'
 import {getStyles} from '../helper/getStyles'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+library.add(faFilter);
+
+
 const Collection = () => {
 
   const {products} = useContext(ProductsContext)
@@ -45,9 +51,19 @@ const Collection = () => {
 
   return (
     <div>
-      {stylesButtonsArray}
+      <div className='filters'>
+        <div>
+          Filter: <FontAwesomeIcon icon="fa-solid fa-filter"/>
+        </div>
+        <div className='filter-buttons'>
+          {stylesButtonsArray}
+        </div>
+      </div>
 
-      {productsLinkArray}
+      <div className='products'>
+        {productsLinkArray}
+      </div>
+
       { ( products && selection.length === 0 ) &&
         <NotExistPage />
       }

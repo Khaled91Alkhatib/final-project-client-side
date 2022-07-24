@@ -9,16 +9,16 @@ const Product = (props) => {
   console.log('🥾', props.product);
   return (
 
-    <div className='item'>
+    <div className='product'>
       <NavLink  to={`${props.product.id}`}>
 
       <p>
-        <img src={`${props.product.image1}`} alt="pro" width="200" height="200"/>
+        <img src={`${props.product.image1}`} alt="pro" width="300" height="300"/>
       </p>
-      <span>{props.product.name}</span>
-      <br />
-      <br />
-      <span>${props.product.price / 100}</span>
+      <div className='name-and-price'>
+        <div className='name-only'>{props.product.name}</div>
+        <div className='price-only'>CAD {props.product.price / 100}</div>
+      </div>
       </NavLink>
     </div>
   );

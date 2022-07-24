@@ -3,6 +3,11 @@ import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
 import "../styles/NavList.scss";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faBagShopping, faPhone } from "@fortawesome/free-solid-svg-icons";
+library.add(faBagShopping, faPhone);
+
 const NavList = () => {
   const navigate = useNavigate();
 
@@ -13,19 +18,13 @@ const NavList = () => {
   // <button><NavLink to="/products/men"> Shop for Men </NavLink></button>
   return (
     <div className="nav-bar">
-      <div>
-        <div className="name">Name Here</div>
-        <img onClick={onClickLogo} alt="logo here" />
-      </div>
+      <img className='logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
       <div className="buttons">
-        <button><NavLink to="/about"> about us </NavLink></button>
-        <button><NavLink to="/collection/men"> Men's Collection</NavLink></button>
-        <button><NavLink to="/collection/women"> Women's Collection</NavLink></button>
-        <button>Contact Us</button>
-        <div>
-          <button className="sign-in">Sign In</button>
-          <button>Admin Portal</button>
-        </div>
+      <button className='nav-buttons'><NavLink to="/about"> About Us </NavLink></button>
+      <button className='nav-buttons'><NavLink to="/collection/men"> Men's Collection</NavLink></button>
+      <button className='nav-buttons'><NavLink to="/collection/women"> Women's Collection</NavLink></button>
+      <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-phone" />&nbsp;Contact Us</button>
+      <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" />&nbsp; Shopping Cart</button>
       </div>
     </div>
   );

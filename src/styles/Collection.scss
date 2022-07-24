@@ -1,19 +1,36 @@
 @import "src/styles/variables.scss";
 
 .filters {
-  display: flex;
   padding: 140px 0 15px 0;
   border-bottom: #d7d7d7 0.07143rem solid;
   width: 90%;
   margin: auto;
   font-family: fantasy;
   font-size: 18px;
+  display: flex;
 }
 
-.filter-buttons {
+.filter-to-buttons {
+  display: flex;
+  flex-direction: row;
+}
+.style-buttons {
+  font-size: 16px;
+  font-family: fantasy;
+  font-weight: 900;
+  border: none;
+  background-color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.buttons {
   width: 94%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .products {

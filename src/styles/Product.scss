@@ -1,7 +1,41 @@
 @import "src/styles/variables.scss";
 
-.item {
-  border: $test;
+// .item {
+//   border: $test;
+//   height: 400px;
+//   width: 300px;
+// }
+
+.product {
+  font-size: 18px;
   height: 400px;
-  width: 300px;
+  background-color: #e6e6e6;
+  margin: 1em 0;
+  border-radius: 15px;
+  &:hover {
+    box-shadow: 3px 3px #888888;
+  }
+}
+
+img {
+  border-radius: 40%;
+}
+
+.name-and-price {
+  font-family: Arial;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name-only {
+  margin-bottom: 0.5em;
+  font-size: 1em;
+}
+
+.price-only {
+  color: #e57701;
+  font-weight: bold;
+  font-size: 1rem;
 }

@@ -1,8 +1,29 @@
 @import "src/styles/variables.scss";
 
-.items {
+.filters {
+  display: flex;
+  padding: 140px 0 15px 0;
+  border-bottom: #d7d7d7 0.07143rem solid;
+  width: 90%;
+  margin: auto;
+  font-family: fantasy;
+  font-size: 18px;
+}
+
+.filter-buttons {
+  width: 94%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.products {
   // border: $test1;
-  display:flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
+  flex-wrap: wrap;
 }
 
 .page-loading {
@@ -13,4 +34,3 @@
   flex-direction: column;
   justify-content: center;
 }
-

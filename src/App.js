@@ -4,41 +4,56 @@ import axios from 'axios';
 
 import ProductsContext from './contexts/ProductsContext';
 
+import Homepage from './components/Homepage';
 import NavList from './components/NavList';
 import Collection from './components/Collection';
 import NotExistPage from './components/NotExistPage';
-import Homepage from './components/Homepage';
+import SingleProduct from './components/SingleProductPage/SingleProduct';
 
 function App() {
 
   const [products, setProducts] = useState([]);
+  // const [productSpec, setProductSpec] = useState({
+  //   categories: [],
+  //   styles: [],
+  //   sizes: [],
+  //   colors: []
+  // });
 
   useEffect( () => {
     
-    axios.get('http://localhost:8100/api/products')
-    .then((response) => {
-      console.log(response.data);
+    const f1 = axios.get('http://localhost:8100/api/products')
+    // const f2 = axios.get('http://localhost:8100/api/specification')
+    
+    Promise.all([f1])
+    .then(([r1]) => {
       // handle success
-      // const categories = response.data.categories;
-      // const styles = response.data.styles;
-      // const colors = response.data.colors;
-      // const sizes = response.data.sizes;
-      setProducts(prev => response.data.products);
-      // setProductSpec({...productSpec ,categories,styles, colors, sizes});
+      // const categories = r2.data.categories;
+      // const styles = r2.data.styles;
+      // const colors = r2.data.colors;
+      // const sizes = r2.data.sizes;
+      setProducts(prev => r1.data.products);
+      // setProductSpec({categories,styles, colors, sizes});
     }) 
     
   },[])
+
+
+  console.log('👟👞🥾',products)    // 🚨🚨🚨
+  // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
 
   return (
     <div>
       <ProductsContext.Provider value={{ products}}>
 
         <BrowserRouter>
-          <NavList />
+          {/* <NavList /> */}
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/collection/:id" element={<Collection />}/>
             <Route path="/*" element={<NotExistPage />} />
+            <Route path="/collection/men/:id" element={<SingleProduct/>} />
+            <Route path="/collection/women/:id" element={<SingleProduct/>} />
           </Routes>
         </BrowserRouter>
 

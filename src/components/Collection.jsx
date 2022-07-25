@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useParams, useSearchParams } from "react-router-dom";
 
 import LinearProgress from "@mui/material/LinearProgress";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "../styles/Collection.scss";
 
@@ -12,27 +13,23 @@ import NotExistPage from "./NotExistPage";
 import { getProducts } from "../helper/getProducts";
 import { getStyles } from "../helper/getStyles";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
-library.add(faFilter);
 
 const Collection = () => {
-  const { products } = useContext(ProductsContext);
+
   const [selection, setSelection] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+
   const category = useParams().id;
+  const { products } = useContext(ProductsContext);
 
   const style = searchParams.get("searchedStyle");
 
   useEffect(() => {
     setSelection((prev) => getProducts(products, category, style));
-    // setValidCat(validCategory(productSpec.categories, category))
   }, [products, category, style]);
 
   const productsLinkArray =
-    selection &&
-    selection.map((product) => {
+    selection && selection.map((product) => {
       return <Product key={product.id} product={product} />;
     });
 
@@ -49,11 +46,6 @@ const Collection = () => {
       );
     }
   );
-
-  // console.log('collection⭕️', products);
-  // console.log('selection⭕️⭕️', selection);
-  console.log(getStyles(selection));
-  console.log("search ⭕️", style);
 
   return (
     <div>

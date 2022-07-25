@@ -5,8 +5,7 @@ import { NavLink, useParams, useSearchParams } from 'react-router-dom';
 import '../styles/Product.scss';
 
 const Product = (props) => {
-  
-  console.log('🥾', props.product);
+
   return (
 
     <div className='product'>

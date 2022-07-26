@@ -1,15 +1,25 @@
-export function getProducts(products, cat, style) {
+export function getProducts(products, cat, style, color) {
 
-  if (!style) {
-    const selection = products.filter(product => {
-      return (product.disp && product.category.toLowerCase() === cat.toLowerCase())
-    })
-    return selection;
+  if (color) {
+    if (style) {
+      return products.filter(product => {
+        return (product.category.toLowerCase() === cat.toLowerCase() && product.color === color && product.style === style);
+      });
+    } else {
+      return products.filter(product => {
+        return (product.category.toLowerCase() === cat.toLowerCase() && product.color === color);
+      });
+    }
   }
 
-  const selection = products.filter(product => {
-    return (product.disp && product.category.toLowerCase() === cat.toLowerCase() && product.style === style)
+  if (style) {
+    return products.filter(product => {
+      return (product.disp && product.category.toLowerCase() === cat.toLowerCase() && product.style === style)
+    })
+  }
+
+  return products.filter(product => {
+    return (product.disp && product.category.toLowerCase() === cat.toLowerCase())
   })
-  
-  return selection;
+
 }

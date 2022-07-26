@@ -1,10 +1,10 @@
 export function getStyles(products) {
 
-  const style = [];
+  const styles = [];
   for(const product of products) {
-    if (!style.includes(product.style)) {
-      style.push(product.style)
+    if (!styles.includes(product.style)) {
+      styles.push(product.style)
     }
   }
-  return style;
+  return styles;
 }

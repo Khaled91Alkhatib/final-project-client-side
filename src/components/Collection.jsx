@@ -12,7 +12,12 @@ import NotExistPage from "./NotExistPage";
 
 import { getProducts } from "../helper/getProducts";
 import { getStyles } from "../helper/getStyles";
+import { getColors } from "../helper/getColors";
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const Collection = () => {
 
@@ -23,10 +28,11 @@ const Collection = () => {
   const { products } = useContext(ProductsContext);
 
   const style = searchParams.get("searchedStyle");
+  const color = searchParams.get("searchedColor");
 
   useEffect(() => {
-    setSelection((prev) => getProducts(products, category, style));
-  }, [products, category, style]);
+    setSelection((prev) => getProducts(products, category, style, color));
+  }, [products, category, style, color]);
 
   const productsLinkArray =
     selection && selection.map((product) => {
@@ -35,13 +41,17 @@ const Collection = () => {
       return <Product key={product.id} product={product} colorOptions={colorsFamily}/>;
     });
 
+  // Filter by Style
   const stylesButtonsArray = getStyles(getProducts(products, category)).map(
     (style, index) => {
       return (
         <button
           className="style-buttons"
           key={index}
-          onClick={() => setSearchParams({ searchedStyle: style })}
+          onClick={() => {
+            searchParams.set("searchedStyle", style)
+            setSearchParams(searchParams)
+          }}
         >
           {style}
         </button>
@@ -49,7 +59,23 @@ const Collection = () => {
     }
   );
 
-
+  // Filter by Color
+  const colorsButtonsArray = getColors(getProducts(products, category)).map(
+    (color, index) => {
+      return (
+        <MenuItem value={color} key={index}>
+          <button
+            className={`btn2 ${color.toLowerCase()}`} 
+            key={index}
+            onClick={() => {
+              searchParams.set("searchedColor", color)
+              setSearchParams(searchParams)
+            }}
+          />
+        </MenuItem>
+      );
+    }
+  );
 
   return (
     <div>
@@ -62,6 +88,26 @@ const Collection = () => {
         </div>
         <div className="buttons">{stylesButtonsArray}</div>
       </div>
+
+      {/* set color filter */}
+        <div>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 10 }}>
+            <Select value="" displayEmpty>
+              <MenuItem value=""><em>Color</em></MenuItem>
+              {colorsButtonsArray}
+            </Select>
+          </FormControl>
+        </div>
+
+    {/* clear style filter */}
+      {style && <button
+        onClick={() => {searchParams.delete("searchedStyle")
+        setSearchParams(searchParams)}} >{style} <FontAwesomeIcon icon="fa-solid fa-xmark" /></button>}
+
+    {/* clear color filter */}
+      {color && <button
+        onClick={() => {searchParams.delete("searchedColor")
+        setSearchParams(searchParams)}}>{color} <FontAwesomeIcon icon="fa-solid fa-xmark" /></button>}
 
       <div className="products">{productsLinkArray}</div>
 

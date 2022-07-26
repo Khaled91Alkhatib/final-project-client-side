@@ -53,3 +53,16 @@
 .green {
   background-color: lightgreen;
 }
+
+.btn2 {
+  align-self: center;
+  // margin: 0.2em;
+  height: 30px;
+  width: 60px;
+  // border-radius: 50%;
+  border: 0.3em double black;
+
+  &:hover {
+    cursor          : pointer;
+  }
+}

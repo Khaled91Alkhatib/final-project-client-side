@@ -30,7 +30,9 @@ const Collection = () => {
 
   const productsLinkArray =
     selection && selection.map((product) => {
-      return <Product key={product.id} product={product} />;
+      // pass colors family of product to it's component.
+      const colorsFamily = products.filter(row => row.sku.slice(0,4) === product.sku.slice(0,4))
+      return <Product key={product.id} product={product} colorOptions={colorsFamily}/>;
     });
 
   const stylesButtonsArray = getStyles(getProducts(products, category)).map(
@@ -46,6 +48,8 @@ const Collection = () => {
       );
     }
   );
+
+
 
   return (
     <div>

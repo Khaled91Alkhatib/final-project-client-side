@@ -10,7 +10,7 @@ const Colors = (props) => {
       <div className={myClass} key={product.id}>
         <button 
           className={`${product.color.toLowerCase()} , btn`} 
-          onClick={() => props.onColor(product.id)}
+          onClick={() => props.onColor(product)}
         />
       </div>
     )

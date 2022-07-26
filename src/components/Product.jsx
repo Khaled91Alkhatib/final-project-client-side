@@ -2,23 +2,40 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { NavLink, useParams, useSearchParams } from 'react-router-dom';
 
+import Colors from '../components/SingleProductPage/Colors'
+
 import '../styles/Product.scss';
 
-const Product = (props) => {
+const Product = ({product, colorOptions}) => {
+
+  const [colorsFamily, setColorsFamily] = useState([]);
+  const [productX, setProductX] = useState(product);
+
+  useEffect(() => {
+    const colors = colorOptions.map(row => {
+      return (row.id === productX.id) ? {...row, selected: true} : {...row, selected: false}
+    });
+    setColorsFamily(colors);
+  }, [productX]);
+
+  const changeColorHandler = (pro) => {
+    setProductX(pro);
+  };
 
   return (
 
     <div className='product'>
-      <NavLink  to={`${props.product.id}`}>
+      <NavLink  to={`${productX.id}`}>
 
       <p>
-        <img className='product-image' src={`${props.product.image1}`} alt="pro" width="300" height="300"/>
+        <img className='product-image' src={`${productX.image1}`} alt="pro" width="300" height="300"/>
       </p>
       <div className='name-and-price'>
-        <div className='name-only'>{props.product.name}</div>
-        <div className='price-only'>CAD {props.product.price / 100}</div>
+        <div className='name-only'>{productX.name}</div>
+        <div className='price-only'>CAD {productX.price / 100}</div>
       </div>
       </NavLink>
+      <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
     </div>
   );
 };

@@ -83,9 +83,9 @@ const SingleProduct = (props) => {
     setImages((prev) => [singleImag, ...prev]);
   };
 
-  const changeColorHandler = (id) => {
-    setId(id);
-    getProductById(id);
+  const changeColorHandler = (pro) => {
+    setId(pro.id);
+    getProductById(pro.id);
   };
 
   const onSelectSize = (data) => {
@@ -129,7 +129,7 @@ const SingleProduct = (props) => {
   console.log("👟", product); // 🚨🚨🚨
   // console.log('⚫️⚪️',colorsFamily);    // 🚨🚨🚨
   // console.log('🗾',images);            // 🚨🚨🚨
-  // console.log('◻️◾️',availableSizes);   // 🚨🚨🚨
+  console.log('◻️◾️',availableSizes);   // 🚨🚨🚨
   console.log("💢", selectedSize); // 🚨🚨🚨
 
   return (

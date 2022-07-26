@@ -27,7 +27,7 @@ const Sizes = (props) => {
       <div className='size-list'>
         {sizeArray}
       </div>
-      <button onClick={() => props.onAdd()}>add to cart</button>
+      {/* <button onClick={() => props.onAdd()}>add to cart</button> */}
     </div>
   );
 };

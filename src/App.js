@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 
 import ProductsContext from './contexts/ProductsContext';
+import CartContext from './contexts/CartContext';
 
 import Homepage from './components/Homepage';
 import NavList from './components/NavList';
@@ -11,6 +12,8 @@ import NotExistPage from './components/NotExistPage';
 import SingleProduct from './components/SingleProductPage/SingleProduct';
 
 function App() {
+
+  const [cart, setCart] = useState([])
 
   const [products, setProducts] = useState([]);
   // const [productSpec, setProductSpec] = useState({
@@ -45,9 +48,9 @@ function App() {
   return (
     <div>
       <ProductsContext.Provider value={{ products}}>
-
+        <CartContext.Provider value={{setCart, cart}}>
         <BrowserRouter>
-          {/* <NavList /> */}
+          <NavList />
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/collection/:id" element={<Collection />}/>
@@ -57,6 +60,7 @@ function App() {
           </Routes>
         </BrowserRouter>
 
+        </CartContext.Provider>
       </ProductsContext.Provider>
     </div>
   );

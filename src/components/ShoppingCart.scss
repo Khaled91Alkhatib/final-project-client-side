@@ -1,0 +1,30 @@
+.overlay-style{
+  // padding: 130px 20px 0 20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.background {
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  background-color: #cbcbcb;
+  // position: fixed;
+  color: black;
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  color: black;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  padding: 8px;
+}

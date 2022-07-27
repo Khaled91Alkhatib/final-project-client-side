@@ -14,25 +14,40 @@ import { getProducts } from "../helper/getProducts";
 import { getStyles } from "../helper/getStyles";
 import { getColors } from "../helper/getColors";
 
-import InputLabel from '@mui/material/InputLabel';
+import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Slider from '@mui/material/Slider';
 
 const Collection = () => {
 
   const [selection, setSelection] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [priceFilter, setPriceFilter] = useState([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const category = useParams().id;
   const { products } = useContext(ProductsContext);
 
   const style = searchParams.get("searchedStyle");
   const color = searchParams.get("searchedColor");
+  const priceRange = searchParams.get("searchedPrice");
 
+  // if we refresh the page after price filter we set priceFilter base on search params
+  // otherwise it takes range 0 to 300
   useEffect(() => {
-    setSelection((prev) => getProducts(products, category, style, color));
-  }, [products, category, style, color]);
+    if (!searchParams.get("searchedPrice")) {
+      setPriceFilter([0, 300]);
+    } else {
+      const priceString = searchParams.get("searchedPrice").split(',');
+      setPriceFilter([Number(priceString[0]),Number(priceString[1])]);
+    }
+  }, []);
+
+  // get the selection base on all possible filters
+  useEffect(() => {
+    setSelection((prev) => getProducts(products, category, style, color, priceRange));
+  }, [products, category, style, color, priceRange]);
 
   const productsLinkArray =
     selection && selection.map((product) => {
@@ -77,6 +92,16 @@ const Collection = () => {
     }
   );
 
+  // by change the price filter we set the search params - unless it was 0 to 300
+  const handleChangePriceFilter = (event, newValue) => {
+    setPriceFilter(newValue);
+
+    if (!(priceFilter[0] === 0 && priceFilter[1] === 300)) {
+      searchParams.set("searchedPrice", [priceFilter]);
+      setSearchParams(searchParams);
+    }
+  };
+
   return (
     <div>
       <div className="filters">
@@ -89,12 +114,31 @@ const Collection = () => {
         <div className="buttons">{stylesButtonsArray}</div>
       </div>
 
-      {/* set color filter */}
         <div>
+      {/* set Color filter */}
           <FormControl variant="standard" sx={{ m: 1, minWidth: 10 }}>
             <Select value="" displayEmpty>
               <MenuItem value=""><em>Color</em></MenuItem>
               {colorsButtonsArray}
+            </Select>
+          </FormControl>
+      {/* set Price filter */}
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+            <Select value="" displayEmpty >
+              <MenuItem value=""><em>$ Price</em></MenuItem>
+              <div className="slider-price">
+                <Box sx={{ width: 200 }} >
+                  <Slider
+                    step={50}
+                    marks
+                    min={0}
+                    max={300}
+                    valueLabelDisplay="auto"
+                    value={priceFilter}
+                    onChange={handleChangePriceFilter}
+                  />
+                </Box>
+              </div>
             </Select>
           </FormControl>
         </div>
@@ -108,6 +152,12 @@ const Collection = () => {
       {color && <button
         onClick={() => {searchParams.delete("searchedColor")
         setSearchParams(searchParams)}}>{color} <FontAwesomeIcon icon="fa-solid fa-xmark" /></button>}
+
+      {priceRange && !(priceRange[0] === 0 && priceRange[1] === 300) && <button
+        onClick={() => {
+          searchParams.delete("searchedPrice")
+          setSearchParams(searchParams)
+          setPriceFilter([0, 300])}}>${priceFilter[0]} - ${priceFilter[1]} <FontAwesomeIcon icon="fa-solid fa-xmark" /></button>}
 
       <div className="products">{productsLinkArray}</div>
 

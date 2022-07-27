@@ -20,6 +20,7 @@ const SingleProduct = (props) => {
   const [colorsFamily, setColorsFamily] = useState([]);
   const [selectedSize, setSelectedSize] = useState({});
   const [counter, setCounter] = useState(1);
+  const [description, setDescription] = useState([])
 
   const { products } = useContext(ProductsContext);
   const { setCart, cart } = useContext(CartContext);
@@ -58,6 +59,13 @@ const SingleProduct = (props) => {
         `/collection/${product.category}/${id}`
       );
 
+      const descriptionArray = product.description.split('\n').map((line, index) => {
+        return(
+          <li key={index}>{line}</li>
+        )
+      })
+      setDescription(descriptionArray);
+
       // reset selected size when product has been changed
       setSelectedSize({});
     }
@@ -70,6 +78,7 @@ const SingleProduct = (props) => {
       setAvailableSizes((prev) => response.data.availableSizes);
     });
   };
+
 
   // image click left
   const rotateLeft = () => {
@@ -158,7 +167,13 @@ const SingleProduct = (props) => {
           <br />
           <span>color : {product.color}</span>
           <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
-          <span>{product.description}</span>
+          {/* <span>{product.description}</span> */}
+          <div>
+            <ul>
+            <span className="Desc-title">Description:</span>
+              {description}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

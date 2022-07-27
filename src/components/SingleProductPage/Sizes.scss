@@ -10,16 +10,26 @@
 }
 
 .size-box {
-  border: 1px outset black;
+  font-family: Semplicita;
+  border: 1px solid #ccc;
   background-color: snow;
-  height:50px;
-  width:50px;
-  cursor:pointer;
+  height: 49px;
+  width: 49px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .size-box:hover {
   background-color: lightpink;
-  color:white;
+  color: white;
+  &:disabled {
+    background-color: snow;
+    color: rgb(191, 191, 191);
+  }
 }
 
 .selected {

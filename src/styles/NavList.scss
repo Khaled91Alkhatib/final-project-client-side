@@ -6,9 +6,9 @@ body {
   font-size: 26px;
 }
 
-.nav-bar{
+.nav-bar {
   color: white;
-  background-color: black; 
+  background-color: black;
   display: flex;
   align-items: center;
   width: 100%;
@@ -37,7 +37,7 @@ body {
   border: none;
   color: white;
   background-color: black;
-  font-size: 18px;
+  font-size: 20px;
   padding: 7px;
 
   &:hover {
@@ -48,4 +48,15 @@ body {
       color: black;
     }
   }
+}
+
+.badge {
+  border-radius: 9px;
+  font-size: 12px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 4px;
+  vertical-align: top;
+  margin-left: -8px;
+  font-weight: bolder;
 }

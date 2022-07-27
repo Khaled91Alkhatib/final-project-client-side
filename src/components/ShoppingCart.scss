@@ -1,5 +1,4 @@
-.overlay-style{
-  // padding: 130px 20px 0 20px;
+.overlay-style {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -9,12 +8,69 @@
 }
 
 .background {
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
-  background-color: #cbcbcb;
-  // position: fixed;
+  width: 70%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  position: relative;
   color: black;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+}
+
+.main-layout {
+  padding: 10px 10px 10px 10px;
+}
+
+.item-number {
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 30px;
+  color: #eb8102;
+  font-size: 19px;
+}
+
+.cart-title {
+  text-align: center;
+  font-size: 25px;
+}
+
+.headers {
+  text-align: left;
+  font-size: 19px;
+}
+
+.image-to-data {
+  display: flex;
+  flex-direction: row;
+}
+
+.item-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.data-below-name {
+  color: rgb(78, 78, 78);
+}
+
+.remove-button {
+  color: red;
+  border: none;
+  background-color: white;
+  text-decoration: underline;
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.quantity-and-price {
   text-align: center;
 }
 
@@ -24,7 +80,13 @@ table {
   color: black;
 }
 
-td, th {
-  border: 1px solid #dddddd;
+td,
+th {
+  border-bottom: 1px solid #dddddd;
   padding: 8px;
+}
+
+.total {
+  margin-right: 16px;
+  text-align: right;
 }

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useParams, useSearchParams } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import axios from "axios";
 
@@ -19,7 +18,6 @@ const SingleProduct = (props) => {
   const [images, setImages] = useState([]);
   const [colorsFamily, setColorsFamily] = useState([]);
   const [selectedSize, setSelectedSize] = useState({});
-  const [counter, setCounter] = useState(1);
   const [description, setDescription] = useState([])
 
   const { products } = useContext(ProductsContext);
@@ -101,36 +99,40 @@ const SingleProduct = (props) => {
     setSelectedSize((prev) => data);
   };
 
-  const onPlusClick = () => {
-    setCounter(counter + 1);
-  };
-  const onMinusClick = () => {
-    if (counter > 1) {
-      setCounter(counter - 1);
-    }
-  };
-
-
   const addToCart = () => {
     // console.log("ADD");
     product.size = selectedSize.size;
-    product.quantity = counter;
-    const existingObjectInCart = cart.find((item) => {
-      return (item.sku === product.sku && selectedSize.size === item.size)
-    })
-    if (!existingObjectInCart){
-      setCart([...cart, product]);
+    product.quantity = 1;
+    product.availability = selectedSize.quantity;
+    let cartItem = localStorage.getItem("cart-info");
+    let cartObject = JSON.parse(cartItem);
+    const existingObjectInCart = cartObject.find((item) => {
+      return item.sku === product.sku && selectedSize.size === item.size;
+    });
+    // console.log("exists", existingObjectInCart);
+    if (!existingObjectInCart) {
+      setCart([...cartObject, product]); // you can use prev here as well and spread it then add product
+      localStorage.setItem(
+        "cart-info",
+        JSON.stringify([...cartObject, product])
+      );
     } else {
-      const foundItemInCart = cart.findIndex((item) => {
-        return item.sku === existingObjectInCart.sku && item.size === existingObjectInCart.size
-      })
-      const updatedItem = {...cart[foundItemInCart], quantity: cart[foundItemInCart].quantity += counter}
-      const updatedCart = [...cart]
-      updatedCart[foundItemInCart] = updatedItem
-      setCart(updatedCart)
+      const foundItemInCart = cartObject.findIndex((item) => {
+        return (
+          item.sku === existingObjectInCart.sku &&
+          item.size === existingObjectInCart.size
+        );
+      });
+      const updatedItem = {
+        ...cartObject[foundItemInCart],
+        quantity: (cart[foundItemInCart].quantity += 1),
+      };
+      const updatedCart = [...cartObject];
+      updatedCart[foundItemInCart] = updatedItem;
+      setCart(updatedCart);
+      localStorage.setItem("cart-info", JSON.stringify(updatedCart));
 
-      console.log('found', foundItemInCart);
-      console.log("exists", existingObjectInCart)
+      // console.log("found", foundItemInCart);
     }
   };
 
@@ -138,7 +140,7 @@ const SingleProduct = (props) => {
   console.log("👟", product); // 🚨🚨🚨
   // console.log('⚫️⚪️',colorsFamily);    // 🚨🚨🚨
   // console.log('🗾',images);            // 🚨🚨🚨
-  console.log('◻️◾️',availableSizes);   // 🚨🚨🚨
+  console.log("◻️◾️", availableSizes); // 🚨🚨🚨
   console.log("💢", selectedSize); // 🚨🚨🚨
 
   return (
@@ -156,11 +158,6 @@ const SingleProduct = (props) => {
             onSelectSize={onSelectSize}
             select={selectedSize} /*onAdd={onAdd}*/
           />
-          <div className="plus-counter-minus">
-            <button className="plus-minus" onClick={onMinusClick}><FontAwesomeIcon icon="fa-solid fa-circle-minus" /></button>
-            <div>{counter}</div>
-            <button className="plus-minus" onClick={onPlusClick}><FontAwesomeIcon icon="fa-solid fa-circle-plus" /></button>
-          </div>
           <button disabled={!selectedSize.id} onClick={addToCart}>
             Add To Cart
           </button>

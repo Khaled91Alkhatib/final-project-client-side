@@ -18,7 +18,7 @@ const SingleProduct = (props) => {
   const [images, setImages] = useState([]);
   const [colorsFamily, setColorsFamily] = useState([]);
   const [selectedSize, setSelectedSize] = useState({});
-  const [description, setDescription] = useState([])
+  const [description, setDescription] = useState([]);
 
   const { products } = useContext(ProductsContext);
   const { setCart, cart } = useContext(CartContext);
@@ -57,11 +57,11 @@ const SingleProduct = (props) => {
         `/collection/${product.category}/${id}`
       );
 
-      const descriptionArray = product.description.split('\n').map((line, index) => {
-        return(
-          <li key={index}>{line}</li>
-        )
-      })
+      const descriptionArray = product.description
+        .split("\n")
+        .map((line, index) => {
+          return <li key={index}>{line}</li>;
+        });
       setDescription(descriptionArray);
 
       // reset selected size when product has been changed
@@ -76,7 +76,6 @@ const SingleProduct = (props) => {
       setAvailableSizes((prev) => response.data.availableSizes);
     });
   };
-
 
   // image click left
   const rotateLeft = () => {
@@ -105,7 +104,9 @@ const SingleProduct = (props) => {
     product.quantity = 1;
     product.availability = selectedSize.quantity;
     let cartItem = localStorage.getItem("cart-info");
-    let cartObject = JSON.parse(cartItem);
+    let cartObject = cartItem ? JSON.parse(cartItem) : [];
+    console.log("cartItem", cartItem);
+    console.log("cartObject", cartObject);
     const existingObjectInCart = cartObject.find((item) => {
       return item.sku === product.sku && selectedSize.size === item.size;
     });
@@ -146,28 +147,47 @@ const SingleProduct = (props) => {
   return (
     <div className="single-product">
       <div className="single-box">
-        <Image images={images} onLeft={rotateLeft} onRight={rotateRight} />
+        <Image
+          className="product-image"
+          images={images}
+          onLeft={rotateLeft}
+          onRight={rotateRight}
+        />
         <div className="item-details">
-          <h2>SKU #{product.sku} </h2>
-          <span>{product.name}</span>
+          <span className="product-name">{product.name}</span>
+          <div>SKU #{product.sku} </div>
           <br />
-          <span>${(product.price / 100).toFixed(2)}</span>
+          <span className="product-price">
+            ${(product.price / 100).toFixed(2)}
+          </span>
           <br />
+          <br />
+          <div className="product-color">
+            <span>Color: {product.color}</span>
+            <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
+          </div>
+          <br />
+          <br />
+          <div className="product-size-title">Size:</div>
           <Sizes
             availableSizes={availableSizes}
             onSelectSize={onSelectSize}
             select={selectedSize} /*onAdd={onAdd}*/
           />
-          <button disabled={!selectedSize.id} onClick={addToCart}>
+          <button
+            className="add-to-cart"
+            disabled={!selectedSize.id}
+            onClick={addToCart}
+          >
             Add To Cart
           </button>
           <br />
-          <span>color : {product.color}</span>
-          <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
           {/* <span>{product.description}</span> */}
           <div>
-            <ul>
-            <span className="Desc-title">Description:</span>
+            <ul className="list">
+              <span className="Desc-title">DESCRIPTION</span>
+              <br />
+              <br />
               {description}
             </ul>
           </div>

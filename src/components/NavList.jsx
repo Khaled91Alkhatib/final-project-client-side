@@ -3,13 +3,19 @@ import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
 import "../styles/NavList.scss";
 
+import CartContext from '../contexts/CartContext';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faBagShopping, faPhone } from "@fortawesome/free-solid-svg-icons";
 import ShoppingCart from './ShoppingCart';
 library.add(faBagShopping, faPhone);
 
+
 const NavList = () => {
+  const { cart } = useContext(CartContext);
+  console.log("in here", cart);
+
   const ref = useRef();
 
   const navigate = useNavigate();
@@ -34,6 +40,8 @@ const NavList = () => {
     };
   }, [cartClick]);
 
+  const numberOfItemsInCart = cart.length;
+
   return (
     <div className="nav-bar">
       <img className='logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
@@ -41,10 +49,9 @@ const NavList = () => {
         <button className='nav-buttons'><NavLink className="navlink" to="/about"> About Us </NavLink></button>
         <button className='nav-buttons'><NavLink className="navlink" to="/collection/men"> Men's Collection</NavLink></button>
         <button className='nav-buttons'><NavLink className="navlink" to="/collection/women"> Women's Collection</NavLink></button>
-        <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-phone" />&nbsp;Contact Us</button>
-        <button onClick={() => { setCartClick(true); }} className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" />&nbsp; Shopping Cart</button>
+        <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-phone" size='lg' />&nbsp; Contact Us</button>
+        <button onClick={() => { setCartClick(true); }} className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" size='lg' /><span class='badge badge-warning' id='lblCartCount'> {numberOfItemsInCart} </span>&nbsp; Shopping Cart</button>
         {cartClick && <ShoppingCart continueShopping={setCartClick} modalRef={ref} />}
-
       </div>
     </div>
   );

@@ -10,6 +10,9 @@ import NavList from './components/NavList';
 import Collection from './components/Collection';
 import NotExistPage from './components/NotExistPage';
 import SingleProduct from './components/SingleProductPage/SingleProduct';
+import Footer from './components/Footer/Footer';
+import AboutUs from './components/Footer/AboutUs';
+import Warranty from './components/Footer/Warranty';
 
 function App() {
 
@@ -68,7 +71,10 @@ function App() {
               <Route path="/*" element={<NotExistPage />} />
               <Route path="/collection/men/:id" element={<SingleProduct />} />
               <Route path="/collection/women/:id" element={<SingleProduct />} />
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="warranty" element={<Warranty />} />
             </Routes>
+            <Footer />
           </BrowserRouter>
 
         </CartContext.Provider>

@@ -14,7 +14,7 @@ library.add(faBagShopping, faPhone);
 
 const NavList = () => {
   const { cart } = useContext(CartContext);
-  console.log("in here", cart);
+  // console.log("in here", cart);
 
   const ref = useRef();
 
@@ -40,7 +40,7 @@ const NavList = () => {
     };
   }, [cartClick]);
 
-  const numberOfItemsInCart = cart.length;
+  const numberOfItemsInCart = cart.reduce((pre, cur) => pre + cur.quantity, 0);
 
   return (
     <div className="nav-bar">
@@ -50,7 +50,7 @@ const NavList = () => {
         <button className='nav-buttons'><NavLink className="navlink" to="/collection/men"> Men's Collection</NavLink></button>
         <button className='nav-buttons'><NavLink className="navlink" to="/collection/women"> Women's Collection</NavLink></button>
         <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-phone" size='lg' />&nbsp; Contact Us</button>
-        <button onClick={() => { setCartClick(true); }} className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" size='lg' /><span class='badge badge-warning' id='lblCartCount'> {numberOfItemsInCart} </span>&nbsp; Shopping Cart</button>
+        <button onClick={() => { setCartClick(true); }} className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" size='lg' /><span className='badge badge-warning' id='lblCartCount'> {numberOfItemsInCart} </span>&nbsp; Shopping Cart</button>
         {cartClick && <ShoppingCart continueShopping={setCartClick} modalRef={ref} />}
       </div>
     </div>

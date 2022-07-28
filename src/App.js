@@ -12,10 +12,8 @@ import NotExistPage from './components/NotExistPage';
 import SingleProduct from './components/SingleProductPage/SingleProduct';
 
 function App() {
-  let cartItem = localStorage.getItem("cart-info");
-  let cartObject = cartItem ? JSON.parse(cartItem) : [];
-  const [cart, setCart] = useState(cartObject);
 
+  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   // const [productSpec, setProductSpec] = useState({
   //   categories: [],
@@ -25,6 +23,12 @@ function App() {
   // });
 
   useEffect(() => {
+
+    // at first mount - get local storage cart info
+    const cart = JSON.parse(localStorage.getItem('cart-info'));
+    if (cart) {
+     setCart(cart);
+    }
 
     const f1 = axios.get('http://localhost:8100/api/products');
     // const f2 = axios.get('http://localhost:8100/api/specification')
@@ -42,9 +46,15 @@ function App() {
 
   }, []);
 
+  // set local storage when cart state changed!
+  useEffect(() => {
+    localStorage.setItem('cart-info', JSON.stringify(cart));
+  }, [cart]);
+
 
   console.log('👟👞🥾', products);    // 🚨🚨🚨
   // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
+  console.log('🧺',cart) // 🚨🚨🚨
 
   return (
     <div>

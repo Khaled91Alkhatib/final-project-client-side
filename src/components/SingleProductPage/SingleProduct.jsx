@@ -99,50 +99,42 @@ const SingleProduct = (props) => {
   };
 
   const addToCart = () => {
-    // console.log("ADD");
-    product.size = selectedSize.size;
-    product.quantity = 1;
-    product.availability = selectedSize.quantity;
-    let cartItem = localStorage.getItem("cart-info");
-    let cartObject = cartItem ? JSON.parse(cartItem) : [];
-    console.log("cartItem", cartItem);
-    console.log("cartObject", cartObject);
-    const existingObjectInCart = cartObject.find((item) => {
-      return item.sku === product.sku && selectedSize.size === item.size;
-    });
-    // console.log("exists", existingObjectInCart);
-    if (!existingObjectInCart) {
-      setCart([...cartObject, product]); // you can use prev here as well and spread it then add product
-      localStorage.setItem(
-        "cart-info",
-        JSON.stringify([...cartObject, product])
-      );
-    } else {
-      const foundItemInCart = cartObject.findIndex((item) => {
-        return (
-          item.sku === existingObjectInCart.sku &&
-          item.size === existingObjectInCart.size
-        );
-      });
-      const updatedItem = {
-        ...cartObject[foundItemInCart],
-        quantity: (cart[foundItemInCart].quantity += 1),
-      };
-      const updatedCart = [...cartObject];
-      updatedCart[foundItemInCart] = updatedItem;
-      setCart(updatedCart);
-      localStorage.setItem("cart-info", JSON.stringify(updatedCart));
+    
+    const newCartItem = {
+      barcode: selectedSize.barcode,
+      size: selectedSize.size,
+      availability: selectedSize.quantity,
 
-      // console.log("found", foundItemInCart);
+      // sku: product.sku,
+      name: product.name,
+      color: product.color,
+      price: product.price,
+      image1: product.image1,
+
+      quantity: 1
+    }
+
+    console.log('➕',newCartItem);
+
+    const existingItemInCart = cart.find((item) => {
+      return item.barcode === newCartItem.barcode;
+    });
+
+    // console.log("exists", existingObjectInCart);
+    if (!existingItemInCart) {
+      setCart([...cart, newCartItem]); // you can use prev here as well and spread it then add product
+    } else {
+      existingItemInCart.quantity += 1;
+      setCart([...cart]);
     }
   };
 
   // console.log("counter", counter)
-  console.log("👟", product); // 🚨🚨🚨
+  // console.log("👟", product);         // 🚨🚨🚨
   // console.log('⚫️⚪️',colorsFamily);    // 🚨🚨🚨
-  // console.log('🗾',images);            // 🚨🚨🚨
-  console.log("◻️◾️", availableSizes); // 🚨🚨🚨
-  console.log("💢", selectedSize); // 🚨🚨🚨
+  // console.log('🗾',images);           // 🚨🚨🚨
+  // console.log("◻️◾️", availableSizes);  // 🚨🚨🚨
+  // console.log("💢", selectedSize);    // 🚨🚨🚨
 
   return (
     <div className="single-product">

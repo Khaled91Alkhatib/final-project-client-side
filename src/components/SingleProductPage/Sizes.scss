@@ -1,5 +1,12 @@
 @import "src/styles/variables.scss";
 
+.size-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .size-list {
   display: grid;
   // border: $test;
@@ -34,4 +41,8 @@
 
 .selected {
   background-color: lightpink;
+}
+
+.lowStockMsg {
+  color: red;
 }

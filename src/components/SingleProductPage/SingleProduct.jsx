@@ -105,7 +105,6 @@ const SingleProduct = (props) => {
       size: selectedSize.size,
       availability: selectedSize.quantity,
 
-      // sku: product.sku,
       name: product.name,
       color: product.color,
       price: product.price,
@@ -114,7 +113,7 @@ const SingleProduct = (props) => {
       quantity: 1
     };
 
-    console.log('➕', newCartItem);
+    // console.log('➕', newCartItem);
 
     const existingItemInCart = cart.find((item) => {
       return item.barcode === newCartItem.barcode;
@@ -123,9 +122,11 @@ const SingleProduct = (props) => {
     // console.log("exists", existingObjectInCart);
     if (!existingItemInCart) {
       setCart([...cart, newCartItem]); // you can use prev here as well and spread it then add product
-    } else {
-      existingItemInCart.quantity += 1;
-      setCart([...cart]);
+    } else {  
+      if (existingItemInCart.quantity < selectedSize.quantity) {
+        existingItemInCart.quantity += 1;
+        setCart([...cart]);
+      }
     }
   };
 

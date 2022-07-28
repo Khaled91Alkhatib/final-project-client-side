@@ -53,7 +53,7 @@ const ShoppingCart = (props) => {
               </thead>
               <tbody>
                 {cart.map((item, index) => {
-                  console.log(item);
+                  // console.log(item);
                   const options = Array(item.availability)
                     .fill(0)
                     .map((e, index) => {

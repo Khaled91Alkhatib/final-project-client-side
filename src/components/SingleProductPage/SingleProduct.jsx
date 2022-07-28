@@ -99,7 +99,7 @@ const SingleProduct = (props) => {
   };
 
   const addToCart = () => {
-    
+
     const newCartItem = {
       barcode: selectedSize.barcode,
       size: selectedSize.size,
@@ -112,9 +112,9 @@ const SingleProduct = (props) => {
       image1: product.image1,
 
       quantity: 1
-    }
+    };
 
-    console.log('➕',newCartItem);
+    console.log('➕', newCartItem);
 
     const existingItemInCart = cart.find((item) => {
       return item.barcode === newCartItem.barcode;
@@ -167,11 +167,13 @@ const SingleProduct = (props) => {
             select={selectedSize} /*onAdd={onAdd}*/
           />
           <button
-            className="add-to-cart"
+            className="add-to-cart tool-tip"
             disabled={!selectedSize.id}
             onClick={addToCart}
           >
             Add To Cart
+            <br />
+            <span className={selectedSize.id ? "tool-tip-text-disabled" : "tool-tip-text"}>Please Choose Size!</span>
           </button>
           <br />
           {/* <span>{product.description}</span> */}

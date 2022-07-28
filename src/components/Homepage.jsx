@@ -3,7 +3,7 @@ import "../styles/Homepage.scss";
 
 const Homepage = () => {
   return (
-    <div>
+    <div style={{lineHeight:'1.6'}}>
       <div className="image-container">
         <img className="main-image" src="../main-image.png" alt="main-image" />
         <div className="text-in-image">Enjoy Our Collection</div>

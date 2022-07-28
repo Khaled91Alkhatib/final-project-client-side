@@ -46,7 +46,6 @@ const NavList = () => {
     <div className="nav-bar">
       <img className='logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
       <div className="buttons">
-        <button className='nav-buttons'><NavLink className="navlink" to="/about"> About Us </NavLink></button>
         <button className='nav-buttons'><NavLink className="navlink" to="/collection/men"> Men's Collection</NavLink></button>
         <button className='nav-buttons'><NavLink className="navlink" to="/collection/women"> Women's Collection</NavLink></button>
         <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-phone" size='lg' />&nbsp; Contact Us</button>

@@ -17,22 +17,29 @@ body {
 }
 
 .logo {
-  margin-left: 1em;
-  height: 100px;
+  height: 120px;
 
   &:hover {
     cursor: pointer;
   }
 }
 
-.buttons {
-  width: 70%;
+.all-buttons {
+  width: 95%;
   margin: auto;
   display: flex;
+  justify-content: space-around;
+}
+
+.left-and-right-navs {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 .nav-buttons {
+  height: 40px;
+  text-align: center;
   font-family: fantasy;
   border: none;
   color: white;

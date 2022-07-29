@@ -13,10 +13,12 @@ import SingleProduct from './components/SingleProductPage/SingleProduct';
 import Footer from './components/Footer/Footer';
 import AboutUs from './components/Footer/AboutUs';
 import Warranty from './components/Footer/Warranty';
+import Dashboard from './components/Admin/Dashboard';
 
 function App() {
 
   const [cart, setCart] = useState([]);
+  const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
   // const [productSpec, setProductSpec] = useState({
   //   categories: [],
@@ -31,6 +33,11 @@ function App() {
     const cart = JSON.parse(localStorage.getItem('cart-info'));
     if (cart) {
      setCart(cart);
+    }
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+     setUser(user);
     }
 
     const f1 = axios.get('http://localhost:8100/api/products');
@@ -54,17 +61,22 @@ function App() {
     localStorage.setItem('cart-info', JSON.stringify(cart));
   }, [cart]);
 
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
 
-  console.log('👟👞🥾', products);    // 🚨🚨🚨
+
+  // console.log('👟👞🥾', products);    // 🚨🚨🚨
   // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
-  console.log('🧺',cart) // 🚨🚨🚨
+  // console.log('🧺',cart) // 🚨🚨🚨
+  console.log('👤',user) // 🚨🚨🚨
 
   return (
     <div>
-      <ProductsContext.Provider value={{ products }}>
+      <ProductsContext.Provider value={{ products, user, setUser }}>
         <CartContext.Provider value={{ setCart, cart }}>
           <BrowserRouter>
-            <NavList />
+            <NavList user={user}/>
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/collection/:id" element={<Collection />} />
@@ -73,6 +85,7 @@ function App() {
               <Route path="/collection/women/:id" element={<SingleProduct />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="warranty" element={<Warranty />} />
+              <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
             </Routes>
             <Footer />
           </BrowserRouter>

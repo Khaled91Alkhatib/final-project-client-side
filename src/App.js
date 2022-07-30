@@ -13,6 +13,8 @@ import SingleProduct from './components/SingleProductPage/SingleProduct';
 import Footer from './components/Footer/Footer';
 import AboutUs from './components/Footer/AboutUs';
 import Warranty from './components/Footer/Warranty';
+
+import NavbarAdminPortal from './components/Admin/NavbarAdminPortal';
 import Dashboard from './components/Admin/Dashboard';
 
 function App() {
@@ -76,7 +78,8 @@ function App() {
       <ProductsContext.Provider value={{ products, user, setUser }}>
         <CartContext.Provider value={{ setCart, cart }}>
           <BrowserRouter>
-            <NavList user={user}/>
+            {(window.location.pathname.slice(0, 10) === "/dashboard")? 
+            <NavbarAdminPortal user={user} /> : <NavList/>}
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/collection/:id" element={<Collection />} />

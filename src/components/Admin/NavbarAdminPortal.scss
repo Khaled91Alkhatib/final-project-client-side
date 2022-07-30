@@ -1,0 +1,23 @@
+@import "src/styles/variables.scss";
+
+.nav-bar-admin {
+  border: $test;
+  color: black;
+  background-color: snow;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-self: center;
+  width: 90vw;
+
+  margin-left: 3.6em;
+  position        : sticky;
+  top             : 0;
+  z-index         : 1;
+  padding         : 0em 1em 0em 1em;
+}
+
+.logo-admin {
+  height: 60px;
+}
+

@@ -22,6 +22,8 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user.name) {
       setModalIsOpen(true);
+    } else {
+      setModalIsOpen(false)
     }
   }, [user])
 

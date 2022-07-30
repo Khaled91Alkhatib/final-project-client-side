@@ -18,38 +18,40 @@ const LoginModal = (props) => {
 
   return (
     <div className='login-modal'>
-      <h1>login</h1>
-      
+      <h3>Please Login First</h3>
       <form onSubmit={handleSubmit} >
-        <div className=''>
-          <FormControl>
-            <TextField 
-              required 
-              variant="standard"
-              label="name"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <FormHelperText>Required</FormHelperText>
-          </FormControl>
-
-          <FormControl>
-            <TextField 
-              required 
-              variant="standard"
-              label="password"
-              id="password"
-              name="password"
-              type="password" 
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <FormHelperText>Required</FormHelperText>
-          </FormControl>
-
-
+        <div className='login-form'>
+          <div className='input-login-form'>
+            <div>
+              <FormControl>
+                <TextField 
+                  required 
+                  variant="standard"
+                  label="name"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+                <FormHelperText>Required</FormHelperText>
+              </FormControl>
+            </div>
+            <div>
+              <FormControl>
+                <TextField 
+                  required 
+                  variant="standard"
+                  label="password"
+                  id="password"
+                  name="password"
+                  type="password" 
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                <FormHelperText>Required</FormHelperText>
+              </FormControl>
+            </div>
+          </div>
           <button type="submit"> Login </button>
         </div>
       </form>

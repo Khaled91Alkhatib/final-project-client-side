@@ -4,6 +4,7 @@ import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import "./NavbarAdminPortal.scss";
 
 import ProductsContext from "../../contexts/ProductsContext";
+import {SidebarAdminPortal} from "./SidebarAdminPortal"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -18,10 +19,23 @@ const NavbarAdminPortal = (props) => {
 
   const { user, setUser } = useContext(ProductsContext);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [sidebar, setSidebar] = useState(false);
 
+  const navigate = useNavigate();
+
+  
   useEffect(() => {
     setAnchorEl(null);
-  }, [user])
+  }, [user]);
+  
+  const showSidebar = () => {
+    setSidebar(!sidebar);
+  };
+  
+  const onClickLogo = () => {
+    navigate('/', { replace: true });
+    navigate(0);
+  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,43 +46,65 @@ const NavbarAdminPortal = (props) => {
   };
 
   return (
-    <div className="nav-bar-admin">
-      <NavLink to="#" className='menu-bar'>
-        
-      </NavLink>
-      <img className='logo-admin' src="../logo2.png" alt="logo" />
-      {user.name && <div>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleMenu}
-          color="inherit"
-        >
-          <FontAwesomeIcon icon="fa-solid fa-user" />
-        </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={() => {
-            setUser({})
-            handleClose()}}>Logout</MenuItem>
-        </Menu>
-      </div>}
-    </div>
+    <>
+      <div className="nav-bar-admin">
+        <NavLink to="#" className='menu-bars'>
+          <FontAwesomeIcon icon="fa-solid fa-bars" onClick={() => showSidebar()} />
+        </NavLink>
+        <img className='logo-admin' onClick={onClickLogo} src="../logo.png" alt="logo here" />
+        {user.name && <div>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <FontAwesomeIcon icon="fa-solid fa-user" /><FontAwesomeIcon icon="fa-solid fa-caret-down" />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={() => {
+              setUser({})
+              handleClose()}}>Logout</MenuItem>
+          </Menu>
+        </div>}
+      </div>
+      <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <ul className='nav-menu-items' onClick={() => showSidebar()}>
+          <li className='navbar-toggle'>
+            <NavLink to="#" className='menu-bars'>
+              <FontAwesomeIcon icon="fa-solid fa-circle-xmark" />
+            </NavLink>
+          </li>
+          {SidebarAdminPortal.map((link, index) => {
+            return(
+              <li key={index} className={link.cName}>
+                <NavLink to={link.path}>
+                  {link.icon}
+                  <span>{link.title}</span>
+                </NavLink>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+    </>
+
   );
 };
 

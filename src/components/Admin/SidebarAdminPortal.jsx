@@ -1,26 +1,26 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
-import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
-
-// import "./NavbarAdminPortal.scss";
-
-import ProductsContext from "../../contexts/ProductsContext";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+export const SidebarAdminPortal = [
 
-import IconButton from '@mui/material/IconButton';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+  {
+    title: 'Dashboard',
+    path: '/dashboard',
+    icon: <FontAwesomeIcon icon="fa-solid fa-gear" />,
+    cName: 'nav-text'
+  },
 
+  {
+    title: 'Products',
+    path: '/dashboard/product',
+    icon: <FontAwesomeIcon icon="fa-solid fa-barcode" />,
+    cName: 'nav-text'
+  },
 
+  {
+    title: 'Orders',
+    path: '/dashboard/orders',
+    icon: <FontAwesomeIcon icon="fa-solid fa-basket-shopping" />,
+    cName: 'nav-text'
+  }
 
-const SideBarAdminPortal = (props) => {
-
-  return (
-    <div className="">
-
-    </div>
-  );
-};
-
-export default SideBarAdminPortal;
+]

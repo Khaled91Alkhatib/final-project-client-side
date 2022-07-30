@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
+import Modal from 'react-modal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ProductsContext from './contexts/ProductsContext';
 import CartContext from './contexts/CartContext';
@@ -16,6 +19,9 @@ import Warranty from './components/Footer/Warranty';
 
 import NavbarAdminPortal from './components/Admin/NavbarAdminPortal';
 import Dashboard from './components/Admin/Dashboard';
+import AdminProduct from './components/Admin/AdminProduct';
+import AdminOrders from './components/Admin/AdminOrders';
+import LoginModal from "./components/Admin/LoginModal";
 
 function App() {
 
@@ -28,6 +34,7 @@ function App() {
   //   sizes: [],
   //   colors: []
   // });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
 
@@ -65,7 +72,32 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
+
+    // in /dashboard url, pop up modal, if there is no admin user
+    if (window.location.pathname.slice(0, 10) === "/dashboard" && !user.name) {
+      setModalIsOpen(true);
+    } else {
+      setModalIsOpen(false)
+    }
   }, [user]);
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
+  function onLogin(inputUser) {
+    console.log(inputUser);
+    if (inputUser.name === 'admin' && inputUser.password === '123') {
+      setUser(inputUser);
+      closeModal();
+    } else {
+      toast("Login info is not correct!", {type: 'error'})
+    }
+  }
 
 
   // console.log('👟👞🥾', products);    // 🚨🚨🚨
@@ -79,7 +111,18 @@ function App() {
         <CartContext.Provider value={{ setCart, cart }}>
           <BrowserRouter>
             {(window.location.pathname.slice(0, 10) === "/dashboard")? 
-            <NavbarAdminPortal user={user} /> : <NavList/>}
+          <NavbarAdminPortal user={user} /> : <NavList/>}
+
+            { modalIsOpen && 
+              <Modal isOpen={modalIsOpen} 
+                className="modal" 
+                appElement={document.getElementById('root')}
+              > 
+                {window.location.pathname.slice(0, 10) === "/dashboard" && !user.name &&
+                <LoginModal onLogin={onLogin}/>}
+              </Modal>
+              }
+            <ToastContainer />
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/collection/:id" element={<Collection />} />
@@ -89,6 +132,8 @@ function App() {
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="warranty" element={<Warranty />} />
               <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
+              <Route path="/dashboard/product" element={<AdminProduct />} />
+              <Route path="/dashboard/orders" element={<AdminOrders />} />
             </Routes>
             <Footer />
           </BrowserRouter>

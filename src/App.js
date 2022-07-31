@@ -45,12 +45,12 @@ function App() {
     // at first mount - get local storage cart info
     const cart = JSON.parse(localStorage.getItem('cart-info'));
     if (cart) {
-     setCart(cart);
+      setCart(cart);
     }
 
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-     setUser(user);
+      setUser(user);
     }
 
     const f1 = axios.get('http://localhost:8100/api/products');
@@ -144,7 +144,6 @@ function App() {
             <Route path="/dashboard/orders" element={<AdminOrders />} />
           </Routes>
           <Footer />
-
         </CartContext.Provider>
       </ProductsContext.Provider>
     </div>

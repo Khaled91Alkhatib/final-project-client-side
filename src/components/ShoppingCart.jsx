@@ -1,16 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartContext from "../contexts/CartContext";
+import StripeCheckout from "react-stripe-checkout";
+import { toast } from 'react-toastify';
+import axios from "axios";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./ShoppingCart.scss";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const ShoppingCart = (props) => {
+  toast.configure();
 
   const { cart, setCart } = useContext(CartContext);
   console.log("khaled", cart);
 
   const onRemoveClick = (barcode) => {
-    setCart(pre => pre.filter( item => !(barcode === item.barcode)));
+    setCart(pre => pre.filter(item => !(barcode === item.barcode)));
   };
 
   const totalEndPrice = cart.reduce((total, item) => {
@@ -22,6 +29,26 @@ const ShoppingCart = (props) => {
 
   const cartItemsNumber = cart.reduce((pre, cur) => pre + cur.quantity, 0);
 
+  async function handleToken(token, addresses) {
+    let response;
+    try {
+      response = await axios.post("http://localhost:8100/checkout", { token, cart });
+      console.log('stripe response', response);
+
+    } catch (error) {
+      console.log('stripe response error', error);
+
+    }
+    // console.log('stripe response', response)
+    if (response.status === 200) {
+      toast("Successful Payment", { type: "success" });
+      setCart([]);
+    } else {
+      toast("Payment is not successful", { type: "error" });
+    }
+  }
+
+  console.log('stripe', process.env.REACT_APP_STRIPE_KEY);
 
   return (
     <div ref={props.modalRef} className="overlay-style">
@@ -98,12 +125,12 @@ const ShoppingCart = (props) => {
                           onChange={(e) => {
                             const newCart = cart.map(row => {
                               if (row.barcode === item.barcode) {
-                                return {...row, quantity: Number(e.target.value)}
+                                return { ...row, quantity: Number(e.target.value) };
                               } else {
-                                return {...row}
+                                return { ...row };
                               }
-                            })
-                            setCart(newCart)
+                            });
+                            setCart(newCart);
                           }}
                           value={item.quantity}
                         >
@@ -127,7 +154,14 @@ const ShoppingCart = (props) => {
               >
                 Continue Shopping
               </button>
-              <button>Checkout</button>
+              {/* <button>Checkout</button> */}
+              <StripeCheckout
+                stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                token={handleToken}
+                amount={totalEndPrice * 100}
+                billingAddress
+                shippingAddress
+              />
             </div>
           </div>
         )}

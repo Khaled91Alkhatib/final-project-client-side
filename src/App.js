@@ -32,12 +32,12 @@ function App() {
     // at first mount - get local storage cart info
     const cart = JSON.parse(localStorage.getItem('cart-info'));
     if (cart) {
-     setCart(cart);
+      setCart(cart);
     }
 
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-     setUser(user);
+      setUser(user);
     }
 
     const f1 = axios.get('http://localhost:8100/api/products');
@@ -69,14 +69,14 @@ function App() {
   // console.log('👟👞🥾', products);    // 🚨🚨🚨
   // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
   // console.log('🧺',cart) // 🚨🚨🚨
-  console.log('👤',user) // 🚨🚨🚨
+  console.log('👤', user); // 🚨🚨🚨
 
   return (
     <div>
       <ProductsContext.Provider value={{ products, user, setUser }}>
         <CartContext.Provider value={{ setCart, cart }}>
           <BrowserRouter>
-            <NavList user={user}/>
+            <NavList user={user} />
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/collection/:id" element={<Collection />} />
@@ -85,7 +85,7 @@ function App() {
               <Route path="/collection/women/:id" element={<SingleProduct />} />
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="warranty" element={<Warranty />} />
-              <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
+              <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />} />
             </Routes>
             <Footer />
           </BrowserRouter>

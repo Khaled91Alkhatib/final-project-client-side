@@ -1,10 +1,112 @@
 @import "src/styles/variables.scss";
 
-.admin-product-page {
-  border: $test2;
-  padding: 130px 20px;
-  height: 100vh;
+.admin-product-page-main {
+  // border: $test;
+  padding: 20px 20px;
+  min-height: 100vh;
+  height: 100%;
   width: 90vw;
   margin:auto;
   margin-top:80px;
+}
+
+.admin-product-page {
+  // border: $test;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+}
+
+.search-sku {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.search-sku-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.input-feild {
+  padding-right: 2em;
+}
+
+// .error-msg {
+//   color: red;
+// }
+
+.button-edit-page {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  // display: inline-block;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  width: 120px;
+}
+
+.button-edit-page:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.add-item-section {
+  width: 100%;
+}
+
+.add-item-form {
+//   border: $test;
+  margin: 2em;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 0;
+}
+
+.add-item-image-group {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.image-select {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-bottom: 0.5em;
+}
+
+.cat-style-color-name {
+  margin-bottom: 2em;
+}
+
+.category-feild {
+  width: 7em;
+}
+.style-feild {
+  width: 10em;
+}
+.color-feild {
+  width: 7em;
+}
+.name-feild {
+  width: 20em;
+}
+.description-feild {
+  width: 80vw;
+}
+
+.save-edit-item {
+  margin-left: 4em;
 }

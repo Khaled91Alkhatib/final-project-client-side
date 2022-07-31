@@ -16,7 +16,7 @@
   position: fixed;
   top: 0;
   // position        : sticky;
-  // z-index         : 1;
+  z-index         : 1;
   padding         : 0em 1em 0em 1em;
 
   a {
@@ -30,6 +30,12 @@
 
 .logo-admin {
   height: 60px;
+  // z-index: 3000;
+}
+
+.admin-logo {
+  // z-index: 2100;
+
 }
 
 .menu-bars {
@@ -49,6 +55,7 @@
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index: 2000;
 
   span {
     margin-left: 16px;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useMatch } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,13 +28,17 @@ function App() {
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState({});
   const [products, setProducts] = useState([]);
-  // const [productSpec, setProductSpec] = useState({
-  //   categories: [],
-  //   styles: [],
-  //   sizes: [],
-  //   colors: []
-  // });
+  const [productSpec, setProductSpec] = useState({
+    categories: [],
+    styles: [],
+    sizes: [],
+    colors: []
+  });
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loginError, setLoginError] = useState("");
+
+  // use this to change the navbar
+  const matchDashboard = useMatch('/dashboard/*');
 
   useEffect(() => {
 
@@ -50,17 +54,17 @@ function App() {
     }
 
     const f1 = axios.get('http://localhost:8100/api/products');
-    // const f2 = axios.get('http://localhost:8100/api/specification')
+    const f2 = axios.get('http://localhost:8100/api/specification')
 
-    Promise.all([f1])
-      .then(([r1]) => {
+    Promise.all([f1, f2])
+      .then(([r1, r2]) => {
         // handle success
-        // const categories = r2.data.categories;
-        // const styles = r2.data.styles;
-        // const colors = r2.data.colors;
-        // const sizes = r2.data.sizes;
+        const categories = r2.data.categories;
+        const styles = r2.data.styles;
+        const colors = r2.data.colors;
+        const sizes = r2.data.sizes;
         setProducts(prev => r1.data.products);
-        // setProductSpec({categories,styles, colors, sizes});
+        setProductSpec({categories,styles, colors, sizes});
       });
 
   }, []);
@@ -74,69 +78,72 @@ function App() {
     localStorage.setItem('user', JSON.stringify(user));
 
     // in /dashboard url, pop up modal, if there is no admin user
-    if (window.location.pathname.slice(0, 10) === "/dashboard" && !user.name) {
+    if (matchDashboard && !user.name) {
       setModalIsOpen(true);
     } else {
       setModalIsOpen(false)
     }
   }, [user]);
 
-  function openModal() {
-    setModalIsOpen(true);
+  const addProduct = (newProduct) => {
+    console.log('add this --->', newProduct);
   }
 
-  function closeModal() {
-    setModalIsOpen(false);
+  const editProduct = (updateProduct) => {
+    console.log('update this --->', updateProduct);
   }
+
+  function openModal() {setModalIsOpen(true);}
+
+  function closeModal() {setModalIsOpen(false);}
 
   function onLogin(inputUser) {
-    console.log(inputUser);
     if (inputUser.name === 'admin' && inputUser.password === '123') {
       setUser(inputUser);
+      setLoginError("")
       closeModal();
     } else {
-      toast("Login info is not correct!", {type: 'error'})
+      setLoginError("Login info is not correct!")
     }
   }
 
-
   // console.log('👟👞🥾', products);    // 🚨🚨🚨
-  // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
+  console.log('🔧🪛',productSpec)   // 🚨🚨🚨
   // console.log('🧺',cart) // 🚨🚨🚨
-  console.log('👤',user) // 🚨🚨🚨
+  // console.log('👤',user) // 🚨🚨🚨
 
   return (
     <div>
-      <ProductsContext.Provider value={{ products, user, setUser }}>
+      <ProductsContext.Provider value={{ products, productSpec, user, setUser }}>
         <CartContext.Provider value={{ setCart, cart }}>
-          <BrowserRouter>
-            {(window.location.pathname.slice(0, 10) === "/dashboard")? 
-          <NavbarAdminPortal user={user} /> : <NavList/>}
+         
+          {matchDashboard && !user.name && <NavbarAdminPortal zIndex={0} />}
+          {matchDashboard && user.name && <NavbarAdminPortal user={user} zIndex={1100} />}
+          {!matchDashboard && <NavList/>}
 
-            { modalIsOpen && 
-              <Modal isOpen={modalIsOpen} 
-                className="modal" 
-                appElement={document.getElementById('root')}
-              > 
-                {window.location.pathname.slice(0, 10) === "/dashboard" && !user.name &&
-                <LoginModal onLogin={onLogin}/>}
-              </Modal>
-              }
-            <ToastContainer />
-            <Routes>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/collection/:id" element={<Collection />} />
-              <Route path="/*" element={<NotExistPage />} />
-              <Route path="/collection/men/:id" element={<SingleProduct />} />
-              <Route path="/collection/women/:id" element={<SingleProduct />} />
-              <Route path="/about-us" element={<AboutUs />} />
-              <Route path="warranty" element={<Warranty />} />
-              <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
-              <Route path="/dashboard/product" element={<AdminProduct />} />
-              <Route path="/dashboard/orders" element={<AdminOrders />} />
-            </Routes>
-            <Footer />
-          </BrowserRouter>
+          { modalIsOpen && 
+            <Modal isOpen={modalIsOpen} 
+              className="modal" 
+              appElement={document.getElementById('root')}
+            > 
+              {matchDashboard && !user.name &&
+              <LoginModal onLogin={onLogin} msg={loginError}/>}
+            </Modal>
+          }
+          <ToastContainer />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/collection/:id" element={<Collection />} />
+            <Route path="/*" element={<NotExistPage />} />
+            <Route path="/collection/men/:id" element={<SingleProduct />} />
+            <Route path="/collection/women/:id" element={<SingleProduct />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="warranty" element={<Warranty />} />
+            <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
+            <Route path="/dashboard/product" element={<AdminProduct onEdit={editProduct} onAdd={addProduct}/>} />
+            <Route path="/dashboard/orders" element={<AdminOrders />} />
+          </Routes>
+          <Footer />
 
         </CartContext.Provider>
       </ProductsContext.Provider>

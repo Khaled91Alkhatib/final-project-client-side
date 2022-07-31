@@ -33,8 +33,7 @@ const NavbarAdminPortal = (props) => {
   };
   
   const onClickLogo = () => {
-    navigate('/', { replace: true });
-    navigate(0);
+    navigate('/');
   };
 
   const handleMenu = (event) => {
@@ -47,12 +46,12 @@ const NavbarAdminPortal = (props) => {
 
   return (
     <>
-      <div className="nav-bar-admin">
+      <div className="nav-bar-admin" style={{zIndex:props.zIndex}}>
         <NavLink to="#" className='menu-bars'>
           <FontAwesomeIcon icon="fa-solid fa-bars" onClick={() => showSidebar()} />
         </NavLink>
         <img className='logo-admin' onClick={onClickLogo} src="../logo.png" alt="logo here" />
-        {user.name && <div>
+        {user.name && <div className='admin-logo'>
           <IconButton
             size="large"
             aria-label="account of current user"

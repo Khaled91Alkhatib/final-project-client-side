@@ -52,6 +52,7 @@ const LoginModal = (props) => {
               </FormControl>
             </div>
           </div>
+          {props.msg && <span className='login-error'>{props.msg}</span>}
           <button type="submit"> Login </button>
         </div>
       </form>

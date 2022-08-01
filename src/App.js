@@ -16,6 +16,8 @@ import SingleProduct from './components/SingleProductPage/SingleProduct';
 import Footer from './components/Footer/Footer';
 import AboutUs from './components/Footer/AboutUs';
 import Warranty from './components/Footer/Warranty';
+import Shipping from './components/Footer/Shipping';
+import Returns from './components/Footer/Returns';
 
 import NavbarAdminPortal from './components/Admin/NavbarAdminPortal';
 import Dashboard from './components/Admin/Dashboard';
@@ -138,7 +140,9 @@ function App() {
             <Route path="/collection/men/:id" element={<SingleProduct />} />
             <Route path="/collection/women/:id" element={<SingleProduct />} />
             <Route path="/about-us" element={<AboutUs />} />
-            <Route path="warranty" element={<Warranty />} />
+            <Route path="/warranty" element={<Warranty />} />
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/returns" element={<Returns />} />
             <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
             <Route path="/dashboard/product" element={<AdminProduct onEdit={editProduct} onAdd={addProduct}/>} />
             <Route path="/dashboard/orders" element={<AdminOrders />} />

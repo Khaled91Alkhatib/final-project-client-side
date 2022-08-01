@@ -22,8 +22,8 @@ function Footer() {
           </div>
           <img className='logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
           <div className="left-right-content">
-            <button className="footer-buttons"><NavLink className="footer-navs" to="/return"> Shipping</NavLink></button>
-            <button className="footer-buttons"><NavLink className="footer-navs" to="/return"> Returns</NavLink></button>
+            <button className="footer-buttons"><NavLink className="footer-navs" to="/shipping"> Shipping</NavLink></button>
+            <button className="footer-buttons"><NavLink className="footer-navs" to="/returns"> Returns</NavLink></button>
           </div>
         </div>
       </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import "./Warranty.scss";
+import "./FooterLinks.scss";
 
 function Warranty() {
   return (
-    <div className="warranty-layout">
-      <div className='warranty-data'>
+    <div className="main-layout">
+      <div className='data'>
         <h2>Is My Item Under Warranty?</h2>
         <br />
         <h4>LIMITED WARRANTY</h4>
@@ -15,7 +15,7 @@ function Warranty() {
         <h4>WARRANTY CLAIM INSTRUCTIONS </h4>
         <div>
         If you believe your product is defective, please email a completed Warranty Return Form to us at warranty@theshoebox.com <strong>along with the following pictures</strong>:
-        <ul className="return-list">
+        <ul className="list">
           <li>Internal tags showing style number and size</li>
           <li>Product in its entirety</li>
           <li>Bottom of soles showing tread, for footwear</li>

@@ -5,7 +5,6 @@ import useFormAdminProduct from "../../hooks/useFormAdminProduct";
 import './AdminProduct.scss';
 import ProductsContext from '../../contexts/ProductsContext';
 
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -18,9 +17,21 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 
-const LoadProductForEdit = ({product, onSubmit, onReset}) => {
+const LoadProductForEdit = ({product, onSubmit, onReset, availableSizes}) => {
 
   const {productSpec} = useContext(ProductsContext);
+
+  const newSizes = productSpec.sizes.filter(row => !availableSizes.find(rowData => rowData.size_id === row.id));
+  const baseSize = newSizes.map(row => {
+    return (
+      {
+        barcode: "",
+        size_id: row.id,
+        sku: product.sku,
+        size: row.size,
+      }
+    )
+  })
 
   const categories = productSpec.categories.map(row => {
     return (
@@ -40,11 +51,72 @@ const LoadProductForEdit = ({product, onSubmit, onReset}) => {
     )
   });
 
+ 
   const baseFormData = { ...product, price: product.price / 100};
   
-  const { formData, handleChange, handleSubmit, errorMsg, handleCheckBoxChange} = useFormAdminProduct(baseFormData, onSubmit, onReset);
+  const { formData, handleChange, handleSubmit, errorMsg, handleCheckBoxChange, formSize, handleChangeBarcode} = useFormAdminProduct(baseFormData, onSubmit, onReset, baseSize);
 
-  // console.log('👀', formData);
+  // console.log('🚨🚨🚨',formData);
+  // console.log('🚨🚨🚨',formSize);
+
+  const newSizeArray = baseSize.map((row, index) => {
+    return (
+      <div className='edit-size-row' key={index}>
+        <div className='size-feild'>
+          <TextField
+            id="filled-size"
+            label="Size"
+            defaultValue={row.size}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+        <FormControl>
+          <div className='barcode-feild'>
+            <TextField 
+              label="barcode"
+              id={index.toString()}
+              name="barcode"
+              value={formSize.barcode}
+              onChange={handleChangeBarcode}
+              variant="standard"
+            />
+          </div>
+        </FormControl>
+      </div>
+    )
+  })
+
+  const oldSizeArray = availableSizes.map((row, index) => {
+    return (
+      <div className='edit-size-row' key={index}>
+        <div className='size-feild'>
+          <TextField
+            id="filled-size"
+            label="Size"
+            defaultValue={row.size}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+        <div className='barcode-feild'>
+          <TextField
+            id="filled-barcode"
+            label="barcode"
+            defaultValue={row.barcode}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+      </div>
+    )
+  });
   
   return (
     <div className='add-item-section'>
@@ -52,7 +124,47 @@ const LoadProductForEdit = ({product, onSubmit, onReset}) => {
       <h2>Edit Product</h2>
       <div className='add-item-form'>
         <form onSubmit={handleSubmit}>
-          <div className='cat-style-color-name'>
+          <div className='name-price'>
+            <FormControl>
+              <div className='input-feild'>
+                <TextField
+                  required
+                  id="name"
+                  label="Product's Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  variant="standard"
+                  className='name-feild'
+                />
+                <FormHelperText>Required</FormHelperText>
+              </div>
+            </FormControl>
+
+            <FormControl required >
+              <div className='input-feild'>
+                <InputLabel htmlFor="input-price">Price</InputLabel>
+                <Input
+                  id="input-price"
+                  label="Price"
+                  name="price"
+                  type='number'
+                  value={formData.price}
+                  onChange={handleChange}
+                  variant="standard"
+                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                />
+                {errorMsg ?
+                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText> :
+                <FormHelperText>Required</FormHelperText>
+                }
+              </div>
+            </FormControl>
+
+            <button type="submit" className='button-edit-page save-edit-item'>Save</button>
+          </div>
+
+          <div className='category-style-color'>
             <FormControl>
               <div className='input-feild'>
                 <InputLabel id="select-category-label" className='category-feild'>Category</InputLabel>
@@ -103,42 +215,17 @@ const LoadProductForEdit = ({product, onSubmit, onReset}) => {
                 </Select>
               </div>
             </FormControl>
-            
-            <FormControl>
-              <div className='input-feild'>
-                <TextField
-                  required
-                  id="name"
-                  label="Product's Name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  variant="standard"
-                  className='name-feild'
-                />
-                <FormHelperText>Required</FormHelperText>
-              </div>
-            </FormControl>
+
+            <FormControlLabel control={
+              <Checkbox
+                checked={formData.disp}
+                onChange={handleCheckBoxChange}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />} label="Display In Collection Page" 
+            />
           </div>
-
-          <FormControl>
-            <div className='input-feild'>
-              <TextField
-                id="description"
-                label="Description"
-                multiline
-                maxRows={6}
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                variant="standard"
-                className='description-feild'
-              />
-            </div>
-          </FormControl>
-
+          
           <div className='add-item-image-group'>
-
             <div className='image-select'>
               <span>
                 Saved Image 1: 
@@ -203,37 +290,36 @@ const LoadProductForEdit = ({product, onSubmit, onReset}) => {
             </div>
           </div>
 
-          <div>
-            <FormControl required >
-              <div className='input-feild'>
-                <InputLabel htmlFor="input-price">Price</InputLabel>
-                <Input
-                  id="input-price"
-                  label="Price"
-                  name="price"
-                  type='number'
-                  value={formData.price}
-                  onChange={handleChange}
-                  variant="standard"
-                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                />
-                {errorMsg ?
-                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText> :
-                <FormHelperText>Required</FormHelperText>
-                }
-              </div>
-            </FormControl>
-            
-            <FormControlLabel control={
-              <Checkbox
-                checked={formData.disp}
-                onChange={handleCheckBoxChange}
-                inputProps={{ 'aria-label': 'controlled' }}
-              />} label="Display In Collection Page" 
-            />
-            <button type="submit" className='button-edit-page save-edit-item'>Save</button>
-          </div>
+          <FormControl>
+            <div className='input-feild'>
+              <TextField
+                id="description"
+                label="Description"
+                multiline
+                maxRows={6}
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                variant="standard"
+                className='description-feild'
+              />
+            </div>
+          </FormControl>
 
+          <div className='size-table'>
+            { newSizeArray.length !== 0 &&
+              <div className='new-sizes'>
+                <h3><li>Define unique barcode for these sizes.</li></h3> 
+                {newSizeArray}
+              </div>
+            }
+            { oldSizeArray.length !== 0 &&
+              <div className='old-sizes'>
+                <h3><li>Already defined sizes.</li></h3> 
+                {oldSizeArray}
+              </div>
+            }
+          </div>
         </form>
       </div>
     </div>        

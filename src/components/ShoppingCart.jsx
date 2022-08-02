@@ -14,7 +14,7 @@ const ShoppingCart = (props) => {
   toast.configure();
 
   const { cart, setCart } = useContext(CartContext);
-  console.log("khaled", cart);
+  // console.log("khaled", cart);
 
   const onRemoveClick = (barcode) => {
     setCart(pre => pre.filter(item => !(barcode === item.barcode)));
@@ -36,7 +36,7 @@ const ShoppingCart = (props) => {
       console.log('stripe response', response);
 
     } catch (error) {
-      console.log('stripe response error', error);
+      // console.log('stripe response error', error);
 
     }
     // console.log('stripe response', response)
@@ -48,7 +48,7 @@ const ShoppingCart = (props) => {
     }
   }
 
-  console.log('stripe', process.env.REACT_APP_STRIPE_KEY);
+  // console.log('stripe', process.env.REACT_APP_STRIPE_KEY);
 
   return (
     <div ref={props.modalRef} className="overlay-style">

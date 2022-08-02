@@ -16,10 +16,21 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 
-const LoadAddForm = ({onSubmit, onReset}) => {
+const LoadAddForm = ({onSubmit, onReset, sku}) => {
 
   const {productSpec} = useContext(ProductsContext);
 
+  const baseSize = productSpec.sizes.map(row => {
+    return (
+      {
+        barcode: "",
+        size_id: row.id,
+        sku,
+        size: row.size,
+      }
+    )
+  })
+  
   const categories = productSpec.categories.map(row => {
     return (
       <MenuItem key={row.id} value={row.id} >{row.cat}</MenuItem>
@@ -38,13 +49,43 @@ const LoadAddForm = ({onSubmit, onReset}) => {
     )
   });
   
-  const baseFormData = { sku: "", category_id: "", style_id: "",
+  const baseFormData = { sku, category_id: "", style_id: "",
     color_id: "", name: "", description: "", image1: "", image2: "", image3: "", price: "", disp:false};
     
-  const { formData, handleChange, handleSubmit, errorMsg, handleCheckBoxChange} = useFormAdminProduct(baseFormData, onSubmit, onReset);
+  const { formData, handleChange, handleSubmit, errorMsg, handleCheckBoxChange, formSize, handleChangeBarcode} = useFormAdminProduct(baseFormData, onSubmit, onReset, baseSize);
   
-  console.log('👀', formData);
+  // console.log('👀', formData);
+  // console.log('🚨🚨🚨',formSize);
   
+  const newSizeArray = baseSize.map((row, index) => {
+    return (
+      <div className='edit-size-row' key={index}>
+        <div className='size-feild'>
+          <TextField
+            id="filled-size"
+            label="Size"
+            defaultValue={row.size}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+        <FormControl>
+          <div className='barcode-feild'>
+            <TextField 
+              label="barcode"
+              id={index.toString()}
+              name="barcode"
+              value={formSize.barcode}
+              onChange={handleChangeBarcode}
+              variant="standard"
+            />
+          </div>
+        </FormControl>
+      </div>
+    )
+  })
   
   return (
     <div className='add-item-page'>
@@ -52,61 +93,7 @@ const LoadAddForm = ({onSubmit, onReset}) => {
       <h2>Add New Main Product</h2>
       <div className='add-item-form'>
         <form onSubmit={handleSubmit} >
-          <div className='cat-style-color-name'>
-            <FormControl required>
-              <div className='input-feild'>
-                <InputLabel id="select-category-label" className='category-feild'>Category</InputLabel>
-                <Select
-                  labelId="select-category-label"
-                  id="select-category"
-                  name="category_id"
-                  value={formData.category_id}
-                  onChange={handleChange}
-                  variant="standard"
-                  className='category-feild'
-                >
-                  {categories}
-                </Select>
-                <FormHelperText>Required</FormHelperText>
-              </div>
-            </FormControl>
-
-            <FormControl required>
-              <div className='input-feild'>
-                <InputLabel id="select-style-label">Style</InputLabel>
-                <Select
-                  labelId="select-style-label"
-                  id="select-style"
-                  name="style_id"
-                  value={formData.style_id}
-                  onChange={handleChange}
-                  variant="standard"
-                  className='style-feild'
-                >
-                  {styles}
-                </Select>
-                <FormHelperText>Required</FormHelperText>
-              </div>
-            </FormControl>
-
-            <FormControl required>
-              <div className='input-feild'>
-                <InputLabel id="select-color-label">Color</InputLabel>
-                <Select
-                  labelId="select-color-label"
-                  id="select-color"
-                  name="color_id"
-                  value={formData.color_id}
-                  onChange={handleChange}
-                  variant="standard"
-                  className='color-feild'
-                >
-                  {colors}
-                </Select>
-                <FormHelperText>Required</FormHelperText>
-              </div>
-            </FormControl>
-
+          <div className='name-price'>
             <FormControl>
               <div className='input-feild'>
                 <TextField
@@ -122,23 +109,29 @@ const LoadAddForm = ({onSubmit, onReset}) => {
                 <FormHelperText>Required</FormHelperText>
               </div>
             </FormControl>
-          </div>
 
-          <FormControl>
-            <div className='input-feild'>
-              <TextField
-                id="description"
-                label="Description"
-                multiline
-                maxRows={6}
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                variant="standard"
-                className='description-feild'
-              />
-            </div>
-          </FormControl>
+            <FormControl required >
+              <div className='input-feild'>
+                <InputLabel htmlFor="input-price">Price</InputLabel>
+                <Input
+                  id="input-price"
+                  label="Price"
+                  name="price"
+                  type='number'
+                  value={formData.price}
+                  onChange={handleChange}
+                  variant="standard"
+                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                />
+                {errorMsg ?
+                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText> :
+                <FormHelperText>Required</FormHelperText>
+                }
+              </div>
+            </FormControl>
+
+            <button type="submit" className='button-edit-page save-edit-item'> Add Item</button>
+          </div>
 
           <div className='add-item-image-group'>
             <div className='image-select'>
@@ -207,24 +200,58 @@ const LoadAddForm = ({onSubmit, onReset}) => {
             </div>
           </div>
 
-          <div>
-            <FormControl required >
+          <div className='category-style-color'>
+            <FormControl required>
               <div className='input-feild'>
-                <InputLabel htmlFor="input-price">Price</InputLabel>
-                <Input
-                  id="input-price"
-                  label="Price"
-                  name="price"
-                  type='number'
-                  value={formData.price}
+                <InputLabel id="select-category-label" className='category-feild'>Category</InputLabel>
+                <Select
+                  labelId="select-category-label"
+                  id="select-category"
+                  name="category_id"
+                  value={formData.category_id}
                   onChange={handleChange}
                   variant="standard"
-                  startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                />
-                {errorMsg ?
-                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText> :
+                  className='category-feild'
+                >
+                  {categories}
+                </Select>
                 <FormHelperText>Required</FormHelperText>
-                }
+              </div>
+            </FormControl>
+
+            <FormControl required>
+              <div className='input-feild'>
+                <InputLabel id="select-style-label">Style</InputLabel>
+                <Select
+                  labelId="select-style-label"
+                  id="select-style"
+                  name="style_id"
+                  value={formData.style_id}
+                  onChange={handleChange}
+                  variant="standard"
+                  className='style-feild'
+                >
+                  {styles}
+                </Select>
+                <FormHelperText>Required</FormHelperText>
+              </div>
+            </FormControl>
+
+            <FormControl required>
+              <div className='input-feild'>
+                <InputLabel id="select-color-label">Color</InputLabel>
+                <Select
+                  labelId="select-color-label"
+                  id="select-color"
+                  name="color_id"
+                  value={formData.color_id}
+                  onChange={handleChange}
+                  variant="standard"
+                  className='color-feild'
+                >
+                  {colors}
+                </Select>
+                <FormHelperText>Required</FormHelperText>
               </div>
             </FormControl>
 
@@ -235,8 +262,29 @@ const LoadAddForm = ({onSubmit, onReset}) => {
                 inputProps={{ 'aria-label': 'controlled' }}
               />} label="Display In Collection Page"
             />
+          </div>
 
-            <button type="submit" className='button-edit-page save-edit-item'> Add Item</button>
+          <FormControl>
+            <div className='input-feild'>
+              <TextField
+                id="description"
+                label="Description"
+                multiline
+                maxRows={6}
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                variant="standard"
+                className='description-feild'
+              />
+            </div>
+          </FormControl>
+
+          <div className='size-table'>
+            <div className='new-sizes'>
+              <h3><li>Define unique barcode for these sizes.</li></h3> 
+              {newSizeArray}
+            </div>
           </div>
         </form>
       </div>

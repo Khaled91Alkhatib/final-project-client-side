@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-export default function useFormAdminProduct(baseData, action, reset) {
+export default function useFormAdminProduct(baseData, action, reset, baseSize) {
   const [formData, setFormData] = useState(baseData);
   const [errorMsg, setErrorMsg] = useState("");
+  const [formSize, setFormSize] = useState(baseSize)
 
   const handleChange = (event) => {
     const { name, value, type} = event.target;
@@ -22,6 +23,12 @@ export default function useFormAdminProduct(baseData, action, reset) {
     setFormData({ ...formData, disp: !formData.disp });
   }
 
+  const handleChangeBarcode = (event) => {
+    const { id, name, value} = event.target;
+    formSize[id][name] = event.target.value;
+    setFormSize([...formSize])
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const regex = /^\d+(\.\d{1,2})?$/;
@@ -30,10 +37,10 @@ export default function useFormAdminProduct(baseData, action, reset) {
       setFormData({...formData, price: ""});
     } else {
       setErrorMsg("");
-      action(formData);
+      action(formData, formSize);
       reset();
     };
   }
 
-  return { formData, handleChange, handleSubmit, handleCheckBoxChange, errorMsg };
+  return { formData, handleChange, handleSubmit, handleCheckBoxChange, errorMsg, formSize, handleChangeBarcode };
 }

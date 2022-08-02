@@ -161,6 +161,7 @@ const ShoppingCart = (props) => {
                 amount={totalEndPrice * 100}
                 billingAddress
                 shippingAddress
+                label="Checkout"
               />
             </div>
           </div>

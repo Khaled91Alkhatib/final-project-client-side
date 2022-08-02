@@ -80,6 +80,8 @@
 .name-price {
   margin-top: 4em;
   margin-bottom: 2em;
+  display: flex;
+
 }
 
 .category-style-color {
@@ -142,4 +144,11 @@
   padding: 1em;
   margin: 0.5em;
   width: 40vw;
+}
+
+.button-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
 }

@@ -90,6 +90,23 @@ function App() {
   const addProduct = (newProduct, newSizes) => {
     console.log('add this --->', newProduct);
     console.log('add this --->', newSizes);
+    axios.post('http://localhost:8100/api/products', {product: newProduct, sizeData: newSizes})
+    .then(res => {
+      console.log(res.data);
+      if(res.data.errCode === 1001) {
+        toast(`${res.data.errMsg}`, {type: 'error'})
+      } else {
+        const newAddedProduct = res.data;
+        setProducts([...products, newAddedProduct ])
+        toast(`Item with SKU:${newAddedProduct.sku} has been added!`, {type: 'success'})
+      }
+
+    })
+    .catch(error => {
+      console.log(error);
+    })
+
+
   }
 
   const editProduct = (updateProduct, updateSizes) => {
@@ -111,7 +128,7 @@ function App() {
     }
   }
 
-  // console.log('👟👞🥾', products);    // 🚨🚨🚨
+  console.log('👟👞🥾', products);    // 🚨🚨🚨
   // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
   // console.log('🧺',cart) // 🚨🚨🚨
   // console.log('👤',user) // 🚨🚨🚨

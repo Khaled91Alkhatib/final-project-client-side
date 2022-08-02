@@ -15,7 +15,6 @@ const Sizes = (props) => {
   const availableSizes = props.availableSizes;
 
   const sizeArray = availableSizes.map(item => {
-
     let class_name = item.size_id === props.select.size_id ? "size-box selected" : "size-box"
     return (
       <button 

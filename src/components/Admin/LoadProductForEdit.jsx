@@ -154,14 +154,15 @@ const LoadProductForEdit = ({product, onSubmit, onReset, availableSizes}) => {
                   variant="standard"
                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
                 />
-                {errorMsg ?
-                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText> :
                 <FormHelperText>Required</FormHelperText>
-                }
               </div>
             </FormControl>
 
-            <button type="submit" className='button-edit-page save-edit-item'>Save</button>
+            <div className='button-error'>
+              <button type="submit" className='button-edit-page save-edit-item'> Save</button>
+              {errorMsg &&
+                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText>}
+            </div>
           </div>
 
           <div className='category-style-color'>

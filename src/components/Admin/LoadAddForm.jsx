@@ -123,14 +123,15 @@ const LoadAddForm = ({onSubmit, onReset, sku}) => {
                   variant="standard"
                   startAdornment={<InputAdornment position="start">$</InputAdornment>}
                 />
-                {errorMsg ?
-                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText> :
                 <FormHelperText>Required</FormHelperText>
-                }
               </div>
             </FormControl>
+            <div className='button-error'>
+              <button type="submit" className='button-edit-page save-edit-item'> Add Item</button>
+              {errorMsg &&
+                <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText>}
 
-            <button type="submit" className='button-edit-page save-edit-item'> Add Item</button>
+            </div>
           </div>
 
           <div className='add-item-image-group'>

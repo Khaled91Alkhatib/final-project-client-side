@@ -85,12 +85,14 @@ function App() {
     }
   }, [user]);
 
-  const addProduct = (newProduct) => {
+  const addProduct = (newProduct, newSizes) => {
     console.log('add this --->', newProduct);
+    console.log('add this --->', newSizes);
   }
 
-  const editProduct = (updateProduct) => {
+  const editProduct = (updateProduct, updateSizes) => {
     console.log('update this --->', updateProduct);
+    console.log('update this --->', updateSizes);
   }
 
   function openModal() {setModalIsOpen(true);}
@@ -108,7 +110,7 @@ function App() {
   }
 
   // console.log('👟👞🥾', products);    // 🚨🚨🚨
-  console.log('🔧🪛',productSpec)   // 🚨🚨🚨
+  // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
   // console.log('🧺',cart) // 🚨🚨🚨
   // console.log('👤',user) // 🚨🚨🚨
 

@@ -88,8 +88,6 @@ function App() {
   }, [user]);
 
   const addProduct = (newProduct, newSizes) => {
-    console.log('add this --->', newProduct);
-    console.log('add this --->', newSizes);
     axios.post('http://localhost:8100/api/products', {product: newProduct, sizeData: newSizes})
     .then(res => {
       console.log(res.data);
@@ -100,18 +98,32 @@ function App() {
         setProducts([...products, newAddedProduct ])
         toast(`Item with SKU:${newAddedProduct.sku} has been added!`, {type: 'success'})
       }
-
     })
     .catch(error => {
       console.log(error);
     })
-
-
   }
 
-  const editProduct = (updateProduct, updateSizes) => {
-    console.log('update this --->', updateProduct);
-    console.log('update this --->', updateSizes);
+  const editProduct = (updateProduct, newSizes) => {
+    axios.put(`http://localhost:8100/api/products/${updateProduct.id}`, {product: updateProduct, sizeData: newSizes })
+    .then(res => {
+      if(res.data.errCode === 1002) {
+        toast(`${res.data.errMsg}`, {type: 'error'})
+      } else {
+        const updatedProduct = res.data;
+        const updatedProducts = products.map(product => {
+          if (product.id === updatedProduct.id) {
+            return updatedProduct
+          } 
+          return product
+        })
+        setProducts([...updatedProducts ])
+        toast(`Item with SKU:${updatedProduct.sku} has been edited!`, {type: 'success'})
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   function openModal() {setModalIsOpen(true);}
@@ -128,7 +140,7 @@ function App() {
     }
   }
 
-  console.log('👟👞🥾', products);    // 🚨🚨🚨
+  // console.log('👟👞🥾', products);    // 🚨🚨🚨
   // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
   // console.log('🧺',cart) // 🚨🚨🚨
   // console.log('👤',user) // 🚨🚨🚨

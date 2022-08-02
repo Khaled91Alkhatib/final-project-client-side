@@ -52,9 +52,9 @@ const AdminProduct = (props) => {
     setAvailableSizes([])
   };
 
-  console.log('SKU: ', sku);
-  console.log('Product: ', product);
-  console.log('Available: ', availableSizes);
+  // console.log('SKU: ', sku);
+  // console.log('Product: ', product);
+  // console.log('Available: ', availableSizes);
 
   return (
     <div className='admin-product-page-main'>

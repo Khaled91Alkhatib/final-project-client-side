@@ -13,16 +13,8 @@ import LoadAddForm from './LoadAddForm';
 
 import './AdminProduct.scss';
 
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
-// import OutlinedInput from '@mui/material/OutlinedInput';
-// import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 
 const AdminProduct = (props) => {
 
@@ -35,11 +27,14 @@ const AdminProduct = (props) => {
     event.preventDefault();
     const productFound = findProductBySku(products, sku);
     if (productFound) {
-      axios.get(`http://localhost:8100/api/products/${productFound.id}`).then((response) => {
+      axios.get(`http://localhost:8100/api/products/${productFound.id}`)
+      .then((response) => {
         setProduct((prev) => response.data.product);
         setAvailableSizes((prev) => response.data.availableSizes);
-      });
-      toast("Item found, you can start editing.", {type: 'success'})
+      })
+      .catch(error => {
+        toast("Server Error", {type: 'error'})
+      })
       } else {
       setProduct({sku});
       toast("New Product, Start Inserting Data", {type: 'info'})

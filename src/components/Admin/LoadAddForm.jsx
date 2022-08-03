@@ -57,7 +57,7 @@ const LoadAddForm = ({onSubmit, onReset, sku}) => {
     
   const {formData, formSize, errorMsg, loading, handleChange, uploadImage, handleCheckBoxChange, handleChangeBarcode, handleSubmit, deleteImage} = useFormAdminProduct(baseFormData, onSubmit, onReset, baseSize);
 
-  console.log('👀', formData);
+  // console.log('👀', formData);
   // console.log('🚨🚨🚨',formSize);
   
   const newSizeArray = baseSize.map((row, index) => {

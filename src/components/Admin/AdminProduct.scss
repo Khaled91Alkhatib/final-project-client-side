@@ -34,6 +34,14 @@
 
 // ----------------------------------------
 
+.add-item-section {
+  width: 100%;
+}
+
+.add-item-form {
+  margin: 2em;
+}
+
 .name-price {
   margin-top: 3em;
   margin-bottom: 1em;
@@ -131,16 +139,12 @@
   width: 40vw;
 }
 
-
-
-
-
-
-
-
-
-
-
+.edit-size-row {
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+}
 
 .button-error {
   display: flex;
@@ -170,19 +174,6 @@
   transform: scale(1.05) rotate(-1deg);
 }
 
-.add-item-section {
-  width: 100%;
-}
-
-.add-item-form {
-  margin: 2em;
-}
-
-.add-item-image-group {
-  margin-top: 2em;
-  // margin-bottom: 2em;
-}
-
 .input-feild {
   padding-right: 2em;
   margin-bottom: 3em;
@@ -204,7 +195,6 @@
   width: 10em;
 }
 .description-feild {
-  align-self: flex-end;
   width: 25em;
 }
 .size-feild {
@@ -217,13 +207,6 @@
 
 .save-edit-item {
   margin-left: 4em;
-}
-
-.edit-size-row {
-  margin-bottom: 2em;
-  display: flex;
-  justify-content: center;
-  // align-items: center;
 }
 
 input[type="file"] {

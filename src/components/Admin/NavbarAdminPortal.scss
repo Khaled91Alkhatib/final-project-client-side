@@ -1,16 +1,14 @@
 @import "src/styles/variables.scss";
 
 .nav-bar-admin {
-  border: $test;
   color: white;
   width: 100vw;
-  height: 80px;
+  height: 120px;
   background-color: #060b26;
   display: flex;
   align-items: center;
   justify-content: space-between;
   justify-self: center;
-
 
   margin: auto;
   position: fixed;
@@ -28,14 +26,9 @@
 
 }
 
-.logo-admin {
-  height: 60px;
-  // z-index: 3000;
-}
-
-.admin-logo {
-  // z-index: 2100;
-
+.shop-logo {
+  height: 120px;
+  cursor: pointer;
 }
 
 .menu-bars {
@@ -56,6 +49,7 @@
   left: -100%;
   transition: 850ms;
   z-index: 2000;
+  padding-top: 20px;
 
   span {
     margin-left: 16px;
@@ -78,9 +72,9 @@
   display: flex;
   justify-content: start;
   align-items: center;
-  padding: 18px 0px 8px 16px;
+  padding: 20px 0px 8px 16px;
   list-style: none;
-  height: 60px;
+  height: 100px;
 }
 
 .nav-text a {
@@ -112,6 +106,10 @@
   display: flex;
   justify-content: start;
   align-items: center;
+}
+
+.admin-logo {
+  font-size: 16px;
 }
 
 

@@ -50,7 +50,7 @@ const NavbarAdminPortal = (props) => {
         <NavLink to="#" className='menu-bars'>
           <FontAwesomeIcon icon="fa-solid fa-bars" onClick={() => showSidebar()} />
         </NavLink>
-        <img className='logo-admin' onClick={onClickLogo} src="../logo.png" alt="logo here" />
+        <img className='shop-logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
         {user.name && <div className='admin-logo'>
           <IconButton
             size="large"

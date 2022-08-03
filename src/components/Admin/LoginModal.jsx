@@ -24,36 +24,40 @@ const LoginModal = (props) => {
           <div className='input-login-form'>
             <div>
               <FormControl>
-                <TextField 
-                  required 
-                  variant="standard"
-                  label="name"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-                <FormHelperText>Required</FormHelperText>
+                <div className='login-username'>
+                  <TextField 
+                    required 
+                    variant="standard"
+                    label="name"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                  <FormHelperText>Required</FormHelperText>
+                </div>
               </FormControl>
             </div>
             <div>
               <FormControl>
-                <TextField 
-                  required 
-                  variant="standard"
-                  label="password"
-                  id="password"
-                  name="password"
-                  type="password" 
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-                <FormHelperText>Required</FormHelperText>
+                <div className='login-password' >
+                  <TextField 
+                    required 
+                    variant="standard"
+                    label="password"
+                    id="password"
+                    name="password"
+                    type="password" 
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <FormHelperText>Required</FormHelperText>
+                </div>
               </FormControl>
             </div>
           </div>
           {props.msg && <span className='login-error'>{props.msg}</span>}
-          <button type="submit"> Login </button>
+          <button type="submit" className="login-button"> Login </button>
         </div>
       </form>
 

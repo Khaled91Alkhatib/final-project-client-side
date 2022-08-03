@@ -3,7 +3,8 @@
 .admin-orders-page {
   border: $test2;
   padding: 130px 20px;
-  height: 100vh;
+  min-height: 78vh;
+  height: 100%;
   width: 90vw;
   margin:auto;
   margin-top:80px;

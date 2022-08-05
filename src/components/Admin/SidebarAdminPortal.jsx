@@ -17,6 +17,13 @@ export const SidebarAdminPortal = [
   },
 
   {
+    title: 'Inventory',
+    path: '/dashboard/inventory',
+    icon: <FontAwesomeIcon icon="fa-solid fa-warehouse" />,
+    cName: 'nav-text'
+  },
+
+  {
     title: 'Orders',
     path: '/dashboard/orders',
     icon: <FontAwesomeIcon icon="fa-solid fa-basket-shopping" />,

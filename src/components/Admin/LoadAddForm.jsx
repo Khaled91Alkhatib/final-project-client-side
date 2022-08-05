@@ -148,7 +148,7 @@ const LoadAddForm = ({onSubmit, onReset, sku}) => {
             </div>
 
             <div className='button-error'>
-              <button type="submit" className='button-edit-page save-edit-item'> Add Item</button>
+              <button type="submit" className='btn-admin-page btn-add-product'> Add Item</button>
               {errorMsg &&
                 <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText>}
             </div>

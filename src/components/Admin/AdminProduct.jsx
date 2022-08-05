@@ -76,10 +76,10 @@ const AdminProduct = (props) => {
                   </div>
                 </FormControl>
               </div>
-              <button type="submit" className='button-edit-page'><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /> Search</button>
+              <button type="submit" className='btn-admin-page'><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /> Search</button>
             </form>
             <div>
-              <button onClick={onResetSearch} className='button-edit-page'>Reset</button>
+              <button onClick={onResetSearch} className='btn-admin-page'>Reset</button>
             </div>
           </div>
           { product.sku && !product.name &&  <LoadAddForm onSubmit={props.onAdd} onReset={onResetSearch} sku={sku}/>}

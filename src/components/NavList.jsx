@@ -57,7 +57,7 @@ const NavList = (props) => {
         <img className='logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
         <div className='left-and-right-navs'>
           <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-phone" size='lg' />&nbsp; Contact Us</button>
-          <button onClick={() => { setCartClick(true); }} className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" size='lg' /><span className='badge badge-warning' id='lblCartCount'> {numberOfItemsInCart} </span>&nbsp; Shopping Cart</button>
+          <button disabled={cart.length === 0} onClick={() => { setCartClick(true); }} className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" size='lg' /><span className='badge badge-warning' id='lblCartCount'> {numberOfItemsInCart} </span>&nbsp; Shopping Cart</button>
           {cartClick && <ShoppingCart continueShopping={setCartClick} modalRef={ref} />}
         </div>
       </div>

@@ -30,7 +30,7 @@ const SingleProduct = (props) => {
 
   console.log("selectedSize", selectedSize)
   useEffect(() => {
-    if (products && products.filter(product => product.id === id).id) {
+    if (products) {
       getProductById(id);
     }
   }, []);
@@ -86,7 +86,7 @@ const SingleProduct = (props) => {
       }
     })
     .catch(error => {
-      toast("Server Error", {type: 'error'})
+      console.log(error.message)
     })
   };
 

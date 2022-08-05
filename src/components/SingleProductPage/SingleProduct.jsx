@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import LinearProgress from "@mui/material/LinearProgress";
 
-
+import NotExistPage from "../NotExistPage";
 import ProductsContext from "../../contexts/ProductsContext";
 import CartContext from "../../contexts/CartContext";
 import Image from "./Image";
@@ -78,8 +78,12 @@ const SingleProduct = (props) => {
   const getProductById = (id) => {
     axios.get(`http://localhost:8100/api/products/${id}`).then((response) => {
       // handle success
-      setProduct((prev) => response.data.product);
       setAvailableSizes((prev) => response.data.availableSizes);
+      if (response.data.product) {
+        setProduct((prev) => response.data.product);
+      } else {
+        setProduct({});
+      }
     })
     .catch(error => {
       toast("Server Error", {type: 'error'})
@@ -141,7 +145,7 @@ const SingleProduct = (props) => {
   };
 
   // console.log("counter", counter)
-  // console.log("👟", product);         // 🚨🚨🚨
+  console.log("👟", product);         // 🚨🚨🚨
   // console.log('⚫️⚪️',colorsFamily);    // 🚨🚨🚨
   // console.log('🗾',images);           // 🚨🚨🚨
   // console.log("◻️◾️", availableSizes);  // 🚨🚨🚨
@@ -150,7 +154,7 @@ const SingleProduct = (props) => {
   return (
     <div className="single-product">
        <ToastContainer />
-      {products.length !== 0 &&
+      {products.length !== 0 && Object.keys(product).length !== 0 &&
         <div className="single-box">
           <Image
             className="product-image"
@@ -200,6 +204,9 @@ const SingleProduct = (props) => {
             </div>
           </div>
         </div>
+      }
+      {products.length !== 0 && Object.keys(product).length === 0 &&
+        <NotExistPage />
       }
       {(products.length === 0) && (
         <div className="page-loading">

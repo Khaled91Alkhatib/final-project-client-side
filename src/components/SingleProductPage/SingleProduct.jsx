@@ -27,8 +27,7 @@ const SingleProduct = (props) => {
   const { products } = useContext(ProductsContext);
   const { setCart, cart } = useContext(CartContext);
 
-
-  console.log("selectedSize", selectedSize)
+  // console.log("selectedSize", selectedSize)
   useEffect(() => {
     if (products) {
       getProductById(id);
@@ -77,6 +76,7 @@ const SingleProduct = (props) => {
 
   const getProductById = (id) => {
     axios.get(`http://localhost:8100/api/products/${id}`).then((response) => {
+      console.log(response.data);
       // handle success
       setAvailableSizes((prev) => response.data.availableSizes);
       if (response.data.product) {
@@ -145,7 +145,7 @@ const SingleProduct = (props) => {
   };
 
   // console.log("counter", counter)
-  console.log("👟", product);         // 🚨🚨🚨
+  // console.log("👟", product);         // 🚨🚨🚨
   // console.log('⚫️⚪️',colorsFamily);    // 🚨🚨🚨
   // console.log('🗾',images);           // 🚨🚨🚨
   // console.log("◻️◾️", availableSizes);  // 🚨🚨🚨

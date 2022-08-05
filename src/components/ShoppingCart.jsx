@@ -14,7 +14,26 @@ const ShoppingCart = (props) => {
   toast.configure();
 
   const { cart, setCart } = useContext(CartContext);
-  // console.log("khaled", cart);
+  console.log("khaled", cart);
+
+  useEffect(()=> {
+    console.log(cart);
+    axios.get("http://localhost:8100/orders/validation")
+    .then(res => {
+      const updatedInfo = res.data.updatedInfo;
+      console.log(updatedInfo);
+      const updateCart = cart.map(product => {
+        const goodData = updatedInfo.filter(row => row.barcode === product.barcode)[0];
+
+        if (goodData.qty > 0 && product.quantity > goodData.qty) {
+          return ({...product, availability: goodData.qty, price: goodData.price, quantity: goodData.qty})
+        } else {
+          return ({...product, availability: goodData.qty, price: goodData.price })
+        }
+      })
+      setCart(updateCart.filter(row => row.availability !== 0));
+    })
+  }, [])
 
   const onRemoveClick = (barcode) => {
     setCart(pre => pre.filter(item => !(barcode === item.barcode)));
@@ -34,7 +53,7 @@ const ShoppingCart = (props) => {
   async function handleToken(token, addresses) {
     let response;
     try {
-      response = await axios.post("http://localhost:8100/checkout", { token, cart });
+      response = await axios.post("http://localhost:8100/orders", { token, cart });
       console.log('stripe response', response);
 
     } catch (error) {
@@ -164,7 +183,7 @@ const ShoppingCart = (props) => {
                 token={handleToken}
                 amount={Math.floor(totalAfterTaxes)}
                 billingAddress
-                shippingAddress
+                // shippingAddress
                 label="Checkout"
               />
             </div>

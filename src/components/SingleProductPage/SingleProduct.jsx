@@ -30,7 +30,7 @@ const SingleProduct = (props) => {
 
   console.log("selectedSize", selectedSize)
   useEffect(() => {
-    if (products) {
+    if (products && products.filter(product => product.id === id).id) {
       getProductById(id);
     }
   }, []);

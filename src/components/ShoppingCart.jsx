@@ -26,6 +26,8 @@ const ShoppingCart = (props) => {
     // console.log('all product prices', totalPriceOfEachProduct);
     return totalPriceOfEachProduct + total;
   }, 0);
+  const taxes = totalEndPrice * 13/100
+  const totalAfterTaxes = ((totalEndPrice + taxes) * 100).toFixed(2)
 
   const cartItemsNumber = cart.reduce((pre, cur) => pre + cur.quantity, 0);
 
@@ -43,6 +45,8 @@ const ShoppingCart = (props) => {
     if (response.status === 200) {
       toast("Successful Payment", { type: "success" });
       setCart([]);
+      // POST DATA to DB
+      // axios.post('/', { cart })
     } else {
       toast("Payment is not successful", { type: "error" });
     }
@@ -66,7 +70,7 @@ const ShoppingCart = (props) => {
             </button>
           </div>
         ) : (
-          <div className="main-layout">
+          <div className="cart-main-layout">
             <div className="item-number">
               {cartItemsNumber === 1 ? '1 item' : `${cartItemsNumber} items`}
             </div>
@@ -146,7 +150,8 @@ const ShoppingCart = (props) => {
               </tbody>
             </table>
             <div className="total">
-              <h3>Total: &nbsp;CAD {totalEndPrice}</h3>
+              <h4>Estimated GST/HST: CAD {taxes.toFixed(2)}</h4>
+              <h3 className="total-end-price">Total: &nbsp;CAD {(totalEndPrice + taxes).toFixed(2)}</h3>
               <button
                 onClick={() => {
                   props.continueShopping(false);
@@ -154,11 +159,10 @@ const ShoppingCart = (props) => {
               >
                 Continue Shopping
               </button>
-              {/* <button>Checkout</button> */}
               <StripeCheckout
                 stripeKey={process.env.REACT_APP_STRIPE_KEY}
                 token={handleToken}
-                amount={totalEndPrice * 100}
+                amount={Math.floor(totalAfterTaxes)}
                 billingAddress
                 shippingAddress
                 label="Checkout"

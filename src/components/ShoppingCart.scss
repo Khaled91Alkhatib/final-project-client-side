@@ -20,7 +20,7 @@
   overscroll-behavior: contain;
 }
 
-.main-layout {
+.cart-main-layout {
   padding: 10px 10px 10px 10px;
 }
 
@@ -89,4 +89,8 @@ th {
 .total {
   margin-right: 16px;
   text-align: right;
+}
+
+.total-end-price {
+  color: #eb8102;
 }

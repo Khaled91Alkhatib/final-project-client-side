@@ -1,0 +1,72 @@
+@import "src/styles/variables.scss";
+
+.admin-inventory-page-main {
+  // border: $test2;
+  padding: 20px 20px;
+  min-height: 78vh;
+  height: 100%;
+  width: 90vw;
+  margin:auto;
+  margin-top:120px;
+}
+
+.admin-inventory-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+}
+
+.search-barcode-set-qty {
+  // border: $test;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.search-barcode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-barcode-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.set-qty-form {
+  display: flex;
+  padding: 1em;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btn-add-qty {
+  margin-top: 1em;
+  padding: 7px 10px;
+  width: 160px;
+}
+
+// ----------------------------------------
+
+.inventory-section {
+  width: 100%;
+
+  th {
+    font-size: 18px;
+  }
+
+  .select {
+    background-color: limegreen;
+  }
+}
+
+.even-row-inventory {
+  background-color: Gainsboro;
+}

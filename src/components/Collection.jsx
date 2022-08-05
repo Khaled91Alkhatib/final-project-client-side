@@ -161,9 +161,9 @@ const Collection = () => {
 
       <div className="products">{productsLinkArray}</div>
 
-      {products && selection.length === 0 && <NotExistPage />}
+      {products.length !== 0 && selection.length === 0 && <NotExistPage />}
 
-      {(!products || products.length === 0) && (
+      {(products.length === 0) && (
         <div className="page-loading">
           <LinearProgress color="secondary" />
         </div>

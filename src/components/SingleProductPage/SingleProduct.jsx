@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useParams, useSearchParams } from "react-router-dom";
-
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import LinearProgress from "@mui/material/LinearProgress";
+
 
 import ProductsContext from "../../contexts/ProductsContext";
+import CartContext from "../../contexts/CartContext";
 import Image from "./Image";
 import Colors from "./Colors";
 import Sizes from "./Sizes";
 
 import "./SingleProduct.scss";
-import CartContext from "../../contexts/CartContext";
 
 const SingleProduct = (props) => {
   const [id, setId] = useState(Number(useParams().id));
@@ -76,7 +80,10 @@ const SingleProduct = (props) => {
       // handle success
       setProduct((prev) => response.data.product);
       setAvailableSizes((prev) => response.data.availableSizes);
-    });
+    })
+    .catch(error => {
+      toast("Server Error", {type: 'error'})
+    })
   };
 
   // image click left
@@ -142,55 +149,63 @@ const SingleProduct = (props) => {
 
   return (
     <div className="single-product">
-      <div className="single-box">
-        <Image
-          className="product-image"
-          images={images}
-          onLeft={rotateLeft}
-          onRight={rotateRight}
-        />
-        <div className="item-details">
-          <span className="product-name">{product.name}</span>
-          <div>SKU #{product.sku} </div>
-          <br />
-          <span className="product-price">
-            ${(product.price / 100).toFixed(2)}
-          </span>
-          <br />
-          <br />
-          <div className="product-color">
-            <span>Color: {product.color}</span>
-            <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
-          </div>
-          <br />
-          <br />
-          <div className="product-size-title">Size:</div>
-          <Sizes
-            availableSizes={availableSizes}
-            onSelectSize={onSelectSize}
-            select={selectedSize} /*onAdd={onAdd}*/
+       <ToastContainer />
+      {products.length !== 0 &&
+        <div className="single-box">
+          <Image
+            className="product-image"
+            images={images}
+            onLeft={rotateLeft}
+            onRight={rotateRight}
           />
-          <button
-            className="add-to-cart tool-tip"
-            disabled={!selectedSize.id}
-            onClick={addToCart}
-          >
-            Add To Cart
+          <div className="item-details">
+            <span className="product-name">{product.name}</span>
+            <div>SKU #{product.sku} </div>
             <br />
-            <span className={selectedSize.id ? "tool-tip-text-disabled" : "tool-tip-text"}>Please Choose Size!</span>
-          </button>
-          <br />
-          {/* <span>{product.description}</span> */}
-          <div>
-            <ul className="list">
-              <span className="Desc-title">DESCRIPTION</span>
+            <span className="product-price">
+              ${(product.price / 100).toFixed(2)}
+            </span>
+            <br />
+            <br />
+            <div className="product-color">
+              <span>Color: {product.color}</span>
+              <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
+            </div>
+            <br />
+            <br />
+            <div className="product-size-title">Size:</div>
+            <Sizes
+              availableSizes={availableSizes}
+              onSelectSize={onSelectSize}
+              select={selectedSize} /*onAdd={onAdd}*/
+            />
+            <button
+              className="add-to-cart tool-tip"
+              disabled={!selectedSize.id}
+              onClick={addToCart}
+            >
+              Add To Cart
               <br />
-              <br />
-              {description}
-            </ul>
+              <span className={selectedSize.id ? "tool-tip-text-disabled" : "tool-tip-text"}>Please Choose Size!</span>
+            </button>
+            <br />
+            {/* <span>{product.description}</span> */}
+            <div>
+              <ul className="list">
+                <span className="Desc-title">DESCRIPTION</span>
+                <br />
+                <br />
+                {description}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      }
+      {(products.length === 0) && (
+        <div className="page-loading">
+          <LinearProgress color="secondary" />
+        </div>
+      )}
     </div>
   );
 };

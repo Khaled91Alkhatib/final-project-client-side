@@ -58,7 +58,7 @@ const LoadProductForEdit = ({product, onSubmit, onReset, availableSizes}) => {
   
   const {formData, formSize, errorMsg, loading, handleChange, uploadImage, handleCheckBoxChange, handleChangeBarcode, handleSubmit, deleteImage} = useFormAdminProduct(baseFormData, onSubmit, onReset, baseSize);
 
-  // console.log('🚨🚨🚨',formData);
+  console.log('🚨🚨🚨',formData);
   // console.log('🚨🚨🚨',formSize);
 
   const newSizeArray = baseSize.map((row, index) => {
@@ -178,7 +178,7 @@ const LoadProductForEdit = ({product, onSubmit, onReset, availableSizes}) => {
             </div>
 
             <div className='button-error'>
-              <button type="submit" className='button-edit-page save-edit-item'> Save</button>
+              <button type="submit" className='btn-admin-page btn-edit-product'> Save</button>
               {errorMsg &&
                 <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText>}
             </div>

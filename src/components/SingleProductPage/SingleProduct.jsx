@@ -23,6 +23,8 @@ const SingleProduct = (props) => {
   const { products } = useContext(ProductsContext);
   const { setCart, cart } = useContext(CartContext);
 
+
+  console.log("selectedSize", selectedSize)
   useEffect(() => {
     if (products) {
       getProductById(id);
@@ -104,6 +106,7 @@ const SingleProduct = (props) => {
       barcode: selectedSize.barcode,
       size: selectedSize.size,
       availability: selectedSize.quantity,
+      product_id: product.id,
 
       name: product.name,
       color: product.color,

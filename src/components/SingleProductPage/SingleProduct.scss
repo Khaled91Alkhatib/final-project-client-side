@@ -37,6 +37,16 @@
   font-weight: 700;
 }
 
+.product-color {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.color-title {
+  padding-bottom: 5px;
+}
+
 .product-size-title,
 .product-color {
   font-weight: bold;

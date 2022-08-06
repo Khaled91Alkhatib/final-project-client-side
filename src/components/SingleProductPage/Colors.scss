@@ -6,20 +6,24 @@
 }
 
 .color-selected {
-  border: $test;
+  // border: $test;
   border-radius: 50%;
 }
 
 .btn {
   align-self: center;
-  margin: 0.2em;
-  height: 30px;
-  width: 30px;
+  margin: 7px;
+  height: 28px;
+  width: 28px;
   border-radius: 50%;
-  border: 0.3em double black;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1pt #ccc;
 
   &:hover {
-    cursor          : pointer;
+    cursor: pointer;
+  }
+  &:focus {
+    box-shadow: 0 0 0 1.5pt black;
   }
 }
 
@@ -63,6 +67,6 @@
   border: 0.3em double black;
 
   &:hover {
-    cursor          : pointer;
+    cursor: pointer;
   }
 }

@@ -25,6 +25,25 @@
     cursor: pointer;
   }
 }
+.all-filters {
+  display: flex;
+  flex-direction: column;
+  width: 94%;
+}
+
+.color-and-style-filters {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  margin: auto;
+}
+
+.color,
+.price {
+  font-family: fantasy;
+  font-weight: 900;
+  font-size: 16px;
+}
 
 .buttons {
   width: 94%;
@@ -41,6 +60,17 @@
   width: 80%;
   margin: auto;
   flex-wrap: wrap;
+}
+
+.all-specific-filters {
+  padding-left: 100px;
+}
+
+.single-filter {
+  background-color: white;
+  border-radius: 8px;
+  border-color: grey;
+  margin: 1em;
 }
 
 .page-loading {

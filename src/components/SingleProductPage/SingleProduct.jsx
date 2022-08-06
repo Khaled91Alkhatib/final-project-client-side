@@ -152,8 +152,7 @@ const SingleProduct = (props) => {
   // console.log("💢", selectedSize);    // 🚨🚨🚨
 
   return (
-    <div className="single-product">
-       <ToastContainer />
+    <div className="single-product">       
       {products.length !== 0 && Object.keys(product).length !== 0 &&
         <div className="single-box">
           <Image

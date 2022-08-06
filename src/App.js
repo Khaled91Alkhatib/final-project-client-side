@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes, useMatch } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import ProductsContext from './contexts/ProductsContext';
 import CartContext from './contexts/CartContext';

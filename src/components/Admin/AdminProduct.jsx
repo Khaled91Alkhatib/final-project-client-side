@@ -53,9 +53,7 @@ const AdminProduct = (props) => {
 
   return (
     <div className='admin-product-page-main'>
-      <ToastContainer />
-      {
-        user.name && 
+      {user.name && 
         <div className='admin-product-page'>
           <h3>Input SKU in order to Edit or Add new product!</h3>
           <div className='search-sku'>

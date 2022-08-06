@@ -1,11 +1,34 @@
 @import "src/styles/variables.scss";
 
-.admin-orders-page {
-  border: $test2;
-  padding: 130px 20px;
+.admin-orders-page-main {
+  // border: $test2;
+  padding: 20px 20px;
   min-height: 78vh;
   height: 100%;
   width: 90vw;
   margin:auto;
-  margin-top:80px;
+  margin-top:120px;
+}
+
+.admin-orders-page {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+}
+
+.btn-display {
+  margin-top: 1em;
+  padding: 7px 10px;
+  width: 160px;
+}
+
+.date-picker-to {
+  margin-left: 1em;
+  margin-right: 2em;
+}
+
+.orders-section {
+  width: 100%;
 }

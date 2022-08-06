@@ -14,14 +14,13 @@ import { getProducts } from "../helper/getProducts";
 import { getStyles } from "../helper/getStyles";
 import { getColors } from "../helper/getColors";
 
-import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Slider from '@mui/material/Slider';
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Slider from "@mui/material/Slider";
 
 const Collection = () => {
-
   const [selection, setSelection] = useState([]);
   const [priceFilter, setPriceFilter] = useState([]);
 
@@ -39,21 +38,32 @@ const Collection = () => {
     if (!searchParams.get("searchedPrice")) {
       setPriceFilter([0, 300]);
     } else {
-      const priceString = searchParams.get("searchedPrice").split(',');
-      setPriceFilter([Number(priceString[0]),Number(priceString[1])]);
+      const priceString = searchParams.get("searchedPrice").split(",");
+      setPriceFilter([Number(priceString[0]), Number(priceString[1])]);
     }
   }, []);
 
   // get the selection base on all possible filters
   useEffect(() => {
-    setSelection((prev) => getProducts(products, category, style, color, priceRange));
+    setSelection((prev) =>
+      getProducts(products, category, style, color, priceRange)
+    );
   }, [products, category, style, color, priceRange]);
 
   const productsLinkArray =
-    selection && selection.map((product) => {
+    selection &&
+    selection.map((product) => {
       // pass colors family of product to it's component.
-      const colorsFamily = products.filter(row => row.sku.slice(0,4) === product.sku.slice(0,4))
-      return <Product key={product.id} product={product} colorOptions={colorsFamily}/>;
+      const colorsFamily = products.filter(
+        (row) => row.sku.slice(0, 4) === product.sku.slice(0, 4)
+      );
+      return (
+        <Product
+          key={product.id}
+          product={product}
+          colorOptions={colorsFamily}
+        />
+      );
     });
 
   // Filter by Style
@@ -64,8 +74,8 @@ const Collection = () => {
           className="style-buttons"
           key={index}
           onClick={() => {
-            searchParams.set("searchedStyle", style)
-            setSearchParams(searchParams)
+            searchParams.set("searchedStyle", style);
+            setSearchParams(searchParams);
           }}
         >
           {style}
@@ -80,11 +90,11 @@ const Collection = () => {
       return (
         <MenuItem value={color} key={index}>
           <button
-            className={`btn2 ${color.toLowerCase()}`} 
+            className={`btn2 ${color.toLowerCase()}`}
             key={index}
             onClick={() => {
-              searchParams.set("searchedColor", color)
-              setSearchParams(searchParams)
+              searchParams.set("searchedColor", color);
+              setSearchParams(searchParams);
             }}
           />
         </MenuItem>
@@ -111,59 +121,90 @@ const Collection = () => {
             <FontAwesomeIcon icon="fa-solid fa-filter" />
           </div>
         </div>
-        <div className="buttons">{stylesButtonsArray}</div>
+        <div className="all-filters">
+          <div className="buttons">{stylesButtonsArray}</div>
+          <div className="color-and-style-filters">
+            {/* set Color filter */}
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 10 }}>
+              <Select value="" displayEmpty>
+                <MenuItem value="">
+                  <div className="color">Color</div>
+                </MenuItem>
+                {colorsButtonsArray}
+              </Select>
+            </FormControl>
+
+            {/* set Price filter */}
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+              <Select value="" displayEmpty>
+                <MenuItem value="">
+                  <div className="price">Price</div>
+                </MenuItem>
+                <div className="slider-price">
+                  <Box sx={{ width: 200 }}>
+                    <Slider
+                      step={50}
+                      marks
+                      min={0}
+                      max={300}
+                      valueLabelDisplay="auto"
+                      value={priceFilter}
+                      onChange={handleChangePriceFilter}
+                    />
+                  </Box>
+                </div>
+              </Select>
+            </FormControl>
+          </div>
+        </div>
       </div>
 
-        <div>
-      {/* set Color filter */}
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 10 }}>
-            <Select value="" displayEmpty>
-              <MenuItem value=""><em>Color</em></MenuItem>
-              {colorsButtonsArray}
-            </Select>
-          </FormControl>
-      {/* set Price filter */}
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-            <Select value="" displayEmpty >
-              <MenuItem value=""><em>$ Price</em></MenuItem>
-              <div className="slider-price">
-                <Box sx={{ width: 200 }} >
-                  <Slider
-                    step={50}
-                    marks
-                    min={0}
-                    max={300}
-                    valueLabelDisplay="auto"
-                    value={priceFilter}
-                    onChange={handleChangePriceFilter}
-                  />
-                </Box>
-              </div>
-            </Select>
-          </FormControl>
-        </div>
+      <div className="all-specific-filters">
+        {/* clear style filter */}
+        {style && (
+          <button
+            className="single-filter"
+            onClick={() => {
+              searchParams.delete("searchedStyle");
+              setSearchParams(searchParams);
+            }}
+          >
+            {style} <FontAwesomeIcon icon="fa-solid fa-xmark" />
+          </button>
+        )}
 
-    {/* clear style filter */}
-      {style && <button
-        onClick={() => {searchParams.delete("searchedStyle")
-        setSearchParams(searchParams)}} >{style} <FontAwesomeIcon icon="fa-solid fa-xmark" /></button>}
+        {/* clear color filter */}
+        {color && (
+          <button
+            className="single-filter"
+            onClick={() => {
+              searchParams.delete("searchedColor");
+              setSearchParams(searchParams);
+            }}
+          >
+            {color} <FontAwesomeIcon icon="fa-solid fa-xmark" />
+          </button>
+        )}
 
-    {/* clear color filter */}
-      {color && <button
-        onClick={() => {searchParams.delete("searchedColor")
-        setSearchParams(searchParams)}}>{color} <FontAwesomeIcon icon="fa-solid fa-xmark" /></button>}
-
-      {priceRange && !(priceRange[0] === 0 && priceRange[1] === 300) && <button
-        onClick={() => {
-          searchParams.delete("searchedPrice")
-          setSearchParams(searchParams)
-          setPriceFilter([0, 300])}}>${priceFilter[0]} - ${priceFilter[1]} <FontAwesomeIcon icon="fa-solid fa-xmark" /></button>}
-
+        {priceRange && !(priceRange[0] === 0 && priceRange[1] === 300) && (
+          <button
+            className="single-filter"
+            onClick={() => {
+              searchParams.delete("searchedPrice");
+              setSearchParams(searchParams);
+              setPriceFilter([0, 300]);
+            }}
+          >
+            ${priceFilter[0]} - ${priceFilter[1]}{" "}
+            <FontAwesomeIcon icon="fa-solid fa-xmark" />
+          </button>
+        )}
+      </div>
       <div className="products">{productsLinkArray}</div>
 
       {products.length !== 0 && selection.length === 0 && <NotExistPage />}
 
-      {(products.length === 0) && (
+      {products.length === 0 && (
         <div className="page-loading">
           <LinearProgress color="secondary" />
         </div>

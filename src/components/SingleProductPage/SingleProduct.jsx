@@ -171,7 +171,7 @@ const SingleProduct = (props) => {
             <br />
             <br />
             <div className="product-color">
-              <span>Color: {product.color}</span>
+              <span className="color-title">Color: {product.color}</span>
               <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
             </div>
             <br />

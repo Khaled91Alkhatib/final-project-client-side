@@ -28,14 +28,16 @@ const Product = ({product, colorOptions}) => {
       <NavLink  to={`${productX.id}`}>
 
       <p>
-        <img className='product-image' src={`${productX.image1}`} alt="pro" width="300" height="300"/>
+        <img className='product-image' src={`${productX.image1}`} alt="pro" width="317" height="317"/>
       </p>
+      </NavLink>
+      <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
+      <NavLink to={`${productX.id}`}>
       <div className='name-and-price'>
         <div className='name-only'>{productX.name}</div>
         <div className='price-only'>CAD {productX.price / 100}</div>
       </div>
       </NavLink>
-      <Colors colorsFamily={colorsFamily} onColor={changeColorHandler} />
     </div>
   );
 };

@@ -25,7 +25,7 @@ export const BarChartProduct = ({barData}) => {
       <VictoryBar
         style={{ data: { fill: "CornflowerBlue", fillOpacity: 1	 } }}
         alignment="end"
-        barRatio={0.4}
+        barRatio={0.5}
         data={barData}
         // data accessor for x values
         x="x"
@@ -58,7 +58,7 @@ export const BarChartSale = ({barData}) => {
       <VictoryBar
         style={{ data: { fill: "ForestGreen", fillOpacity: 1	 } }}
         alignment="end"
-        barRatio={0.4}
+        barRatio={0.5}
         data={barData}
         // data accessor for x values
         x="x"
@@ -90,7 +90,7 @@ export const BarChartColor = ({barData}) => {
       <VictoryBar
         style={{ data: { fill: "Orchid", fillOpacity: 1	 } }}
         alignment="end"
-        barRatio={0.4}
+        barRatio={0.5}
         data={barData}
         // data accessor for x values
         x="x"

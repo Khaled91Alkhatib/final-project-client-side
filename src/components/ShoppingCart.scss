@@ -107,7 +107,8 @@ table {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 550;
   font-size: 14px;
-  background-color: #ff8c00;
+  background-image: linear-gradient(#ff7d14, #ff4e00);
+  // background-color: #ff8c00;
   margin-top: 1em;
   // padding: 0 12px;
   border: none;
@@ -115,9 +116,11 @@ table {
   position: relative;
   height: 30px;
   line-height: 30px;
+  color: white;
+  box-shadow: 0 2px 2px grey;
   &:hover {
-    background-color: black;
-    color: white;
+    // background-color: black;
+    color: black;
     cursor: pointer;
   }
   &.top-continue-shopping {

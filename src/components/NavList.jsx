@@ -50,17 +50,19 @@ const NavList = (props) => {
   return (
     <div className="nav-bar">
       <div className="all-buttons">
+        <div className='logo-to-name'>
+          <img className='logo-image' onClick={onClickLogo} src='../logo3.png' />
+          <div className='logo' onClick={onClickLogo}>The Shoebox</div>
+        </div>
         <div className='left-and-right-navs'>
           <button className='nav-buttons'><NavLink className="navlink" to="/collection/men"> Men's Collection</NavLink></button>
           <button className='nav-buttons'><NavLink className="navlink" to="/collection/women"> Women's Collection</NavLink></button>
-        </div>
-        <img className='logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
-        <div className='left-and-right-navs'>
           <button className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-phone" size='lg' />&nbsp; Contact Us</button>
-          <button disabled={cart.length === 0} onClick={() => { setCartClick(true); }} className='nav-buttons'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" size='lg' /><span className='badge badge-warning' id='lblCartCount'> {numberOfItemsInCart} </span>&nbsp; Shopping Cart</button>
+          <button disabled={cart.length === 0} onClick={() => { setCartClick(true); }} className='nav-buttons last-one'><FontAwesomeIcon icon="fa-solid fa-bag-shopping" size='lg' /><span className='badge badge-warning' id='lblCartCount'> {numberOfItemsInCart} </span>&nbsp; Shopping Cart</button>
           {cartClick && <ShoppingCart continueShopping={setCartClick} modalRef={ref} />}
         </div>
       </div>
+      <div className='below-nav'>Enjoy our <strong>&nbsp;Free&nbsp;</strong> shipping</div>
     </div>
   );
 };

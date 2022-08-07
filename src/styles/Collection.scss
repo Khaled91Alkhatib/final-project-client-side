@@ -5,8 +5,8 @@
   border-bottom: #d7d7d7 0.07143rem solid;
   width: 90%;
   margin: auto;
-  font-family: fantasy;
-  font-size: 18px;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+  font-size: 15px;
   display: flex;
 }
 
@@ -15,9 +15,9 @@
   flex-direction: row;
 }
 .style-buttons {
-  font-size: 16px;
-  font-family: fantasy;
-  font-weight: 900;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #7d7b7c;
   border: none;
   background-color: white;
 
@@ -40,9 +40,10 @@
 
 .color,
 .price {
-  font-family: fantasy;
-  font-weight: 900;
-  font-size: 16px;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+  // font-weight: 900;
+  font-size: 13px;
+  color: #7d7b7c;
 }
 
 .buttons {
@@ -67,9 +68,11 @@
 }
 
 .single-filter {
+  font-family: Raleway, Arial, Helvetica, sans-serif;
   background-color: white;
   border-radius: 8px;
-  border-color: grey;
+  font-size: 12px;
+  // border-color: grey;
   margin: 1em;
 }
 

@@ -17,13 +17,13 @@
 }
 
 .size-box {
-  font-family: Semplicita;
+  font-family: Raleway, sans-serif;
   border: 1px solid #ccc;
   background-color: snow;
-  height: 49px;
-  width: 49px;
+  height: 46px;
+  width: 46px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 13px;
   border-radius: 5px;
   &:disabled {
     cursor: not-allowed;

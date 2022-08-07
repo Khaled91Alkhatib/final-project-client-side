@@ -1,13 +1,17 @@
 .image-container {
   position: relative;
+  display: flex;
+  justify-content: center;
+
   // text-align: center;
   // display: block;
   // z-index: 200;
 }
 
 .main-image {
-  padding-top: 100px;
-  width: 100%;
+  padding-top: 110px;
+  width: 90%;
+  // height: 400px;
 }
 
 .text-in-image {
@@ -25,7 +29,7 @@
 .text-under-image {
   width: 70%;
   margin: auto;
-  font-family: system-ui;
+  font-family: Raleway, sans-serif;
   padding: 20px;
 }
 
@@ -48,20 +52,21 @@
 }
 
 .location-and-hours {
-  font-family: system-ui;
+  font-family: Raleway, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  line-height: 130%;
 }
 
 .location,
 .hours {
-  border-bottom: solid;
+  text-decoration: underline;
 }
 
 .complimentary-info {
-  font-family: system-ui;
+  font-family: Raleway, sans-serif;
   font-size: 16px;
   width: 70%;
   margin: auto;

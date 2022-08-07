@@ -11,10 +11,9 @@ import "./ShoppingCart.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 const ShoppingCart = (props) => {
-  toast.configure();
 
   const { cart, setCart } = useContext(CartContext);
-  console.log("khaled", cart);
+  // console.log("khaled", cart);
 
   useEffect(() => {
     console.log("cart", cart);
@@ -43,6 +42,11 @@ const ShoppingCart = (props) => {
       });
       setCart(updateCart.filter((row) => row.availability !== 0));
     });
+
+    setTimeout(() => {
+      props.continueShopping(false);
+    }, 600000);
+
   }, []);
 
   const onRemoveClick = (barcode) => {

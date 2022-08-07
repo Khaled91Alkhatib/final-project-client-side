@@ -8,7 +8,7 @@ import "../styles/Collection.scss";
 
 import ProductsContext from "../contexts/ProductsContext";
 import Product from "./Product";
-import NotExistPage from "./NotExistPage";
+import ItemNotFound from "./ItemNotFound";
 
 import { getProducts } from "../helper/getProducts";
 import { getStyles } from "../helper/getStyles";
@@ -19,6 +19,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
+
 
 const Collection = () => {
   const [selection, setSelection] = useState([]);
@@ -202,7 +203,7 @@ const Collection = () => {
       </div>
       <div className="products">{productsLinkArray}</div>
 
-      {products.length !== 0 && selection.length === 0 && <NotExistPage />}
+      {products.length !== 0 && selection.length === 0 && <ItemNotFound />}
 
       {products.length === 0 && (
         <div className="page-loading">

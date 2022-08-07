@@ -69,7 +69,7 @@
     cursor: pointer;
     &:disabled {
       background-color: red;
-      cursor: not-allowed;
+      // cursor: not-allowed;
     }
   }
 }

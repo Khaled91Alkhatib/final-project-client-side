@@ -8,7 +8,7 @@ export const BarChartProduct = ({barData}) => {
 
   return (
     <VictoryChart domainPadding={30} theme={VictoryTheme.material}>
-      <VictoryLabel text="Quantity" x={10} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
+      <VictoryLabel text="Quantity" x={0} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
       <VictoryLabel text="Product" x={170} y={320} textAnchor="middle" backgroundStyle={{ fill: "LightGoldenrodYellow" }} backgroundPadding={8}/>
       <VictoryLabel text="Best Selling Products" x={170} y={30} textAnchor="middle"/>
       <VictoryAxis 
@@ -40,7 +40,7 @@ export const BarChartSale = ({barData}) => {
 
   return (
     <VictoryChart domainPadding={30} theme={VictoryTheme.material}>
-      <VictoryLabel text="Total" x={10} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
+      <VictoryLabel text="Total" x={0} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
       <VictoryLabel text="Date" x={170} y={320} textAnchor="middle" backgroundStyle={{ fill: "LightGoldenrodYellow" }} backgroundPadding={8}/>
       <VictoryLabel text="Total Sale - Last 5 Days" x={170} y={30} textAnchor="middle"/>
       <VictoryAxis 
@@ -73,7 +73,7 @@ export const BarChartColor = ({barData}) => {
 
   return (
     <VictoryChart domainPadding={30} theme={VictoryTheme.material}>
-      <VictoryLabel text="Quantity" x={10} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
+      <VictoryLabel text="Quantity" x={0} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
       <VictoryLabel text="Color" x={170} y={330} textAnchor="middle" backgroundStyle={{ fill: "LightGoldenrodYellow" }} backgroundPadding={8}/>
       <VictoryLabel text="Most Popular Color" x={170} y={30} textAnchor="middle"/>
       <VictoryAxis 
@@ -105,7 +105,7 @@ export const BarChartSize = ({barData}) => {
 
   return (
     <VictoryChart domainPadding={30} theme={VictoryTheme.material}>
-      <VictoryLabel text="Quantity" x={10} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
+      <VictoryLabel text="Quantity" x={0} y={150}  angle={-90} textAnchor="middle" backgroundStyle={{ fill: "BlanchedAlmond" }} backgroundPadding={8}/>
       <VictoryLabel text="Size" x={170} y={320} textAnchor="middle" backgroundStyle={{ fill: "LightGoldenrodYellow" }} backgroundPadding={8}/>
       <VictoryLabel text="Best Selling Sizes" x={170} y={30} textAnchor="middle"/>
       <VictoryAxis 

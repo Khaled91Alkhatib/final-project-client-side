@@ -7,9 +7,9 @@ const Colors = (props) => {
     let myClass = "";
     if (product.selected) myClass = "color-selected";
     return (
-      <div className={myClass} key={product.id}>
+      <div key={product.id}>
         <button 
-          className={`${product.color.toLowerCase()} , btn`} 
+          className={`${product.color.toLowerCase()} btn ${myClass}`} 
           onClick={() => props.onColor(product)}
         />
       </div>

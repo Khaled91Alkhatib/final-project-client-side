@@ -5,11 +5,6 @@
   justify-content: center;
 }
 
-.color-selected {
-  // border: $test;
-  border-radius: 50%;
-}
-
 .btn {
   align-self: center;
   margin: 7px;
@@ -22,9 +17,18 @@
   &:hover {
     cursor: pointer;
   }
-  &:focus {
+
+  // :focus is not an html element (it's a state of an element). It is a psuedo selector meaning that it goes when u click outside
+  // &:focus {
+  //   box-shadow: 0 0 0 1.5pt black;
+  // }
+
+  &.color-selected {
+    // border: $test;
+    // border-radius: 50%;
     box-shadow: 0 0 0 1.5pt black;
   }
+  
 }
 
 .black {

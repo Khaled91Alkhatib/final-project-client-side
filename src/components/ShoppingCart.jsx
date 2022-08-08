@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartContext from "../contexts/CartContext";
 import StripeCheckout from "react-stripe-checkout";
-import Countdown from 'react-countdown';
+import Countdown from "react-countdown";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -11,6 +11,7 @@ import "./ShoppingCart.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 const ShoppingCart = (props) => {
+  const [cartCompleted, setCartCompleted] = useState(false);
 
   const { cart, setCart } = useContext(CartContext);
   // console.log("khaled", cart);
@@ -44,13 +45,16 @@ const ShoppingCart = (props) => {
     });
 
     setTimeout(() => {
-      props.continueShopping(false);
+      props.setCartClick(false);
     }, 600000);
-
   }, []);
 
   const onRemoveClick = (barcode) => {
     setCart((pre) => pre.filter((item) => !(barcode === item.barcode)));
+    if (cart.length === 1) {
+      // we choose === 1 because the setState is asynchronous
+      props.setCartClick(false);
+    }
   };
 
   const totalEndPrice = cart.reduce((total, item) => {
@@ -79,6 +83,7 @@ const ShoppingCart = (props) => {
     if (response.status === 200) {
       toast("Successful Payment", { type: "success" });
       setCart([]);
+      setCartCompleted(true);
       // POST DATA to DB
       // axios.post('/', { cart })
     } else {
@@ -91,7 +96,7 @@ const ShoppingCart = (props) => {
   return (
     <div ref={props.modalRef} className="overlay-style">
       <div className="background">
-        {cart.length === 0 ? (
+        {cartCompleted ? (
           <div className="notes-and-shopping-button">
             <div className="thank-you-note">
               Thank you for choosing The Shoebox!
@@ -101,7 +106,7 @@ const ShoppingCart = (props) => {
             <button
               className="continue-shopping"
               onClick={() => {
-                props.continueShopping(false);
+                props.setCartClick(false);
               }}
             >
               Back to The Shoebox
@@ -109,145 +114,157 @@ const ShoppingCart = (props) => {
           </div>
         ) : (
           <>
-            <h1 className="cart-title">Shopping Cart</h1>
-            <div className="align-top-shopping">
-              <button
-                className="top-continue-shopping"
-                onClick={() => {
-                  props.continueShopping(false);
-                }}
-              >
-                Continue Shopping
-              </button>
-            </div>
-            <div className="cart-main-layout">
-            <Countdown className="timer" date={Date.now() + 600000} />
-              <div className="item-number">
-                {cartItemsNumber === 1 ? "1 item" : `${cartItemsNumber} items`}
-              </div>
-              <table>
-                <thead>
-                  <tr className="headers">
-                    <th style={{ paddingLeft: "30px" }}>Item Description</th>
-                    <th style={{ textAlign: "center" }}>Quantity</th>
-                    <th style={{ textAlign: "center" }}>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cart.map((item, index) => {
-                    // console.log(item);
-                    const options = Array(item.availability)
-                      .fill(0)
-                      .map((e, index) => {
-                        return (
-                          <option value={index + 1} key={index}>
-                            {index + 1}
-                          </option>
-                        );
-                      });
-                    return (
-                      <tr key={item.barcode}>
-                        <td className="image-to-data">
-                          <div>
-                            <img
-                              src={item.image1}
-                              alt="image"
-                              width="220"
-                              height="220"
-                            />
-                          </div>
-                          <div>
-                            <div className="item-name">{item.name}</div>
-                            <div className="data-below-name">
-                              <div># {item.barcode}</div>
-                              <div style={{ marginBottom: "10px" }}>
-                                Size: {item.size}
-                              </div>
-                              <div style={{ marginBottom: "10px" }}>
-                                Color: {item.color}
-                              </div>
-                            </div>
-                            <button
-                              onClick={() => onRemoveClick(item.barcode)}
-                              className="remove-button"
-                            >
-                              <FontAwesomeIcon
-                                icon="fa-solid fa-trash-can"
-                                style={{ paddingRight: "5px" }}
-                              />
-                              Remove Item
-                            </button>
-                          </div>
-                        </td>
-                        <td className="quantity-and-price">
-                          <select
-                          // onfocus='this.size=5;' 
-                          // onblur='this.size=1;' 
-                          // onchange='this.size=1; this.blur();'
-                            onChange={(e) => {
-                              const newCart = cart.map((row) => {
-                                if (row.barcode === item.barcode) {
-                                  return {
-                                    ...row,
-                                    quantity: Number(e.target.value),
-                                  };
-                                } else {
-                                  return { ...row };
-                                }
-                              });
-                              setCart(newCart);
-                            }}
-                            value={item.quantity}
-                            // maxMenuHeight={100}
-                            // Size='5'
-                            // onmousedown ="if(this.options.length>5){this.size=5;}"
-                          >
-                            {options}
-                          </select>
-                        </td>
-                        <td className="quantity-and-price">
-                          CAD {(item.price / 100) * item.quantity}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <div>
-                <div className="totals">
-                  <h4 style={{ marginBottom: "1em" }}>
-                    <div className="total-and-sub">
-                      <div>Estimated GST/HST:</div>
-                      <div>CAD {taxes.toFixed(2)}</div>
-                    </div>
-                  </h4>
-                  <h3 style={{ marginTop: "0" }} className="total-end-price">
-                    <div className="total-and-sub">
-                      <div>Total: </div>
-                      <div>CAD {(totalEndPrice + taxes).toFixed(2)}</div>
-                    </div>
-                  </h3>
-                </div>
-                <div className="checkout-and-shopping">
+            {cart.length > 0 ? (
+              <>
+                <h1 className="cart-title">Shopping Cart</h1>
+                <div className="align-top-shopping">
                   <button
-                    className="continue-shopping"
+                    className="top-continue-shopping"
                     onClick={() => {
-                      props.continueShopping(false);
+                      props.setCartClick(false);
                     }}
                   >
                     Continue Shopping
                   </button>
-                  <StripeCheckout
-                    stripeKey={process.env.REACT_APP_STRIPE_KEY}
-                    token={handleToken}
-                    amount={Math.floor(totalAfterTaxes)}
-                    billingAddress
-                    // shippingAddress
-                    label="Checkout"
-                  />
                 </div>
-              </div>
-            </div>
+                <div className="cart-main-layout">
+                  <Countdown className="timer" date={Date.now() + 600000} />
+                  <div className="item-number">
+                    {cartItemsNumber === 1
+                      ? "1 item"
+                      : `${cartItemsNumber} items`}
+                  </div>
+                  <table>
+                    <thead>
+                      <tr className="headers">
+                        <th style={{ paddingLeft: "30px" }}>
+                          Item Description
+                        </th>
+                        <th style={{ textAlign: "center" }}>Quantity</th>
+                        <th style={{ textAlign: "center" }}>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cart.map((item, index) => {
+                        // console.log(item);
+                        const options = Array(item.availability)
+                          .fill(0)
+                          .map((e, index) => {
+                            return (
+                              <option value={index + 1} key={index}>
+                                {index + 1}
+                              </option>
+                            );
+                          });
+                        return (
+                          <tr key={item.barcode}>
+                            <td className="image-to-data">
+                              <div>
+                                <img
+                                  src={item.image1}
+                                  alt="image"
+                                  width="220"
+                                  height="220"
+                                />
+                              </div>
+                              <div>
+                                <div className="item-name">{item.name}</div>
+                                <div className="data-below-name">
+                                  <div># {item.barcode}</div>
+                                  <div style={{ marginBottom: "10px" }}>
+                                    Size: {item.size}
+                                  </div>
+                                  <div style={{ marginBottom: "10px" }}>
+                                    Color: {item.color}
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={() => onRemoveClick(item.barcode)}
+                                  className="remove-button"
+                                >
+                                  <FontAwesomeIcon
+                                    icon="fa-solid fa-trash-can"
+                                    style={{ paddingRight: "5px" }}
+                                  />
+                                  Remove Item
+                                </button>
+                              </div>
+                            </td>
+                            <td className="quantity-and-price">
+                              <select
+                                // onChange='this.size=1; this.blur();'
+                                onChange={(e) => {
+                                  const newCart = cart.map((row) => {
+                                    if (row.barcode === item.barcode) {
+                                      return {
+                                        ...row,
+                                        quantity: Number(e.target.value),
+                                      };
+                                    } else {
+                                      return { ...row };
+                                    }
+                                  });
+                                  setCart(newCart);
+                                }}
+                                value={item.quantity}
+                                // maxMenuHeight={10}
+                                // size='5'
+                                // onMouseDown="if(this.options.length>5){this.size=5;}"
+                              >
+                                {options}
+                              </select>
+                              {/* <input type="number"></input> */}
+                            </td>
+                            <td className="quantity-and-price">
+                              CAD {(item.price / 100) * item.quantity}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  <div>
+                    <div className="totals">
+                      <h4 style={{ marginBottom: "1em" }}>
+                        <div className="total-and-sub">
+                          <div>Estimated GST/HST:</div>
+                          <div>CAD {taxes.toFixed(2)}</div>
+                        </div>
+                      </h4>
+                      <h3
+                        style={{ marginTop: "0" }}
+                        className="total-end-price"
+                      >
+                        <div className="total-and-sub">
+                          <div>Total: </div>
+                          <div>CAD {(totalEndPrice + taxes).toFixed(2)}</div>
+                        </div>
+                      </h3>
+                    </div>
+                    <div className="checkout-and-shopping">
+                      <button
+                        className="continue-shopping"
+                        onClick={() => {
+                          props.setCartClick(false);
+                        }}
+                      >
+                        Continue Shopping
+                      </button>
+                      <StripeCheckout
+                        stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                        token={handleToken}
+                        amount={Math.floor(totalAfterTaxes)}
+                        billingAddress
+                        // shippingAddress
+                        label="Checkout"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </>
         )}
       </div>

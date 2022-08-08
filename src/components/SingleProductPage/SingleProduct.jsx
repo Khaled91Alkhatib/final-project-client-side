@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import LinearProgress from "@mui/material/LinearProgress";
+import Rating from '@mui/material/Rating';
 
 import NotExistPage from "../NotExistPage";
 import ProductsContext from "../../contexts/ProductsContext";
@@ -12,6 +13,7 @@ import CartContext from "../../contexts/CartContext";
 import Image from "./Image";
 import Colors from "./Colors";
 import Sizes from "./Sizes";
+import Reviews from "./Reviews";
 
 import "./SingleProduct.scss";
 
@@ -23,6 +25,8 @@ const SingleProduct = (props) => {
   const [colorsFamily, setColorsFamily] = useState([]);
   const [selectedSize, setSelectedSize] = useState({});
   const [description, setDescription] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [avgRating, setAvgRating] = useState(0);
 
   const { products } = useContext(ProductsContext);
   const { setCart, cart } = useContext(CartContext);
@@ -76,14 +80,13 @@ const SingleProduct = (props) => {
 
   const getProductById = (id) => {
     axios.get(`http://localhost:8100/api/products/${id}`).then((response) => {
-      console.log(response.data);
+      console.log(Number(response.data.averageRating.avg));
       // handle success
+      
       setAvailableSizes((prev) => response.data.availableSizes);
-      if (response.data.product) {
-        setProduct((prev) => response.data.product);
-      } else {
-        setProduct({});
-      }
+      if (response.data.product) {setProduct((prev) => response.data.product);}
+      if (response.data.reviews) {setReviews((prev) => response.data.reviews);}
+      if (response.data.averageRating) {setAvgRating((prev) => Number(response.data.averageRating.avg));}
     })
     .catch(error => {
       console.log(error.message)
@@ -150,19 +153,25 @@ const SingleProduct = (props) => {
   // console.log('🗾',images);           // 🚨🚨🚨
   // console.log("◻️◾️", availableSizes);  // 🚨🚨🚨
   // console.log("💢", selectedSize);    // 🚨🚨🚨
+  console.log("🍾💩🍺", reviews);    // 🚨🚨🚨
+  console.log("⭐️", avgRating);    // 🚨🚨🚨
 
   return (
     <div className="single-product">       
       {products.length !== 0 && Object.keys(product).length !== 0 &&
         <div className="single-box">
-          <Image
-            className="product-image"
-            images={images}
-            onLeft={rotateLeft}
-            onRight={rotateRight}
-          />
+          <div>
+            <Image
+              className="product-image"
+              images={images}
+              onLeft={rotateLeft}
+              onRight={rotateRight}
+            />
+            <Reviews reviews={reviews} avgRating={avgRating} product={product}/>
+          </div>
           <div className="item-details">
             <span className="product-name">{product.name}</span>
+            <div><Rating name="average-rating" value={Number(avgRating)} readOnly /></div>
             <div>SKU #{product.sku} </div>
             <br />
             <span className="product-price">

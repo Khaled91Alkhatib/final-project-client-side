@@ -1,6 +1,6 @@
 .footer-bar {
   margin-top: 2em;
-  background-color: black;
+  // background-color: white;
 }
 
 .all-footer-content {
@@ -18,15 +18,20 @@
 }
 
 .footer-buttons {
-  font-family: fantasy;
   border: none;
   color: white;
   background-color: black;
-  font-size: 16px;
-  padding: 7px;
+  font-size: 13px;
+  padding: 10px 7px;
+  font-family: Raleway, sans-serif;
+  letter-spacing: .03em;
 }
 
-.footer-navs:hover {
+.footer-navs {
   color: white;
-  text-decoration: underline;
+
+  &:hover {
+    color: white;
+    text-decoration: underline;
+  }
 }

@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import { Route, Routes, useSearchParams, useLocation } from 'react-router-dom';
 
 import ProductsContext from "../../contexts/ProductsContext";
 import OrderList from "./OrderList";
@@ -26,6 +25,7 @@ const AdminOrders = (props) => {
 
     event.preventDefault();
 
+    // get date from calender in this format: yyyy-mm-dd
     const startDate = new Date(fromDate).toLocaleDateString().slice(0, 10);
     const endDate = new Date(toDate).toLocaleDateString().slice(0, 10);
 
@@ -35,6 +35,7 @@ const AdminOrders = (props) => {
     .then((response) => {
       const ordersInfo = response.data.ordersInfo;
       const orderDetails = response.data.orderDetails;
+      // attach each order detail to it's parent (order info)
       const allData = ordersInfo.map(order => {
         const details = orderDetails.filter(line => line.order_id === order.id);
         return ({...order, details})
@@ -47,6 +48,7 @@ const AdminOrders = (props) => {
   };
 
   const onChangeFromDate = (newDate) => {
+    // make sure from-date is always smaller that to-date
     if (newDate > toDate) {
       setToDate(newDate);
     }

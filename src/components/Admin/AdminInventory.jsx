@@ -1,8 +1,5 @@
-import React, {useEffect, useState, useContext, useRef} from 'react';
-import { Route, Routes, useSearchParams, useLocation } from 'react-router-dom';
-import axios from "axios";
+import React, {useEffect, useState, useContext} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import LinearProgress from "@mui/material/LinearProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +10,6 @@ import InventoryList from './InventoryList';
 
 import './AdminInventory.scss';
 
-import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
 

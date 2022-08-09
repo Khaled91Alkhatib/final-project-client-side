@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext, useRef} from 'react';
+import React from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -32,12 +32,16 @@ const OrderList = ({ordersData}) => {
               {open ? <FontAwesomeIcon icon="fa-solid fa-angle-up" /> : <FontAwesomeIcon icon="fa-solid fa-angle-down" />}
             </IconButton>
           </TableCell>
-          <TableCell align="center">{order.id}</TableCell>
-          <TableCell align="center">{order.date}</TableCell>
-          <TableCell align="left">{order.customer}</TableCell>
-          <TableCell align="left">{order.address} - {order.city}</TableCell>
-          <TableCell align="left">{order.email}</TableCell>
-          <TableCell align="right">${order.total / 100}</TableCell>
+          <TableCell align="center" sx={{fontSize: "1.1em"}}>{order.id}</TableCell>
+          <TableCell align="center" sx={{fontSize: "1.1em"}}>{order.date}</TableCell>
+          <TableCell align="left" sx={{fontSize: "0.9em"}}>
+            <div className='customer-info'>
+              <span>{order.customer}</span>
+              <span>email: {order.email}</span>
+            </div>
+              </TableCell>
+          <TableCell align="left" sx={{fontSize: "1.1em"}}>{order.address} - {order.city}</TableCell>
+          <TableCell align="right" sx={{fontSize: "1.1em"}}>${order.total / 100}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 1, paddingTop: 1 }} colSpan={6}>
@@ -87,12 +91,11 @@ const OrderList = ({ordersData}) => {
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell sx={{fontSize: "1em"}} align='center'minwidth='100'># Order</TableCell>
-                <TableCell sx={{fontSize: "1em"}} align='center' minwidth='100' >Date</TableCell>
-                <TableCell sx={{fontSize: "1em"}} align='left' minwidth='150' >Customer</TableCell>
-                <TableCell sx={{fontSize: "1em"}} align='left' minwidth='200' >Address</TableCell>
-                <TableCell sx={{fontSize: "1em"}} align='left' minwidth='150' >e-mail</TableCell>
-                <TableCell sx={{fontSize: "1em"}} align='right' minwidth='100' >Total</TableCell>
+                <TableCell sx={{fontSize: "1.3em"}} align='center'minwidth='100'># Order</TableCell>
+                <TableCell sx={{fontSize: "1.3em"}} align='center' minwidth='100' >Date</TableCell>
+                <TableCell sx={{fontSize: "1.3em"}} align='left' minwidth='150' >Customer Info</TableCell>
+                <TableCell sx={{fontSize: "1.3em"}} align='left' minwidth='150' >Address</TableCell>
+                <TableCell sx={{fontSize: "1.3em"}} align='right' minwidth='100' >Total</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

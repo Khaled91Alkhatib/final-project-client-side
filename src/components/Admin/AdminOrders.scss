@@ -31,4 +31,11 @@
 
 .orders-section {
   width: 100%;
+
+  .customer-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+  }
 }

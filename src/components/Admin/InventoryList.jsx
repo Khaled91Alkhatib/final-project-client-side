@@ -1,7 +1,6 @@
-import React, {useEffect, useState, useContext, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import './AdminInventory.scss';
-import {findProductByBarcode} from '../../helper/findProductByBarcode';
 
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';

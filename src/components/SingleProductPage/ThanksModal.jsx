@@ -10,7 +10,7 @@ const ThanksModal = ({onClose}) => {
     <div className='thanks-page'>
       <button onClick={onClose} className="btn-close-modal"><FontAwesomeIcon icon="fa-solid fa-xmark" /></button>
       <h2>THANK YOU!</h2>
-      <h3>WE WILL PROCESS YOUR REVIEW AND PUBLISH IT WITHIN 3-7 BUSINESS DAYS.</h3>
+      <h3>We will process your review and publish it within 3-7 business days.</h3>
     </div>
   );
 };

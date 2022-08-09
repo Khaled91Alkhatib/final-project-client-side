@@ -45,6 +45,8 @@ const Reviews = ({reviews, avgRating, product}) => {
           <Rating name="rating" value={review.rating} readOnly size="small"/>
           <span> &nbsp;&nbsp;{review.headline}</span>
         </div>
+        <span className='date'>{review.date}</span>
+        <br />
         <br />
         <article>{review.comments}</article>
       </section>

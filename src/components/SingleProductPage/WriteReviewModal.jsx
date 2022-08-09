@@ -113,12 +113,12 @@ const WriteReviewModal = ({product, onClose, onSubmit}) => {
               onChange={handleChange}
               variant="standard"
               inputProps={{
-                minLength: 40,
+                minLength: 20,
                 maxLength: 300
               }}
               // style ={{width: 500}}
               sx={{ m: 0, width: '60ch' }}
-              helperText={`(min characters: 40) - ${formData.comments.length}/${300}`}
+              helperText={`(min characters: 20) - ${formData.comments.length}/${300}`}
               margin="dense"
             />
           </div>

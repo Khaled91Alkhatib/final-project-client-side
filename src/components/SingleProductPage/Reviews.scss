@@ -57,10 +57,11 @@
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     overflow-wrap: break-word;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: flex-start;
+
+    .date {
+      font-size: 0.7em;
+      color: SlateGray;
+    }
   }
 
   .comment-headline-rating{

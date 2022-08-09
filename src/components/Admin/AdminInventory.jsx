@@ -26,8 +26,8 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
   const [newQty, setNewQty] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  console.log(product);
-  console.log(inventoryData);
+  // console.log(product);
+  // console.log(inventoryData);
 
   useEffect(() => {
     onGetInventory();
@@ -62,7 +62,7 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
     event.preventDefault();
     const regex =  /^[1-9]\d*$/ ;
     if (!regex.test(newQty)) {
-      setErrorMsg("Input valid quantity")
+      setErrorMsg("*Input valid quantity")
     } else {
       setErrorMsg("");
       setProduct({});
@@ -72,29 +72,32 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
     };
   };
 
+  const onClickHandler = (barcode) => {
+    setProduct(findProductByBarcode(inventoryData, barcode))
+    setBarcode(barcode);
+  }
+
   return (
     <div className='admin-inventory-page-main'>
       {user.name && 
         <div className='admin-inventory-page'>
-          <h3>Input barcode to Update Inventory!</h3>
+          <h3>Enter product's barcode or select by clicking on it's row to Update Inventory!</h3>
           <div className='search-barcode-set-qty'>
             <div className='search-barcode'>
               <form onSubmit={onSearch} className='search-barcode-form'>
-                <div>
-                  <FormControl className='input-feild'>
-                    <div className='input-feild'>
-                      <TextField
-                        required
-                        label="Barcode"
-                        id="barcode"
-                        name="barcode"
-                        value={barcode}
-                        onChange={(event) => setBarcode(event.target.value)}
-                        variant="standard"
-                        disabled={Object.keys(product).length !== 0}
-                      />
-                    </div>
-                  </FormControl>
+                <div className='barcode-input'>
+                  <TextField
+                    required
+                    label="Barcode"
+                    id="barcode"
+                    name="barcode"
+                    value={barcode.trim()}
+                    onChange={(event) => setBarcode(event.target.value)}
+                    variant="standard"
+                    disabled={Object.keys(product).length !== 0}
+                    margin="normal"
+                    sx={{ m: 0, width: '18ch' }}
+                  />
                 </div>
                 <button type="submit" className='btn-admin-page'><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /> Search</button>
               </form>
@@ -105,21 +108,21 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
             {product.barcode && 
               <form onSubmit={handleSubmit} >
                 <div className='set-qty-form'>
-                  <FormControl>
-                    <TextField 
-                      required
-                      label="quantity"
-                      id="quantity"
-                      type="number"
-                      min="1"
-                      name="quantity"
-                      value={newQty}
-                      onChange={handleChange}
-                      variant="standard"
-                    />
-                    {errorMsg &&
-                      <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText>}
-                  </FormControl>
+                  <TextField 
+                    required
+                    label="quantity"
+                    id="quantity"
+                    type="number"
+                    min="1"
+                    name="quantity"
+                    value={newQty}
+                    onChange={handleChange}
+                    variant="standard"
+                    margin="normal"
+                    sx={{ m: 0, width: '18ch' }}
+                  />
+                  {errorMsg &&
+                  <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText>}
                   <button type="submit" className='btn-admin-page btn-add-qty'> Add To Quantity </button>
                 </div>
               </form>
@@ -129,7 +132,7 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
             <div className="page-loading">
               <LinearProgress color="secondary" />
             </div> :
-            <InventoryList inventoryData={inventoryData} product={product}/>
+            <InventoryList inventoryData={inventoryData} product={product} onClickHandler={onClickHandler}/>
           }
         </div>
       }

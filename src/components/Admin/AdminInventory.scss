@@ -5,6 +5,7 @@
   padding: 20px 20px;
   min-height: 78vh;
   height: 100%;
+  min-width: 300px;
   width: 90vw;
   margin:auto;
   margin-top:120px;
@@ -21,15 +22,18 @@
   // border: $test;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 1em;
+  flex-wrap: wrap;
 }
 
 .search-barcode {
+  width: 30vw;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .search-barcode-form {
@@ -37,20 +41,26 @@
   justify-content: center;
   align-items: center;
   padding: 1em;
+
+  .barcode-input {
+    // border: $test;
+    margin-right: 2em;
+  }
 }
 
 .set-qty-form {
+  width: 50vw;
   display: flex;
   padding: 1em;
   flex-direction: column;
-  justify-content: space-around;
+  // justify-content: space-around;
   align-items: center;
 }
 
 .btn-add-qty {
   margin-top: 1em;
-  padding: 7px 10px;
-  width: 160px;
+  padding: 0.5em 1em;
+  width: 15vw;
 }
 
 // ----------------------------------------
@@ -59,14 +69,37 @@
   width: 100%;
 
   th {
-    font-size: 18px;
+    font-size: 1.3em;
   }
 
   .select {
-    background-color: limegreen;
+    background-color: navy;
+    color: white;
+  }
+
+  .barcode-cell {
+    font-size: 1.2em;
+  }
+  .size-cell {
+    font-size: 1.2em;
+  }
+  .item-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 0.5em;
+
+      .sku {
+        font-size: 0.8em;
+        margin-bottom: 0.5em;
+      }
+    }
+
   }
 }
 
-.even-row-inventory {
-  background-color: Gainsboro;
-}

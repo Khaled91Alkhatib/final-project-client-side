@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext, useRef} from 'react';
 
 import './AdminInventory.scss';
+import {findProductByBarcode} from '../../helper/findProductByBarcode';
 
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -10,7 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-const InventoryList = ({inventoryData, product}) => {
+const InventoryList = ({inventoryData, product, onClickHandler}) => {
 
   const barcodesRef = useRef([]);
 
@@ -29,39 +30,31 @@ const InventoryList = ({inventoryData, product}) => {
     barcodesRef.current = barcodesRef.current.slice(0, inventoryData.length);
   }, [inventoryData]);
 
-  const columns = [
-    { id: 'row', label: '#', minWidth: 100, align: 'left' },
-    { id: 'barcode', label: 'Barcode', minWidth: 100, align: 'left' },
-    { id: 'size', label: 'Size', minWidth: 100, align: 'left' },
-    { id: 'sku', label: 'SKU', minWidth: 170, align: 'left' },
-    { id: 'name', label: 'Name', minWidth: 200, align: 'left' },
-    { id: 'qty', label: 'Quantity', minWidth: 100, align: 'left' },
-  ];
-
-  const columnsArray = columns.map((column) => {
-    return (
-      <TableCell
-        key={column.id}
-        align={column.align}
-        style={{ minWidth: column.minWidth }}
-      >
-        {column.label}
-      </TableCell>
-    )
-  })
-
   const inventoryDataArray = inventoryData.map((row, index) => {
 
     const classSelect = row.select ? "select" : "";
       
     return (
-      <TableRow hover role="checkbox" tabIndex={-1} key={row.barcode} ref={el => barcodesRef.current[index] = el} >
-        <TableCell align='left' className={classSelect} >{index + 1}</TableCell>
-        <TableCell align='left' className={classSelect} >{row.barcode}</TableCell>
-        <TableCell align='left' className={classSelect} >{row.size}</TableCell>
-        <TableCell align='left' className={classSelect} >{row.sku}</TableCell>
-        <TableCell align='left' className={classSelect} >{row.name}</TableCell>
-        <TableCell align='left' className={classSelect} >{row.qty}</TableCell>
+      <TableRow hover role="checkbox" tabIndex={-1} key={row.barcode} ref={el => barcodesRef.current[index] = el} onClick={() => onClickHandler(row.barcode)}>
+        <TableCell align='center' className={classSelect} >{index + 1}</TableCell>
+        <TableCell align='center' className={classSelect} >
+          <span className='barcode-cell'>{row.barcode}</span>
+        </TableCell>
+        <TableCell align='center' className={classSelect} >
+          <span className='size-cell'>{row.size}</span>
+        </TableCell>
+        <TableCell align='center' className={classSelect} >
+          <div className='item-cell'>
+            <img src={row.image1} alt="image" width="80" height="80" />
+            <div className='details'>
+              <span className='sku'>SKU: {row.sku}</span>
+              <span>{row.name}</span>
+            </div>
+          </div>         
+        </TableCell>
+        <TableCell align='center' className={classSelect} >
+          <span className='size-cell'>{row.qty}</span>
+        </TableCell>
       </TableRow>
     );
   })
@@ -75,7 +68,11 @@ const InventoryList = ({inventoryData, product}) => {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-                {columnsArray}
+                <TableCell align="center" style={{ minWidth: 70 }}>Row</TableCell>
+                <TableCell align="center" style={{ minWidth: 100 }}>Barcode</TableCell>
+                <TableCell align="center" style={{ minWidth: 80 }}>Size</TableCell>
+                <TableCell align="center" style={{ minWidth: 150 }}>Item Details</TableCell>
+                <TableCell align="center" style={{ minWidth: 80 }}>Quantity</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

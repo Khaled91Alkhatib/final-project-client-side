@@ -28,6 +28,13 @@ export const SidebarAdminPortal = [
     path: '/dashboard/orders',
     icon: <FontAwesomeIcon icon="fa-solid fa-basket-shopping" />,
     cName: 'nav-text'
+  },
+
+  {
+    title: 'Reviews',
+    path: '/dashboard/reviews',
+    icon: <FontAwesomeIcon icon="fa-solid fa-star-half-stroke" />,
+    cName: 'nav-text'
   }
 
 ]

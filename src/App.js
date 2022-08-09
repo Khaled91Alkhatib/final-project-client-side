@@ -23,6 +23,7 @@ import Dashboard from './components/Admin/Dashboard';
 import AdminProduct from './components/Admin/AdminProduct';
 import AdminInventory from './components/Admin/AdminInventory';
 import AdminOrders from './components/Admin/AdminOrders';
+import AdminReviews from './components/Admin/AdminReviews';
 import LoginModal from "./components/Admin/LoginModal";
 
 function App() {
@@ -172,7 +173,7 @@ function App() {
 
   // console.log('👟👞🥾', products);    // 🚨🚨🚨
   // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
-  console.log('🧺',cart) // 🚨🚨🚨
+  // console.log('🧺',cart) // 🚨🚨🚨
   // console.log('👤',user) // 🚨🚨🚨
 
   return (
@@ -208,6 +209,7 @@ function App() {
             <Route path="/dashboard/product" element={<AdminProduct onEdit={editProduct} onAdd={addProduct}/>} />
             <Route path="/dashboard/inventory" element={<AdminInventory inventoryData={inventoryData} onAdd={addToInvetory} onGetInventory={getInventoryData} setInventoryData={setInventoryData} />} />
             <Route path="/dashboard/orders" element={<AdminOrders />} />
+            <Route path="/dashboard/reviews" element={<AdminReviews />} />
           </Routes>
           <Footer />
         </CartContext.Provider>

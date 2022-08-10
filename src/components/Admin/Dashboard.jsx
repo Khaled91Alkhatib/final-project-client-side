@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useParams, useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 
@@ -19,7 +18,7 @@ const Dashboard = () => {
   useEffect(() => {
     axios.get(`http://localhost:8100/dashboard`)
     .then(res => {
-      console.log('🍎',res.data);
+      // console.log('🍎',res.data);
       setTopSellProducts(res.data.topSellProducts);
       setTopSellSizes(res.data.topSellSizes);
       setTopSellColors(res.data.topSellColors);
@@ -50,7 +49,7 @@ const Dashboard = () => {
     <div className="admin-dashboard-page-main">
       {user.name && 
         <div className="admin-dashboard-page">
-          <div className="two-bar-row">
+          <div className="two-bar-row top-two">
             <div className="barchart">
               {barProducts.length !==0 &&
                 <BarChartProduct barData={barProducts} />

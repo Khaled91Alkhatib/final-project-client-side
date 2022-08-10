@@ -10,33 +10,60 @@
   margin-top:120px;
 }
 
-.dashboard-page-main {
+.admin-dashboard-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .two-bar-row {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .product-chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 3em;
+    padding-bottom: 2em;
+  }
+  .sale-chart {
+    border-left: 2px solid darkgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 3em;
+    padding-bottom: 2em;
+  }
+  .color-chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 3em;
+    padding-top: 2em;
+  }
+  .size-chart {
+    border-left: 2px solid darkgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 3em;
+    padding-top: 2em;
+  }
+}
+
+.top-two {
+  border-bottom: 2px solid darkgreen;
 }
 
 .barchart {
-  border: 1px solid green;
-  border-radius: 10%;
-  width: 50%;
-  height: 50%;
-  margin: 1em;
-  padding: 0.2em 5em;
-  align-self: center;
-}
-
-.size-pie {
-  padding-top: 0.9em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 30vw;
+  // height: 500vh;
 }

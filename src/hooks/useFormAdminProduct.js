@@ -43,7 +43,7 @@ export default function useFormAdminProduct(baseData, action, reset, baseSize) {
     })
 
     const file = await res.json()
-    console.log(file);
+    // console.log(file);
     if (file.secure_url) {
       setFormData({ ...formData, [name]: `${file.secure_url}` })
     } else {

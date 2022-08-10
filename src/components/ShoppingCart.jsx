@@ -17,10 +17,10 @@ const ShoppingCart = (props) => {
   // console.log("khaled", cart);
 
   useEffect(() => {
-    console.log("cart", cart);
+    // console.log("cart", cart);
     axios.get("http://localhost:8100/orders/validation").then((res) => {
       const updatedInfo = res.data.updatedInfo;
-      console.log(updatedInfo);
+      // console.log(updatedInfo);
       const updateCart = cart.map((product) => {
         const goodData = updatedInfo.filter(
           (row) => row.barcode === product.barcode
@@ -75,7 +75,7 @@ const ShoppingCart = (props) => {
         token,
         cart,
       });
-      console.log("stripe response", response);
+      // console.log("stripe response", response);
     } catch (error) {
       // console.log('stripe response error', error);
     }

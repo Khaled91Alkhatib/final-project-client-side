@@ -80,7 +80,7 @@ const SingleProduct = (props) => {
 
   const getProductById = (id) => {
     axios.get(`http://localhost:8100/api/products/${id}`).then((response) => {
-      console.log(Number(response.data.averageRating.avg));
+      // console.log(Number(response.data.averageRating.avg));
       // handle success
       
       setAvailableSizes((prev) => response.data.availableSizes);
@@ -153,8 +153,8 @@ const SingleProduct = (props) => {
   // console.log('🗾',images);           // 🚨🚨🚨
   // console.log("◻️◾️", availableSizes);  // 🚨🚨🚨
   // console.log("💢", selectedSize);    // 🚨🚨🚨
-  console.log("🍾💩🍺", reviews);    // 🚨🚨🚨
-  console.log("⭐️", avgRating);    // 🚨🚨🚨
+  // console.log("🍾💩🍺", reviews);    // 🚨🚨🚨
+  // console.log("⭐️", avgRating);    // 🚨🚨🚨
 
   return (
     <div className="single-product">       

@@ -1,8 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
-import { Route, Routes, useSearchParams, useLocation } from 'react-router-dom';
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,7 +11,6 @@ import LoadAddForm from './LoadAddForm';
 
 import './AdminProduct.scss';
 
-import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 
 const AdminProduct = (props) => {
@@ -58,21 +55,19 @@ const AdminProduct = (props) => {
           <h3>Input SKU in order to Edit or Add new product!</h3>
           <div className='search-sku'>
             <form onSubmit={onSearch} className='search-sku-form'>
-              <div>
-                <FormControl className='input-feild'>
-                  <div className='input-feild'>
-                    <TextField
-                      required
-                      label="SKU"
-                      id="sku"
-                      name="sku"
-                      value={sku}
-                      onChange={(event) => setSku(event.target.value)}
-                      variant="standard"
-                      disabled={Object.keys(product).length !== 0}
-                    />
-                  </div>
-                </FormControl>
+              <div className='sku-feild'>
+                <TextField
+                  required
+                  label="SKU"
+                  id="sku"
+                  name="sku"
+                  value={sku.trim()}
+                  onChange={(event) => setSku(event.target.value)}
+                  variant="standard"
+                  disabled={Object.keys(product).length !== 0}
+                  margin="normal"
+                  sx={{ m: 0, width: '18ch' }}
+                />
               </div>
               <button type="submit" className='btn-admin-page'><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /> Search</button>
             </form>
@@ -80,8 +75,12 @@ const AdminProduct = (props) => {
               <button onClick={onResetSearch} className='btn-admin-page'>Reset</button>
             </div>
           </div>
-          { product.sku && !product.name &&  <LoadAddForm onSubmit={props.onAdd} onReset={onResetSearch} sku={sku}/>}
-          { product.name && <LoadProductForEdit product={product} onSubmit={props.onEdit} onReset={onResetSearch} availableSizes={availableSizes}/>}
+          { product.sku && !product.name &&  
+            <LoadAddForm onSubmit={props.onAdd} onReset={onResetSearch} sku={sku}/>
+          }
+          { product.name && 
+            <LoadProductForEdit product={product} onSubmit={props.onEdit} onReset={onResetSearch} availableSizes={availableSizes}/>
+          }
         </div>
       }
     </div>

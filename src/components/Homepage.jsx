@@ -24,11 +24,9 @@ const Homepage = () => {
           Thank you for your patience and support. Stay safe and comfortable.
         </div>
       </div>
+      <br />
+      <br />
       <div className="map-and-info">
-        <iframe
-          className="map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.6986270210223!2d-79.38288808463959!3d43.65443817912116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34cb510746bd%3A0x8b89147b8cbbc837!2sCF%20Toronto%20Eaton%20Centre!5e0!3m2!1sen!2sca!4v1658681841011!5m2!1sen!2sca"
-        ></iframe>
         <div className="location-and-hours">
           <strong className="location">
             Location:

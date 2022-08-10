@@ -8,22 +8,17 @@ import {SidebarAdminPortal} from "./SidebarAdminPortal"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
-
 
 const NavbarAdminPortal = (props) => {
 
   const { user, setUser } = useContext(ProductsContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const [sidebar, setSidebar] = useState(false);
-
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     setAnchorEl(null);
   }, [user]);
@@ -48,19 +43,23 @@ const NavbarAdminPortal = (props) => {
     <>
       <div className="nav-bar-admin" style={{zIndex:props.zIndex}}>
         <NavLink to="#" className='menu-bars'>
-          <FontAwesomeIcon icon="fa-solid fa-bars" onClick={() => showSidebar()} />
+          <FontAwesomeIcon className='bar' icon="fa-solid fa-bars" onClick={() => showSidebar()} />
         </NavLink>
-        <img className='shop-logo' onClick={onClickLogo} src="../logo.png" alt="logo here" />
+        <div className='logo-to-name'>
+          <img className='logo-image' onClick={onClickLogo} src='../logo-dark.png' />
+          <div className='logo' onClick={onClickLogo}>The Shoebox</div>
+        </div>
         {user.name && <div className='admin-logo'>
           <IconButton
-            size="large"
-            aria-label="account of current user"
+            // size="large"
+            // aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleMenu}
             color="inherit"
-          >
-            <FontAwesomeIcon icon="fa-solid fa-user" /><FontAwesomeIcon icon="fa-solid fa-caret-down" />
+          > 
+            <img src='../admin-icon.png' alt="admin" width="70" height="70"/>
+            <FontAwesomeIcon icon="fa-solid fa-caret-down" />
           </IconButton>
           <Menu
             id="menu-appbar"
@@ -77,9 +76,12 @@ const NavbarAdminPortal = (props) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={() => {
-              setUser({})
-              handleClose()}}>Logout</MenuItem>
+            <MenuItem 
+              onClick={() => {
+                setUser({})
+                handleClose()
+              }}
+            >Logout</MenuItem>
           </Menu>
         </div>}
       </div>

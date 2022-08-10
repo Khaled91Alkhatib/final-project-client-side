@@ -8,7 +8,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  justify-self: center;
 
   margin: auto;
   position: fixed;
@@ -24,17 +23,39 @@
     }
   }
 
-}
+  .logo-to-name {
+    // border: $test1;
+    display: flex;
+    cursor: pointer;
 
-.shop-logo {
-  height: 120px;
-  cursor: pointer;
+    .logo-image {
+      margin: 0.3em 0.5em 0.3em 1.5em;
+      width: 85px;
+    }
+
+    .logo {
+      color: white;
+      display: flex;
+      align-items: center;
+      font-family: Railway, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: .01em;
+    }
+  }
 }
 
 .menu-bars {
   margin-left: 2rem;
   font-size: 2rem;
   background: none;
+
+  .bar {
+    
+    &:hover {
+      color: goldenrod;
+    }
+  }
 }
 
 .nav-menu {
@@ -58,7 +79,7 @@
   a {
     color: white;
     &:hover {
-      color: wheat;
+      color: goldenrod;
     }
   }
 }
@@ -91,7 +112,8 @@
 
 .nav-text a {
   &:hover {
-    background-color: #1a83ff;
+    background-color: goldenrod;
+    color: #060b26;
   }
 }
 
@@ -110,6 +132,10 @@
 
 .admin-logo {
   font-size: 16px;
+
+  &:hover {
+    color: goldenrod;
+  }
 }
 
 

@@ -4,17 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Reviews.scss';
 import useForm from "../../hooks/useForm";
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Input from '@mui/material/Input';
-import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import CircularProgress from '@mui/material/CircularProgress';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 

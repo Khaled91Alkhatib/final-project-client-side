@@ -37,12 +37,10 @@ const Reviews = ({reviews, avgRating, product}) => {
   }
 
   const commentsArray = reviews.map(review => {
-    const x = (review.create_time)
-    console.log(x);
     return (
       <section key={review.id} className="display-comment-section">
         <div className='comment-headline-rating'>
-          <Rating name="rating" value={review.rating} readOnly size="small"/>
+          <Rating name="rating" value={Number(review.rating)} readOnly size="small"/>
           <span> &nbsp;&nbsp;{review.headline}</span>
         </div>
         <span className='date'>{review.date}</span>

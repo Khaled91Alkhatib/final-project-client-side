@@ -12,7 +12,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ShoppingCart = (props) => {
   const [cartCompleted, setCartCompleted] = useState(false);
-
   const { cart, setCart } = useContext(CartContext);
   // console.log("khaled", cart);
 
@@ -43,11 +42,18 @@ const ShoppingCart = (props) => {
       });
       setCart(updateCart.filter((row) => row.availability !== 0));
     });
-
-    setTimeout(() => {
-      props.setCartClick(false);
-    }, 600000);
+  
   }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      props.setCartClick(false);
+    },600000)
+    return (() => {
+      clearTimeout(timeout);
+    })
+  }, [cart])
+    
 
   const onRemoveClick = (barcode) => {
     setCart((pre) => pre.filter((item) => !(barcode === item.barcode)));
@@ -147,15 +153,6 @@ const ShoppingCart = (props) => {
                     <tbody>
                       {cart.map((item, index) => {
                         // console.log(item);
-                        const options = Array(item.availability)
-                          .fill(0)
-                          .map((e, index) => {
-                            return (
-                              <option value={index + 1} key={index}>
-                                {index + 1}
-                              </option>
-                            );
-                          });
                         return (
                           <tr key={item.barcode}>
                             <td className="image-to-data">
@@ -191,29 +188,43 @@ const ShoppingCart = (props) => {
                               </div>
                             </td>
                             <td className="quantity-and-price">
-                              <select
-                                // onChange='this.size=1; this.blur();'
-                                onChange={(e) => {
-                                  const newCart = cart.map((row) => {
-                                    if (row.barcode === item.barcode) {
-                                      return {
-                                        ...row,
-                                        quantity: Number(e.target.value),
-                                      };
-                                    } else {
-                                      return { ...row };
-                                    }
-                                  });
-                                  setCart(newCart);
-                                }}
-                                value={item.quantity}
-                                // maxMenuHeight={10}
-                                // size='5'
-                                // onMouseDown="if(this.options.length>5){this.size=5;}"
+                              <button className="btn-plus-minus"
+                                onClick={() =>{
+                                  if (item.quantity > 1) {
+                                    const newCart = cart.map((row) => {
+                                      if (row.barcode === item.barcode) {
+                                        return {
+                                          ...row,
+                                          quantity: item.quantity - 1,
+                                        };
+                                      } else {
+                                        return { ...row };
+                                      }
+                                    });
+                                    setCart(newCart);
+                                 }}}
                               >
-                                {options}
-                              </select>
-                              {/* <input type="number"></input> */}
+                                <FontAwesomeIcon icon="fa-solid fa-square-minus" />
+                              </button>
+                              <span className="cart-item-qty"> {item.quantity} </span>
+                              <button className="btn-plus-minus"
+                                onClick={() =>{
+                                  if (item.quantity < item.availability) {
+                                    const newCart = cart.map((row) => {
+                                      if (row.barcode === item.barcode) {
+                                        return {
+                                          ...row,
+                                          quantity: item.quantity + 1,
+                                        };
+                                      } else {
+                                        return { ...row };
+                                      }
+                                    });
+                                    setCart(newCart);
+                                 }}}
+                              >
+                                <FontAwesomeIcon icon="fa-solid fa-square-plus" />
+                              </button>
                             </td>
                             <td className="quantity-and-price">
                               CAD {(item.price / 100) * item.quantity}

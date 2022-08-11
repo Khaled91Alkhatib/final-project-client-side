@@ -27,6 +27,7 @@ const SingleProduct = (props) => {
   const [description, setDescription] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [avgRating, setAvgRating] = useState(0);
+  const [resError, setResError] = useState(false)
 
   const { products } = useContext(ProductsContext);
   const { setCart, cart } = useContext(CartContext);
@@ -82,14 +83,15 @@ const SingleProduct = (props) => {
     axios.get(`http://localhost:8100/api/products/${id}`).then((response) => {
       // console.log(Number(response.data.averageRating.avg));
       // handle success
-      
+      setResError(false);
       setAvailableSizes((prev) => response.data.availableSizes);
       if (response.data.product) {setProduct((prev) => response.data.product);}
       if (response.data.reviews) {setReviews((prev) => response.data.reviews);}
       if (response.data.averageRating) {setAvgRating((prev) => Number(response.data.averageRating.avg));}
     })
     .catch(error => {
-      console.log(error.message)
+      // console.log(error.message)
+      setResError(true);
     })
   };
 
@@ -213,10 +215,10 @@ const SingleProduct = (props) => {
           </div>
         </div>
       }
-      {products.length !== 0 && Object.keys(product).length === 0 &&
+      {products.length !== 0 && resError &&
         <NotExistPage />
       }
-      {(products.length === 0) && (
+      {(products.length === 0 || Object.keys(product).length === 0) && (
         <div className="page-loading">
           <LinearProgress color="secondary" />
         </div>

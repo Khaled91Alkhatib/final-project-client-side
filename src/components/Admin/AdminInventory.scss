@@ -14,7 +14,7 @@
 .admin-inventory-page {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 
@@ -26,32 +26,44 @@
   align-items: center;
   padding: 1em;
   flex-wrap: wrap;
+
+  .search-barcode {
+    // border: $test;
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .set-qty {
+    border: $test;
+    width: 50%;
+  }
 }
 
-.search-barcode {
-  width: 30vw;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-}
+
 
 .search-barcode-form {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   padding: 1em;
 
   .barcode-input {
     margin-right: 2em;
+    margin-bottom: 1em;
   }
 }
 
 .set-qty-form {
-  width: 50vw;
-  display: flex;
+  // border: $test;
+  
   padding: 1em;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 

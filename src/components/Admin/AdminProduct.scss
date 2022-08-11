@@ -14,7 +14,7 @@
   // border: $test;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 
@@ -87,7 +87,7 @@
 
     .name-price {
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
       margin-bottom: 2em;
   
@@ -156,7 +156,7 @@
 
   .image-select {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding-bottom: 1em;
 
@@ -232,7 +232,7 @@
 
     .name-price {
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
       margin-bottom: 2em;
   
@@ -301,7 +301,7 @@
 
   .image-select {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding-bottom: 1em;
 
@@ -332,7 +332,7 @@
   margin-bottom: 4em;
   display: flex;
   // align-items: flex-start;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .old-sizes {
@@ -354,7 +354,7 @@
 .edit-size-row {
   margin-bottom: 2em;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 

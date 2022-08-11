@@ -95,15 +95,16 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
                     sx={{ m: 0, width: '18ch' }}
                   />
                 </div>
-                <button type="submit" className='btn-admin-page'><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /> Search</button>
+                <button type="submit" className='btn-admin-page btn-inventory-search'><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /> Search</button>
               </form>
               <div>
-                <button onClick={onResetSearch} className='btn-admin-page'>Reset</button>
+                <button onClick={onResetSearch} className='btn-admin-page btn-inventory-reset'>Reset</button>
               </div>
             </div>
             {product.barcode && 
-              <form onSubmit={handleSubmit} >
-                <div className='set-qty-form'>
+              <div className='xxx'>
+              <form onSubmit={handleSubmit} className='set-qty-form' >
+                <div >
                   <TextField 
                     required
                     label="quantity"
@@ -119,9 +120,10 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
                   />
                   {errorMsg &&
                   <FormHelperText style={{color: 'red'}}>{errorMsg}</FormHelperText>}
-                  <button type="submit" className='btn-admin-page btn-add-qty'> Add To Quantity </button>
                 </div>
+                <button type="submit" className='btn-admin-page btn-add-qty'> Add To Quantity </button>
               </form>
+              </div>
             }
           </div>
           { inventoryData.length === 0 ?

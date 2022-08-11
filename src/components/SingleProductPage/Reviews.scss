@@ -66,7 +66,7 @@
 
   .comment-headline-rating{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     font-weight: 600;
     font-size: 0.8em;
@@ -77,7 +77,7 @@
     border: 0.5px solid LightSlateGray;   
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     background-color: white;
   
@@ -98,14 +98,14 @@
       // border: $test2;
       width: 100%;
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
       // margin-top: 1em;
     }
 
     .personal-info {
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
     }
 

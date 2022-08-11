@@ -33,6 +33,24 @@
 
 .cart-main-layout {
   padding: 10px 10px 10px 10px;
+
+  .btn-plus-minus {
+    border            :none;
+    font-size         : 0.9em;
+    color             : black;
+    background-color  : transparent;
+    cursor          : pointer;
+
+    &:hover {
+      color        : red;
+      border      : none;
+      outline     : none;
+    }
+  }
+
+  .cart-item-qty {
+    font-size: 1.1em;
+  }
 }
 
 .item-number, .timer {

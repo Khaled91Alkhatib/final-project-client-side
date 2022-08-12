@@ -1,34 +1,26 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import GeneralContext from "../contexts/GeneralContext";
+import ShoppingCart from './ShoppingCart';
 
 import "../styles/NavList.scss";
 
-import GeneralContext from "../contexts/GeneralContext";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBagShopping, faPhone } from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons"
-import ShoppingCart from './ShoppingCart';
-import { useSlotProps } from '@mui/base';
-library.add(faBagShopping, faPhone, faGithub, faLinkedin);
-
-
 const NavList = (props) => {
 
-  const { cart, user, setUser } = useContext(GeneralContext);
+  const { cart } = useContext(GeneralContext);
+  const [cartClick, setCartClick] = useState(false);
 
   // console.log("in here", cart);
 
   const ref = useRef();
-
   const navigate = useNavigate();
 
   const onClickLogo = () => {
     navigate("/");
   };
-
-  const [cartClick, setCartClick] = useState(false);
 
   useEffect(() => {
     const checkIfClickedOutside = e => {
@@ -55,7 +47,7 @@ const NavList = (props) => {
     <div className="nav-bar">
       <div className="all-buttons">
         <div className='logo-to-name'>
-          <img className='logo-image' onClick={onClickLogo} src='../logo3.png' />
+          <img className='logo-image' onClick={onClickLogo} src='../logo3.png' alt="logo"/>
           <div className='logo' onClick={onClickLogo}>The Shoebox</div>
         </div>
         <div className='left-and-right-navs'>

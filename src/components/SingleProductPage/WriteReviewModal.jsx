@@ -1,22 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import './Reviews.scss';
-import useForm from "../../hooks/useForm";
-
 import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
+import useForm from "../../hooks/useForm";
+
+import './Reviews.scss';
 
 const WriteReviewModal = ({product, onClose, onSubmit}) => {
 
   const id = product.id;
   const sku = product.sku;
-
   const baseFormData = { id, sku, nickname: "", email:"", headline:"", comments:"", rating:0.5};
-  
   const {formData, handleChange, handleSubmit} = useForm(baseFormData, onSubmit);
 
   // console.log('🎃', formData);
@@ -26,7 +24,7 @@ const WriteReviewModal = ({product, onClose, onSubmit}) => {
       <button onClick={onClose} className="btn-close-modal"><FontAwesomeIcon icon="fa-solid fa-xmark" /></button>
       <div className='item-info'>
         <div>
-          <img src={product.image1} alt="image" width="120" height="120" />
+          <img src={product.image1} alt="image1" width="120" height="120" />
         </div>
         <div>
           <h3>WRITE A REVIEW</h3>

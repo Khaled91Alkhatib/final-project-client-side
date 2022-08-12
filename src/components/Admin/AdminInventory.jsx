@@ -1,8 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import LinearProgress from "@mui/material/LinearProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import TextField from '@mui/material/TextField';
+import FormHelperText from '@mui/material/FormHelperText';
 
 import GeneralContext from "../../contexts/GeneralContext";
 import {findProductByBarcode} from '../../helper/findProductByBarcode';
@@ -10,13 +12,9 @@ import InventoryList from './InventoryList';
 
 import './AdminInventory.scss';
 
-import TextField from '@mui/material/TextField';
-import FormHelperText from '@mui/material/FormHelperText';
-
 const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}) => {
 
   const { user } = useContext(GeneralContext);
-
   const [barcode, setBarcode] = useState("");
   const [product, setProduct] = useState({});
   const [newQty, setNewQty] = useState("");
@@ -27,13 +25,13 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
 
   useEffect(() => {
     onGetInventory();
-  }, [])
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     setInventoryData(pre => pre.map(row => {
       return row.barcode === product.barcode ? ({...row, select: true}) : ({...row, select: false});
     }))
-  }, [product])
+  }, [product]); // eslint-disable-line
 
   function onSearch(event) {
     event.preventDefault();

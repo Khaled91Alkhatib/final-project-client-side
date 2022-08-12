@@ -86,7 +86,7 @@ function App() {
     } else {
       setModalIsOpen(false)
     }
-  }, [user]);
+  }, [user]); // eslint-disable-line
 
   const addProduct = (newProduct, newSizes) => {
     axios.post('http://localhost:8100/api/products', {product: newProduct, sizeData: newSizes})
@@ -127,7 +127,7 @@ function App() {
     })
   }
 
-  function openModal() {setModalIsOpen(true);}
+  // function openModal() {setModalIsOpen(true);}
 
   function closeModal() {setModalIsOpen(false);}
 

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import GeneralContext from "../contexts/GeneralContext";
-import StripeCheckout from "react-stripe-checkout";
 import Countdown from "react-countdown";
 import { toast } from "react-toastify";
 import axios from "axios";
+import StripeCheckout from "react-stripe-checkout";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import GeneralContext from "../contexts/GeneralContext";
+
 import "./ShoppingCart.scss";
-import "react-toastify/dist/ReactToastify.css";
 
 const ShoppingCart = (props) => {
   const [cartCompleted, setCartCompleted] = useState(false);
@@ -42,8 +42,7 @@ const ShoppingCart = (props) => {
       });
       setCart(updateCart.filter((row) => row.availability !== 0));
     });
-  
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -52,7 +51,7 @@ const ShoppingCart = (props) => {
     return (() => {
       clearTimeout(timeout);
     })
-  }, [cart])
+  }, [cart]); // eslint-disable-line
     
 
   const onRemoveClick = (barcode) => {
@@ -159,7 +158,7 @@ const ShoppingCart = (props) => {
                               <div>
                                 <img
                                   src={item.image1}
-                                  alt="image"
+                                  alt="image1"
                                   width="220"
                                   height="220"
                                 />

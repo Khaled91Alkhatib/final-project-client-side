@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import LinearProgress from "@mui/material/LinearProgress";
 import Rating from '@mui/material/Rating';
@@ -35,7 +34,7 @@ const SingleProduct = (props) => {
     if (products) {
       getProductById(id);
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     if (product.sku) {
@@ -155,7 +154,7 @@ const SingleProduct = (props) => {
   // console.log("🍾💩🍺", reviews);    // 🚨🚨🚨
   // console.log("⭐️", avgRating);    // 🚨🚨🚨
 
-  return (
+  return products && (
     <div className="single-product">       
       {products.length !== 0 && Object.keys(product).length !== 0 &&
         <div className="single-box">

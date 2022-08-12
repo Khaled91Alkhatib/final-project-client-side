@@ -3,8 +3,7 @@ import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
 import "../styles/NavList.scss";
 
-import ProductsContext from "../contexts/ProductsContext";
-import CartContext from '../contexts/CartContext';
+import GeneralContext from "../contexts/GeneralContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -17,8 +16,7 @@ library.add(faBagShopping, faPhone, faGithub, faLinkedin);
 
 const NavList = (props) => {
 
-  const { cart } = useContext(CartContext);
-  const { user, setUser } = useContext(ProductsContext);
+  const { cart, user, setUser } = useContext(GeneralContext);
 
   // console.log("in here", cart);
 

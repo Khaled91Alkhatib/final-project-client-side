@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import LinearProgress from "@mui/material/LinearProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import ProductsContext from "../../contexts/ProductsContext";
+import GeneralContext from "../../contexts/GeneralContext";
 import {findProductByBarcode} from '../../helper/findProductByBarcode';
 import InventoryList from './InventoryList';
 
@@ -15,7 +15,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 
 const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}) => {
 
-  const { user } = useContext(ProductsContext);
+  const { user } = useContext(GeneralContext);
 
   const [barcode, setBarcode] = useState("");
   const [product, setProduct] = useState({});

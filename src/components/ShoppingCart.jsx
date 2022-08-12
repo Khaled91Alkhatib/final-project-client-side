@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import CartContext from "../contexts/CartContext";
+import GeneralContext from "../contexts/GeneralContext";
 import StripeCheckout from "react-stripe-checkout";
 import Countdown from "react-countdown";
 import { toast } from "react-toastify";
@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ShoppingCart = (props) => {
   const [cartCompleted, setCartCompleted] = useState(false);
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(GeneralContext);
   // console.log("khaled", cart);
 
   useEffect(() => {

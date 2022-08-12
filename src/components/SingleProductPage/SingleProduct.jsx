@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import LinearProgress from "@mui/material/LinearProgress";
 import Rating from '@mui/material/Rating';
 
+import GeneralContext from "../../contexts/GeneralContext";
 import NotExistPage from "../NotExistPage";
-import ProductsContext from "../../contexts/ProductsContext";
-import CartContext from "../../contexts/CartContext";
 import Image from "./Image";
 import Colors from "./Colors";
 import Sizes from "./Sizes";
@@ -29,8 +28,7 @@ const SingleProduct = (props) => {
   const [avgRating, setAvgRating] = useState(0);
   const [resError, setResError] = useState(false)
 
-  const { products } = useContext(ProductsContext);
-  const { setCart, cart } = useContext(CartContext);
+  const { products, setCart, cart } = useContext(GeneralContext);
 
   // console.log("selectedSize", selectedSize)
   useEffect(() => {

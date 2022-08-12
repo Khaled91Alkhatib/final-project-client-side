@@ -4,8 +4,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 
-import ProductsContext from './contexts/ProductsContext';
-import CartContext from './contexts/CartContext';
+import GeneralContext from './contexts/GeneralContext';
 
 import Homepage from './components/Homepage';
 import NavList from './components/NavList';
@@ -178,42 +177,40 @@ function App() {
 
   return (
     <div>
-      <ProductsContext.Provider value={{ products, productSpec, user, setUser }}>
-        <CartContext.Provider value={{ setCart, cart }}>
+      <GeneralContext.Provider value={{ products, productSpec, user, setUser, setCart, cart }}>
          
-          {matchDashboard && !user.name && <NavbarAdminPortal zIndex={0} />}
-          {matchDashboard && user.name && <NavbarAdminPortal user={user} zIndex={1100} />}
-          {!matchDashboard && <NavList/>}
+        {matchDashboard && !user.name && <NavbarAdminPortal zIndex={0} />}
+        {matchDashboard && user.name && <NavbarAdminPortal user={user} zIndex={1100} />}
+        {!matchDashboard && <NavList/>}
+        { modalIsOpen && 
+          <Modal isOpen={modalIsOpen} 
+            className="modal" 
+            appElement={document.getElementById('root')}
+          > 
+            {matchDashboard && !user.name &&
+            <LoginModal onLogin={onLogin} msg={loginError}/>}
+          </Modal>
+        }
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/collection/:id" element={<Collection />} />
+          <Route path="/*" element={<NotExistPage />} />
+          <Route path="/collection/men/:id" element={<SingleProduct />} />
+          <Route path="/collection/women/:id" element={<SingleProduct />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/warranty" element={<Warranty />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/returns" element={<Returns />} />
+          <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
+          <Route path="/dashboard/product" element={<AdminProduct onEdit={editProduct} onAdd={addProduct}/>} />
+          <Route path="/dashboard/inventory" element={<AdminInventory inventoryData={inventoryData} onAdd={addToInvetory} onGetInventory={getInventoryData} setInventoryData={setInventoryData} />} />
+          <Route path="/dashboard/orders" element={<AdminOrders />} />
+          <Route path="/dashboard/reviews" element={<AdminReviews />} />
+        </Routes>
+        <Footer />
 
-          { modalIsOpen && 
-            <Modal isOpen={modalIsOpen} 
-              className="modal" 
-              appElement={document.getElementById('root')}
-            > 
-              {matchDashboard && !user.name &&
-              <LoginModal onLogin={onLogin} msg={loginError}/>}
-            </Modal>
-          }
-          <ToastContainer />
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/collection/:id" element={<Collection />} />
-            <Route path="/*" element={<NotExistPage />} />
-            <Route path="/collection/men/:id" element={<SingleProduct />} />
-            <Route path="/collection/women/:id" element={<SingleProduct />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/warranty" element={<Warranty />} />
-            <Route path="/shipping" element={<Shipping />} />
-            <Route path="/returns" element={<Returns />} />
-            <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
-            <Route path="/dashboard/product" element={<AdminProduct onEdit={editProduct} onAdd={addProduct}/>} />
-            <Route path="/dashboard/inventory" element={<AdminInventory inventoryData={inventoryData} onAdd={addToInvetory} onGetInventory={getInventoryData} setInventoryData={setInventoryData} />} />
-            <Route path="/dashboard/orders" element={<AdminOrders />} />
-            <Route path="/dashboard/reviews" element={<AdminReviews />} />
-          </Routes>
-          <Footer />
-        </CartContext.Provider>
-      </ProductsContext.Provider>
+      </GeneralContext.Provider>
     </div>
   );
 }

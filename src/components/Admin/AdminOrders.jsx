@@ -1,8 +1,8 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useState, useContext} from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-import ProductsContext from "../../contexts/ProductsContext";
+import GeneralContext from "../../contexts/GeneralContext";
 import OrderList from "./OrderList";
 
 import './AdminOrders.scss';
@@ -14,7 +14,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 const AdminOrders = (props) => {
 
-  const { user } = useContext(ProductsContext);
+  const { user } = useContext(GeneralContext);
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
   const [ordersData, setOrdersData] = useState([]);

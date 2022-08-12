@@ -1,10 +1,10 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import ProductsContext from "../../contexts/ProductsContext";
+import GeneralContext from "../../contexts/GeneralContext";
 import { findProductBySku } from '../../helper/findProductBySku';
 import LoadProductForEdit from './LoadProductForEdit';
 import LoadAddForm from './LoadAddForm';
@@ -15,7 +15,7 @@ import TextField from '@mui/material/TextField';
 
 const AdminProduct = (props) => {
 
-  const { user, products, productSpec } = useContext(ProductsContext);
+  const { user, products, productSpec } = useContext(GeneralContext);
   const [sku, setSku] = useState("");
   const [product, setProduct] = useState({});
   const [availableSizes, setAvailableSizes] = useState([]);

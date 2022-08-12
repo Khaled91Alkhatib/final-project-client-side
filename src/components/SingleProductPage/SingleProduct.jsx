@@ -83,15 +83,14 @@ const SingleProduct = (props) => {
     axios.get(`http://localhost:8100/api/products/${id}`).then((response) => {
       // console.log(Number(response.data.averageRating.avg));
       // handle success
-      setResError(false);
+      if (response.data.errCode === 1005) {setResError(true)}
       setAvailableSizes((prev) => response.data.availableSizes);
       if (response.data.product) {setProduct((prev) => response.data.product);}
       if (response.data.reviews) {setReviews((prev) => response.data.reviews);}
       if (response.data.averageRating) {setAvgRating((prev) => Number(response.data.averageRating.avg));}
     })
     .catch(error => {
-      // console.log(error.message)
-      setResError(true);
+      toast(`${error.message}`, {type: 'error'})
     })
   };
 
@@ -218,7 +217,7 @@ const SingleProduct = (props) => {
       {products.length !== 0 && resError &&
         <NotExistPage />
       }
-      {(products.length === 0 || Object.keys(product).length === 0) && (
+      {(products.length === 0 || Object.keys(product).length === 0) && !resError && (
         <div className="page-loading">
           <LinearProgress color="secondary" />
         </div>

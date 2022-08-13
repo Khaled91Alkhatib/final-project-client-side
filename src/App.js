@@ -43,10 +43,9 @@ function App() {
 
   // use this to change the navbar
   const matchDashboard = useMatch('/dashboard/*');
-  console.log(url);
 
   useEffect(() => {
-    console.log('🟢 test 1');
+    console.log('🟢 test 2');
 
     // at first mount - get local storage cart info
     const cart = JSON.parse(localStorage.getItem('cart-info'));
@@ -65,10 +64,7 @@ function App() {
       setUrl("http://localhost:8100");
     }
 
-    console.log("in use effect",url);
-    // const f1 = axios.get(`http://localhost:8100/api/products`);
     const f1 = axios.get(`${url}/api/products`);
-    // const f2 = axios.get(`http://localhost:8100/api/specification`);
     const f2 = axios.get(`${url}/api/specification`);
 
     Promise.all([f1, f2])
@@ -83,11 +79,6 @@ function App() {
       });
 
   }, []); // eslint-disable-line
-
-  // useEffect(() => {
-
-
-  // }, [url])
 
   // set local storage when cart state changed!
   useEffect(() => {

@@ -57,16 +57,20 @@ function App() {
     if (user) {
       setUser(user);
     }
-  }, []);
-
-  useEffect(() => {
+    
     if (process.env.REACT_APP_API_BASE_URL) {
       setUrl("https://theshoebox-api.herokuapp.com");
     } else {
       setUrl("http://localhost:8100");
     }
+  }, []);
+
+  useEffect(() => {
+
     console.log("in use effect",url);
+    // const f1 = axios.get(`http://localhost:8100/api/products`);
     const f1 = axios.get(`${url}/api/products`);
+    // const f2 = axios.get(`http://localhost:8100/api/specification`);
     const f2 = axios.get(`${url}/api/specification`);
 
     Promise.all([f1, f2])

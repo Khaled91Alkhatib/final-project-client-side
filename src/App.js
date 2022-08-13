@@ -40,6 +40,7 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [url, setUrl] = useState("https://theshoebox-api.herokuapp.com");
+  const [title, setTitle] = useState("The Shoe Box");
 
   // use this to change the navbar
   const matchDashboard = useMatch('/dashboard/*');
@@ -52,6 +53,18 @@ function App() {
     if (cart) {
       setCart(cart);
     }
+
+    useEffect(() => {
+      document.title = title;
+    },[title]);
+
+    useEffect(() => {
+      if (matchDashboard) {
+        setTitle("Shoe Box Dashboard");
+      } else {
+        setTitle("The Shoe Box");
+      }
+    },[matchDashboard]);
 
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {

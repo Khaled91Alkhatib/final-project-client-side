@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 import LinearProgress from "@mui/material/LinearProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,26 +13,33 @@ import InventoryList from './InventoryList';
 
 import './AdminInventory.scss';
 
-const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}) => {
+const AdminInventory = () => {
 
-  const { user } = useContext(GeneralContext);
+  const { user, url } = useContext(GeneralContext);
   const [barcode, setBarcode] = useState("");
   const [product, setProduct] = useState({});
   const [newQty, setNewQty] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [inventoryData, setInventoryData] = useState([]);
 
   // console.log(product);
   // console.log(inventoryData);
 
   useEffect(() => {
-    onGetInventory();
-  }, []); // eslint-disable-line
+    axios.get(`${url}/api/inventory`)
+    .then((response) => {
+      setInventoryData(response.data.inventoryInfo.map(row => ({...row, select: false})));
+    })
+    .catch(error => {
+      console.log(error.message);
+    })
+  }, [url]);
 
   useEffect(() => {
     setInventoryData(pre => pre.map(row => {
       return row.barcode === product.barcode ? ({...row, select: true}) : ({...row, select: false});
     }))
-  }, [product]); // eslint-disable-line
+  }, [product]);
 
   function onSearch(event) {
     event.preventDefault();
@@ -60,11 +68,30 @@ const AdminInventory = ({inventoryData, onAdd, onGetInventory, setInventoryData}
     } else {
       setErrorMsg("");
       setProduct({});
-      onAdd(barcode, newQty);
+      addToInvetory(barcode, newQty);
       setNewQty("");
       setBarcode("");
     };
   };
+
+  const addToInvetory = (barcode, newQty) => {
+    axios.post(`${url}/api/inventory`, {barcode, newQty})
+    .then(res => {
+      const updatedInvetoryLine = res.data;
+      toast(`Inventory update successful`, {type: 'success'});
+      const newInvData = inventoryData.map(row => {
+        if (row.barcode === updatedInvetoryLine.barcode) {
+          row.qty = updatedInvetoryLine.quantity;
+          row.select = false;
+        }
+        return row;
+      })
+      setInventoryData(newInvData);
+    })
+    .catch(error => {
+      toast(`${error.message}`, {type: 'error'});
+    })
+  }
 
   const onClickHandler = (barcode) => {
     setProduct(findProductByBarcode(inventoryData, barcode))

@@ -1,6 +1,6 @@
 import React, { useState, useContext} from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -43,7 +43,7 @@ const AdminOrders = (props) => {
       setOrdersData(allData);
     })
     .catch(error => {
-      toast(`${error.message}`, {type: 'error'});
+      console.log(error.message);
     })
   };
 

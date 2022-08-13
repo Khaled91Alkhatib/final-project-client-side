@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import axios from "axios";
 
 import GeneralContext from "../../contexts/GeneralContext";
@@ -25,9 +25,9 @@ const Dashboard = () => {
       setTotalSales(res.data.totalSales);
     })
     .catch(error => {
-      toast(`${error.message}`, {type: 'error'});
+      console.log(error.message);
     })
-  }, []); // eslint-disable-line
+  }, [url]);
 
   const barProducts = topSellProducts.map(row => {
     return ({x: row.product, y: Number(row.qty) })

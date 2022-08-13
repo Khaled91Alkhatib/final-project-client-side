@@ -42,7 +42,7 @@ const ShoppingCart = (props) => {
       });
       setCart(updateCart.filter((row) => row.availability !== 0));
     });
-  }, []); // eslint-disable-line
+  }, [url]); // eslint-disable-line
 
   useEffect(() => {
     const timeout = setTimeout(() => {

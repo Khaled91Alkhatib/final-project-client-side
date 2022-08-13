@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 import LinearProgress from "@mui/material/LinearProgress";
 import Rating from '@mui/material/Rating';
@@ -34,7 +34,7 @@ const SingleProduct = (props) => {
     if (products) {
       getProductById(id);
     }
-  }, []); // eslint-disable-line
+  }, [url]); // eslint-disable-line
 
   useEffect(() => {
     if (product.sku) {
@@ -87,7 +87,7 @@ const SingleProduct = (props) => {
       if (response.data.averageRating) {setAvgRating((prev) => Number(response.data.averageRating.avg));}
     })
     .catch(error => {
-      toast(`${error.message}`, {type: 'error'})
+      console.log(error.message);
     })
   };
 

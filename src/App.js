@@ -43,6 +43,7 @@ function App() {
 
   // use this to change the navbar
   const matchDashboard = useMatch('/dashboard/*');
+  console.log(url);
 
   useEffect(() => {
 
@@ -64,7 +65,7 @@ function App() {
     } else {
       setUrl("http://localhost:8100");
     }
-
+    console.log("in use effect",url);
     const f1 = axios.get(`${url}/api/products`);
     const f2 = axios.get(`${url}/api/specification`);
 

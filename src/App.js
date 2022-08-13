@@ -39,13 +39,14 @@ function App() {
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loginError, setLoginError] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("https://theshoebox-api.herokuapp.com");
 
   // use this to change the navbar
   const matchDashboard = useMatch('/dashboard/*');
   console.log(url);
 
   useEffect(() => {
+    console.log('🟢 test 1');
 
     // at first mount - get local storage cart info
     const cart = JSON.parse(localStorage.getItem('cart-info'));
@@ -63,9 +64,6 @@ function App() {
     } else {
       setUrl("http://localhost:8100");
     }
-  }, []);
-
-  useEffect(() => {
 
     console.log("in use effect",url);
     // const f1 = axios.get(`http://localhost:8100/api/products`);
@@ -83,7 +81,13 @@ function App() {
         setProducts(prev => r1.data.products);
         setProductSpec({categories,styles, colors, sizes});
       });
-  }, [url])
+
+  }, []); // eslint-disable-line
+
+  // useEffect(() => {
+
+
+  // }, [url])
 
   // set local storage when cart state changed!
   useEffect(() => {

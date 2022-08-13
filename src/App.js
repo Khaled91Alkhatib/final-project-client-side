@@ -54,18 +54,6 @@ function App() {
       setCart(cart);
     }
 
-    useEffect(() => {
-      document.title = title;
-    },[title]);
-
-    useEffect(() => {
-      if (matchDashboard) {
-        setTitle("Shoe Box Dashboard");
-      } else {
-        setTitle("The Shoe Box");
-      }
-    },[matchDashboard]);
-
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setUser(user);
@@ -97,6 +85,18 @@ function App() {
   useEffect(() => {
     localStorage.setItem('cart-info', JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    document.title = title;
+  },[title]);
+
+  useEffect(() => {
+    if (matchDashboard) {
+      setTitle("Shoe Box Dashboard");
+    } else {
+      setTitle("The Shoe Box");
+    }
+  },[matchDashboard]);
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));

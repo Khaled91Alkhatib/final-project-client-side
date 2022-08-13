@@ -149,7 +149,7 @@ function App() {
     }
   }
 
-  // console.log('👟👞🥾', products);    // 🚨🚨🚨
+  console.log('👟👞🥾', products);    // 🚨🚨🚨
   // console.log('🔧🪛',productSpec)   // 🚨🚨🚨
   // console.log('🧺',cart) // 🚨🚨🚨
   // console.log('👤',user) // 🚨🚨🚨

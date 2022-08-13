@@ -84,14 +84,15 @@ const ShoppingCart = (props) => {
     } catch (error) {
       // console.log('stripe response error', error);
     }
+    
     // console.log('stripe response', response)
-    if (response.status === 200) {
+    if (response.data.status === 'success') {
       toast("Successful Payment", { type: "success" });
       setCart([]);
       setCartCompleted(true);
       // POST DATA to DB
       // axios.post('/', { cart })
-    } else {
+    } else if (response.data.status === 'failure'){
       toast("Payment is not successful", { type: "error" });
     }
   }

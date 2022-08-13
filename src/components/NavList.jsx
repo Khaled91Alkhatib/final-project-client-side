@@ -49,7 +49,7 @@ const NavList = (props) => {
     <div className="nav-bar">
       <div className="all-buttons">
         <div className='logo-to-name'>
-          <img className='logo-image' onClick={onClickLogo} src='../logo3.png' alt="logo"/>
+          <img className='logo-image' onClick={onClickLogo} src='https://res.cloudinary.com/demoshoebox/image/upload/c_thumb,w_200,g_face/v1660365310/products/important/logo3_qlljwa.png' alt="logo"/>
           <div className='logo' onClick={onClickLogo}>The Shoebox</div>
         </div>
         <div className='left-and-right-navs'>

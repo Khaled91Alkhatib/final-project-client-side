@@ -9,14 +9,14 @@ import "./Dashboard.scss";
 
 const Dashboard = () => {
 
-  const { user } = useContext(GeneralContext);
+  const { user, url } = useContext(GeneralContext);
   const [topSellProducts, setTopSellProducts] = useState([]);
   const [topSellSizes, setTopSellSizes] = useState([]);
   const [topSellColors, setTopSellColors] = useState([]);
   const [totalSales, setTotalSales] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8100/dashboard`)
+    axios.get(`${url}/dashboard`)
     .then(res => {
       // console.log('🍎',res.data);
       setTopSellProducts(res.data.topSellProducts);
@@ -27,7 +27,7 @@ const Dashboard = () => {
     .catch(error => {
       toast(`${error.message}`, {type: 'error'});
     })
-  }, []);
+  }, []); // eslint-disable-line
 
   const barProducts = topSellProducts.map(row => {
     return ({x: row.product, y: Number(row.qty) })

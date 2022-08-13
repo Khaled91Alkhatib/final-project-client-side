@@ -14,7 +14,7 @@ import './AdminProduct.scss';
 
 const AdminProduct = (props) => {
 
-  const { user, products } = useContext(GeneralContext);
+  const { user, products, url } = useContext(GeneralContext);
   const [sku, setSku] = useState("");
   const [product, setProduct] = useState({});
   const [availableSizes, setAvailableSizes] = useState([]);
@@ -23,7 +23,7 @@ const AdminProduct = (props) => {
     event.preventDefault();
     const productFound = findProductBySku(products, sku);
     if (productFound) {
-      axios.get(`http://localhost:8100/api/products/${productFound.id}`)
+      axios.get(`${url}/api/products/${productFound.id}`)
       .then((response) => {
         setProduct((prev) => response.data.product);
         setAvailableSizes((prev) => response.data.availableSizes);

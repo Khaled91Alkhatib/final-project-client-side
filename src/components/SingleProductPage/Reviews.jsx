@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 
 import Rating from '@mui/material/Rating';
 
+import GeneralContext from "../../contexts/GeneralContext";
 import WriteReviewModal from './WriteReviewModal';
 import ThanksModal from './ThanksModal';
 
@@ -13,6 +14,7 @@ const Reviews = ({reviews, avgRating, product}) => {
   
   const [writeIsOpen, setWriteIsOpen] = useState(false);
   const [tnxIsOpen, setTnxIsOpen] = useState(false);
+  const { url } = useContext(GeneralContext);
 
   function openWriteModal() {
     setWriteIsOpen(true);
@@ -26,7 +28,7 @@ const Reviews = ({reviews, avgRating, product}) => {
   }
 
   const saveReview = (review) => {
-    axios.post('http://localhost:8100/reviews', {review})
+    axios.post(`${url}/reviews`, {review})
     .then(res => {
       closeModal();
       openTnxModal();

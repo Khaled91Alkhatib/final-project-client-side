@@ -18,19 +18,19 @@ import './AdminReviews.scss';
 
 const AdminReviews = () => {
 
-  const { user } = useContext(GeneralContext);
+  const { user, url } = useContext(GeneralContext);
   const [newReviews, setNewReviews] = useState([])
 
   // console.log('😈', newReviews);
   useEffect(() => {
-    axios.get(`http://localhost:8100/reviews`)
+    axios.get(`${url}/reviews`)
     .then((response) => {
       setNewReviews(response.data.newReviews)
     })
     .catch(error => {
       toast(`${error.message}`, {type: 'error'});
     })
-  }, []);
+  }, []); // eslint-disable-line
 
   const handleChangeApproved = (event, index) => {
     const afterDecision = newReviews.map((review, i)=> {
@@ -63,7 +63,7 @@ const AdminReviews = () => {
       )
     })
     if (neededData.length) {
-      axios.post('http://localhost:8100/reviews/edit', {info: neededData})
+      axios.post(`${url}/reviews/edit`, {info: neededData})
       .then(res => {
         toast(`Saved Successfully`, {type: 'success'});
         // update and onle show reviews that are not decided yet

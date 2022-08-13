@@ -40,6 +40,8 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [inventoryData, setInventoryData] = useState([]);
+  const [url, setUrl] = useState("");
+  console.log(url);
 
   // use this to change the navbar
   const matchDashboard = useMatch('/dashboard/*');
@@ -56,9 +58,15 @@ function App() {
     if (user) {
       setUser(user);
     }
+    
+    if (process.env.REACT_APP_API_BASE_URL) {
+      setUrl("https://theshoebox-api.herokuapp.com");
+    } else {
+      setUrl("http://localhost:8100");
+    }
 
-    const f1 = axios.get('http://localhost:8100/api/products');
-    const f2 = axios.get('http://localhost:8100/api/specification')
+    const f1 = axios.get(`${url}/api/products`);
+    const f2 = axios.get(`${url}/api/specification`);
 
     Promise.all([f1, f2])
       .then(([r1, r2]) => {
@@ -70,8 +78,7 @@ function App() {
         setProducts(prev => r1.data.products);
         setProductSpec({categories,styles, colors, sizes});
       });
-
-  }, []);
+  }, []);// eslint-disable-line
 
   // set local storage when cart state changed!
   useEffect(() => {
@@ -90,7 +97,7 @@ function App() {
   }, [user]); // eslint-disable-line
 
   const addProduct = (newProduct, newSizes) => {
-    axios.post('http://localhost:8100/api/products', {product: newProduct, sizeData: newSizes})
+    axios.post(`${url}/api/products`, {product: newProduct, sizeData: newSizes})
     .then(res => {
       console.log(res.data);
       if(res.data.errCode === 1001) {
@@ -107,7 +114,7 @@ function App() {
   }
 
   const editProduct = (updateProduct, newSizes) => {
-    axios.put(`http://localhost:8100/api/products/${updateProduct.id}`, {product: updateProduct, sizeData: newSizes })
+    axios.put(`${url}/api/products/${updateProduct.id}`, {product: updateProduct, sizeData: newSizes })
     .then(res => {
       if(res.data.errCode === 1002) {
         toast(`${res.data.errMsg}`, {type: 'error'})
@@ -143,7 +150,7 @@ function App() {
   }
 
   const getInventoryData = () => {
-    axios.get(`http://localhost:8100/api/inventory`)
+    axios.get(`${url}/api/inventory`)
     .then((response) => {
       setInventoryData(response.data.inventoryInfo.map(row => ({...row, select: false})));
     })
@@ -153,7 +160,7 @@ function App() {
   }
 
   const addToInvetory = (barcode, newQty) => {
-    axios.post('http://localhost:8100/api/inventory', {barcode, newQty})
+    axios.post(`${url}/api/inventory`, {barcode, newQty})
     .then(res => {
       const updatedInvetoryLine = res.data;
       toast(`Inventory update successful`, {type: 'success'});
@@ -178,7 +185,7 @@ function App() {
 
   return (
     <div>
-      <GeneralContext.Provider value={{ products, productSpec, user, setUser, setCart, cart }}>
+      <GeneralContext.Provider value={{ products, productSpec, user, setUser, setCart, cart, url}}>
          
         {matchDashboard && !user.name && <NavbarAdminPortal zIndex={0} />}
         {matchDashboard && user.name && <NavbarAdminPortal user={user} zIndex={1100} />}

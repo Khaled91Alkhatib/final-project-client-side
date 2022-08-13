@@ -12,12 +12,12 @@ import "./ShoppingCart.scss";
 
 const ShoppingCart = (props) => {
   const [cartCompleted, setCartCompleted] = useState(false);
-  const { cart, setCart } = useContext(GeneralContext);
+  const { cart, setCart, url} = useContext(GeneralContext);
   // console.log("khaled", cart);
 
   useEffect(() => {
     // console.log("cart", cart);
-    axios.get("http://localhost:8100/orders/validation").then((res) => {
+    axios.get(`${url}/orders/validation`).then((res) => {
       const updatedInfo = res.data.updatedInfo;
       // console.log(updatedInfo);
       const updateCart = cart.map((product) => {
@@ -76,7 +76,7 @@ const ShoppingCart = (props) => {
   async function handleToken(token, addresses) {
     let response;
     try {
-      response = await axios.post("http://localhost:8100/orders", {
+      response = await axios.post(`${url}/orders`, {
         token,
         cart,
       });

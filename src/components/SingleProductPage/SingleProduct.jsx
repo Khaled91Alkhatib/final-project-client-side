@@ -27,7 +27,7 @@ const SingleProduct = (props) => {
   const [avgRating, setAvgRating] = useState(0);
   const [resError, setResError] = useState(false)
 
-  const { products, setCart, cart } = useContext(GeneralContext);
+  const { products, setCart, cart, url } = useContext(GeneralContext);
 
   // console.log("selectedSize", selectedSize)
   useEffect(() => {
@@ -77,7 +77,7 @@ const SingleProduct = (props) => {
   }, [products, product, id]);
 
   const getProductById = (id) => {
-    axios.get(`http://localhost:8100/api/products/${id}`).then((response) => {
+    axios.get(`${url}/api/products/${id}`).then((response) => {
       // console.log(Number(response.data.averageRating.avg));
       // handle success
       if (response.data.errCode === 1005) {setResError(true)}

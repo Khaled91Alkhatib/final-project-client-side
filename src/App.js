@@ -45,7 +45,7 @@ function App() {
   const matchDashboard = useMatch('/dashboard/*');
 
   useEffect(() => {
-    console.log('🟢 Deploy 3');
+    console.log('🟢 Deploy 4');
 
     // at first mount - get local storage cart info
     const cart = JSON.parse(localStorage.getItem('cart-info'));

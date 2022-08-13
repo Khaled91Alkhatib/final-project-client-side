@@ -110,7 +110,7 @@ const Collection = () => {
     }
   };
 
-  return (
+  return products && (
     <div>
       <div className="filters">
         <div className="filter-to-buttons">

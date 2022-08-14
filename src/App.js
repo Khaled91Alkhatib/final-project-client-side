@@ -26,6 +26,8 @@ import AdminOrders from './components/Admin/AdminOrders';
 import AdminReviews from './components/Admin/AdminReviews';
 import LoginModal from "./components/Admin/LoginModal";
 
+import './App.scss'
+
 function App() {
 
   const [cart, setCart] = useState([]);
@@ -40,13 +42,14 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [url, setUrl] = useState("https://theshoebox-api.herokuapp.com");
-  const [title, setTitle] = useState("The Shoe Box");
+  const [title, setTitle] = useState("The Shoe Box")
 
+  
   // use this to change the navbar
   const matchDashboard = useMatch('/dashboard/*');
 
   useEffect(() => {
-    console.log('🟢 Deploy v.05');
+    console.log('🟢 Deploy v.06');
 
     // at first mount - get local storage cart info
     const cart = JSON.parse(localStorage.getItem('cart-info'));
@@ -100,7 +103,6 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(user));
-
     // in /dashboard url, pop up modal, if there is no admin user
     if (matchDashboard && !user.name) {
       setModalIsOpen(true);
@@ -168,7 +170,7 @@ function App() {
   // console.log('👤',user) // 🚨🚨🚨
 
   return (
-    <div>
+    <main className="layout">
       <GeneralContext.Provider value={{ products, productSpec, user, setUser, setCart, cart, url}}>
          
         {matchDashboard && !user.name && <NavbarAdminPortal zIndex={0} />}
@@ -184,26 +186,28 @@ function App() {
           </Modal>
         }
         <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/collection/:id" element={<Collection />} />
-          <Route path="/*" element={<NotExistPage />} />
-          <Route path="/collection/men/:id" element={<SingleProduct />} />
-          <Route path="/collection/women/:id" element={<SingleProduct />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/warranty" element={<Warranty />} />
-          <Route path="/shipping" element={<Shipping />} />
-          <Route path="/returns" element={<Returns />} />
-          <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
-          <Route path="/dashboard/product" element={<AdminProduct onEdit={editProduct} onAdd={addProduct}/>} />
-          <Route path="/dashboard/inventory" element={<AdminInventory />} />
-          <Route path="/dashboard/orders" element={<AdminOrders />} />
-          <Route path="/dashboard/reviews" element={<AdminReviews />} />
-        </Routes>
+        <div className='site-body'>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/collection/:id" element={<Collection />} />
+            <Route path="/*" element={<NotExistPage />} />
+            <Route path="/collection/men/:id" element={<SingleProduct />} />
+            <Route path="/collection/women/:id" element={<SingleProduct />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/warranty" element={<Warranty />} />
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/returns" element={<Returns />} />
+            <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser}/>} />
+            <Route path="/dashboard/product" element={<AdminProduct onEdit={editProduct} onAdd={addProduct}/>} />
+            <Route path="/dashboard/inventory" element={<AdminInventory />} />
+            <Route path="/dashboard/orders" element={<AdminOrders />} />
+            <Route path="/dashboard/reviews" element={<AdminReviews />} />
+          </Routes>
+        </div>
         <Footer />
 
       </GeneralContext.Provider>
-    </div>
+    </main>
   );
 }
 

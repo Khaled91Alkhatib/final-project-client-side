@@ -6,7 +6,10 @@ const ItemNotFound = () => {
 
   return (
     <div className='no-item-found'>
-      <h2>NO RESULTS FOUND.</h2>
+      <p className="data-title-main">NO RESULTS FOUND.</p>
+      <p className="data-title">
+        BUT HERE ARE SOME ITEMS YOU MAY LIKE
+      </p>
     </div>
   );
 };

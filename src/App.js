@@ -49,7 +49,7 @@ function App() {
   const matchDashboard = useMatch('/dashboard/*');
 
   useEffect(() => {
-    console.log('🟢 Deploy v.06');
+    console.log('🟢 Deploy v.07');
 
     // at first mount - get local storage cart info
     const cart = JSON.parse(localStorage.getItem('cart-info'));

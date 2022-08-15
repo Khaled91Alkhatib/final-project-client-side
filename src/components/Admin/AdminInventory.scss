@@ -1,82 +1,81 @@
 @import "src/styles/variables.scss";
 
 .admin-inventory-page-main {
-  // border: $test2;
+  // border: $test1;
   padding: 20px 20px;
   min-height: 78vh;
-  height: 100%;
-  min-width: 300px;
-  width: 90vw;
+  width: 90%;
   margin:auto;
-  margin-top:120px;
+
+  .admin-title {
+    font-size: 1.2em;
+    font-weight: 600;
+  }
 }
 
 .admin-inventory-page {
+  // border: $test;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
 }
 
 .search-barcode-set-qty {
-  // border: $test;
+  // border: $test1;
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 1em;
-  flex-wrap: wrap;
 
-  .search-barcode {
-    // border: $test;
-    width: 40%;
+  .search-barcode-form {
+    // border: $test3;
+    width: 65%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    flex-wrap: wrap;
+  
+    .barcode-input {
+      margin-right: 2em;
+    }
+    .btn-inventory-search {
+      margin-right: 1em;
+    }
+  }
+
+  .set-qty-form {
+    // border: $test1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   .set-qty {
-    border: $test;
-    width: 50%;
+    // border: $test3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
   }
-}
 
-
-
-.search-barcode-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 1em;
-
-  .barcode-input {
-    margin-right: 2em;
-    margin-bottom: 1em;
+  .btn-add-qty {
+    margin-top: 1em;
+    width: 160px;
   }
-}
-
-.set-qty-form {
-  // border: $test;
-  
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn-add-qty {
-  margin-top: 1em;
-  padding: 0.5em 1em;
-  width: 15vw;
 }
 
 // ----------------------------------------
 
 .inventory-section {
   width: 100%;
+
+  .admin-inventory-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 2em;
+  }
 
   th {
     font-size: 1.3em;
@@ -87,6 +86,9 @@
     color: white;
   }
 
+  .row-cell {
+    font-size: 1.2em;
+  }
   .barcode-cell {
     font-size: 1.2em;
   }
@@ -98,6 +100,10 @@
     justify-content: center;
     align-items: center;
 
+    .inventory-image {
+      width:80px;
+      height:80px;
+    }
     .details {
       display: flex;
       flex-direction: column;
@@ -109,7 +115,191 @@
         margin-bottom: 0.5em;
       }
     }
-
   }
 }
 
+@media only screen and (max-width: 960px) {
+
+  .admin-inventory-page-main {
+    width: 100%;
+    
+    .admin-title {
+      font-size: 1em;
+      font-weight: 600;
+      margin-bottom: 1em;
+    }
+  }
+
+  .search-barcode-set-qty {
+
+    flex-direction: column;
+    padding: 0.5em;
+  
+    .search-barcode-form {
+      width: 100%;
+    
+      .barcode-input, .new-qty-input {
+        margin-right: 1em;
+        font-size: 0.9em;
+      }
+      .btn-inventory-search {
+        margin-right: 0.5em;
+        font-size: 0.9em;
+        width: 110px;
+      }
+      .btn-inventory-reset {
+        margin-right: 0.2em;
+        font-size: 0.9em;
+        width: 110px;
+      }
+    }
+  
+    .set-qty-form {
+      width: 100%;
+    }
+  
+    .set-qty {
+      margin-top: 1em;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  
+    .btn-add-qty {
+      margin: 0em;
+      margin-left: 3.3em;
+      font-size: 0.9em;
+      width: 160px;
+    }
+  }
+  .inventory-section {
+  
+    .admin-inventory-title {
+      // font-size: 1.2em;
+      // font-weight: 600;
+      margin-bottom: 1em;
+    }
+  
+    th {
+      font-size: 0.8em;
+    }
+  
+    .row-cell {
+      font-size: 1em;
+    }
+    .barcode-cell {
+      font-size: 1em;
+    }
+    .size-cell {
+      font-size: 1em;
+    }
+    .item-cell {  
+      .inventory-image {
+        width:50px;
+        height:50px;
+      }
+
+      .item-name {
+        font-size: 0.9em;
+      }
+  
+      .details {
+        margin-left: 0.2em;
+  
+        .sku {
+          font-size: 0.7em;
+          margin-bottom: 0.5em;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+
+  .admin-inventory-page-main {
+    padding: 20px 0px;
+
+    .admin-title {
+      font-size: 0.7em;
+    }
+  }
+
+  .search-barcode-set-qty {
+    padding: 0.2em;
+  
+    .search-barcode-form {
+      width: 100%;
+    
+      .barcode-input, .new-qty-input {
+        margin-right: 0.7em;
+        font-size: 0.7em;
+      }
+      .btn-inventory-search {
+        padding: 9px 9px;
+        margin-right: 0.5em;
+        font-size: 0.6em;
+        width: 90px;
+      }
+      .btn-inventory-reset {
+        padding: 9px 9px;
+        margin-right: 0.2em;
+        font-size: 0.6em;
+        width: 90px;
+      }
+    }
+  
+    .set-qty {
+      margin-top: 0.5em;
+    }
+  
+    .btn-add-qty {
+      padding: 9px 9px;
+      margin-left: 1.3em;
+      font-size: 0.6em;
+      width: 140px;
+    }
+  }
+
+  .inventory-section {
+  
+    .admin-inventory-title {
+      font-size: 1em;
+      margin-bottom: 0.6em;
+    }
+  
+    th {
+      font-size: 0.7em;
+    }
+  
+    .row-cell {
+      font-size: 0.7em;
+    }
+    .barcode-cell {
+      font-size: 0.7em;
+    }
+    .size-cell {
+      font-size: 0.7em;
+    }
+    .item-cell {  
+
+      flex-direction: column;
+
+      .inventory-image {
+        width:50px;
+        height:50px;
+        margin-bottom: 0.5em;
+      }
+
+      .item-name {
+        font-size: 0.7em;
+      }
+  
+      .details {
+        .sku {
+          font-size: 0.6em;
+        }
+      }
+    }
+  }
+}

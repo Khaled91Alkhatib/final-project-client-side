@@ -28,9 +28,10 @@
     display: flex;
     cursor: pointer;
 
-    .logo-image {
+    .admin-nav-logo-image {
       margin: 0.3em 0.5em 0.3em 1.5em;
       width: 85px;
+      height: 85px;
     }
 
     .logo {
@@ -145,16 +146,30 @@
 
 
 @media only screen and (max-width: 500px) {
-
   .nav-bar-admin {
-    
     .logo-to-name {
-      .logo-image {
-        margin: 0.3em 0.5em 0.3em 1em;
-        width: 80px;
+      .admin-nav-logo-image {
+        margin: 0.3em 0.5em 0.3em 1.5em;
+        width: 85px;
+        height: 85px;
       }
       .logo {
         font-size: 1em;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 500px) {
+
+  .nav-bar-admin {
+    .logo-to-name {
+      .admin-nav-logo-image {
+        margin: 0.2em 0.5em 0.2em 1em;
+        width: 75px;
+        height: 75px;
+      }
+      .logo {
+        font-size: 0.8em;
       }
     }
   }

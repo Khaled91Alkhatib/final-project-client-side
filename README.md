@@ -27,6 +27,7 @@ Inventory can also be accessed from the admin interface where the quantity of al
 ## Setup
 Both the frontend and backend are deployed using Heroku and Netlify.
 * To access the main app please visit [The Shoebox](https://theshoeboxapp.netlify.app/)
+* To visit the admin dashboard please visit this [link](https://theshoeboxapp.netlify.app/dashboard). The name is "admin" and the password is "123"
 * To check the backend data please visit [The Shoebox API](https://theshoebox-api.herokuapp.com/)
 * The Stripe checkout implementation is in test mode. That means that there will be no actual financial transactions taking place even if real credit/debit card information where added. A card number that can be used is 4242 4242 4242 4242 and the rest of the checkout data can be filled using any data.
 

@@ -30,7 +30,7 @@ function ContactUs(props) {
           <img className='contact-img' src='https://res.cloudinary.com/khaled-cloud/image/upload/v1660412452/Screen_Shot_2022-08-13_at_1.40.26_PM_kuvneq.png' alt='khaled' />
           <div className='name'>Khaled Alkhatib</div>
           <div className='last-name' ></div>
-          <div className='job'>Front End Web Developer</div>
+          <div className='job'>Full Stack Web Developer</div>
           <div style={{ paddingTop: '5px' }}>
             <a href='https://www.linkedin.com/in/khaledalkhatib/' target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon="fa-brands fa-linkedin" className='contact-icon' /></a>
             <a href='https://github.com/Khaled91Alkhatib' target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon="fa-brands fa-github" className='contact-icon' /></a>
